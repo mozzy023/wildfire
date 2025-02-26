@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", function () {
-    let sheetURL = "https://script.google.com/macros/s/AKfycby1XVRjIkXhyavsnkzPQKlUidlpJmqdXaNKu_n_NlNQqmpE0tTFtijVX3pcF8bQNaZz/exec"; // Sostituisci con il tuo URL
+    let sheetURL = "https://script.google.com/macros/s/AKfycbxoopvunjS_qycJZ0k_kKkR6tWXuTgoFLrBMOygjQajEQqIzLGcQdQ6X5pWGfK7Ihz9PA/exec"; // Sostituisci con il tuo URL
 
     let deckList = document.getElementById("deck-list");
 
