@@ -1,4 +1,7 @@
-// Funzione di callback per gestire i dati ricevuti dalla Web App
+const GOOGLE_SCRIPTS_TUTTIMAZZI =
+  "https://script.google.com/macros/s/AKfycbz8PAavNxT9jtwJtfa5olyntGSS1v66PchHbrbzTbAerU-9XjobfbC1rPsGD7M-fH3DIw/exec"; // 🔹 Web App per i dati di TuttiMazzi
+
+// 🔹 Funzione di callback per gestire i dati ricevuti dalla Web App (JSON)
 function handleData(data) {
     var listContainer = document.getElementById("deck-list");
 
@@ -7,47 +10,52 @@ function handleData(data) {
         return;
     }
 
-    if (data && Array.isArray(data)) {
-        console.log("Dati ricevuti:", data);
+    listContainer.innerHTML = ""; // Pulisce la lista prima di aggiungere nuovi dati
 
-        listContainer.innerHTML = ""; // Pulisce la lista prima di aggiungere nuovi dati
+    data.sort((a, b) => a.id - b.id); // Mantiene l'ordine dello Sheet
 
-        data.forEach(function(mazzo) {
-            var listItem = document.createElement("li");
-            listItem.classList.add("deck-item");
-            listItem.innerHTML = `
-                <span class="deck-name">${mazzo.nome}</span> 
-                <span class="deck-author">${mazzo.autore}</span> 
-                <span class="deck-commander">${mazzo.comandante1}${mazzo.comandante2 ? " & " + mazzo.comandante2 : ""}</span> 
-                <a class="deck-link" href="${mazzo.link}" target="_blank">Vedi Mazzo</a>
-            `;
-            listContainer.appendChild(listItem);
-        });
-    } else {
-        console.error("Errore: dati non validi ricevuti");
-        listContainer.innerHTML = "<li>Errore nel caricamento dei dati.</li>";
-    }
+    data.forEach(function (mazzo) {
+        var listItem = document.createElement("li");
+        listItem.classList.add("deck-item");
+
+        listItem.innerHTML = `
+            <span class="deck-name">${mazzo.nome}</span> 
+            <span class="deck-author">${mazzo.autore}</span> 
+            <span class="deck-commander">${mazzo.comandante1}${
+            mazzo.comandante2 ? " & " + mazzo.comandante2 : ""
+        }</span> 
+            <a class="deck-link" href="${mazzo.link}" target="_blank">Vedi Mazzo</a>
+            ${mazzo.year_season !== "N/A" ? `<span class="deck-season">${mazzo.year_season}</span>` : ""}
+        `;
+
+        listContainer.appendChild(listItem);
+    });
 }
 
-// Funzione per caricare i dati dalla Web App usando JSONP
-function caricaMazzi() {
-    var script = document.createElement("script");
 
-    // Inserisci qui il tuo script ID corretto
-    var webAppURL = "https://script.google.com/macros/s/AKfycbzbWZuFpMXwmDZzsa41SX5MLjZXNM85PQbd-wHmRfbBZ1wNPA4AvmatFYVGjRM0LbfJlw/exec";
-
-    script.src = webAppURL + "?callback=handleData";
+// 🔹 Funzione per caricare i dati dei mazzi dalla Web App con JSON
+async function caricaMazzi() {
+  try {
+    console.log("Chiamata alla Web App per i dati:", GOOGLE_SCRIPTS_TUTTIMAZZI);
     
-    // Gestione errore in caso di problemi con il caricamento
-    script.onerror = function() {
-        console.error("Errore nel caricamento dello script JSONP.");
-        document.getElementById("deck-list").innerHTML = "<li>Errore nel caricamento dei dati.</li>";
-    };
+    const response = await fetch(GOOGLE_SCRIPTS_TUTTIMAZZI);
+    
+    if (!response.ok) {
+      throw new Error(`Errore nella richiesta: ${response.status}`);
+    }
 
-    document.body.appendChild(script);
+    const data = await response.json();
+    handleData(data);
+
+  } catch (error) {
+    console.error("Errore nel caricamento dei dati:", error);
+    document.getElementById("deck-list").innerHTML =
+      "<li>Errore nel caricamento dei dati.</li>";
+  }
 }
 
-// Esegui la funzione quando la pagina è completamente caricata
-document.addEventListener("DOMContentLoaded", function() {
-    caricaMazzi();
+// 🔹 Esegui la funzione quando la pagina è completamente caricata
+document.addEventListener("DOMContentLoaded", function () {
+  console.log("Pagina caricata, caricamento dati...");
+  caricaMazzi();
 });

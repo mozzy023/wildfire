@@ -66,98 +66,197 @@ nav ul li a:hover, nav ul li a.active {
 .wrapper {
     flex: 1;
     padding: 20px;
-    max-width: 1100px;
+    max-width: 1000px;
     margin: auto;
 }
 
-/* 📌 Lista dei mazzi */
-#deck-list {
+/* 📌 Lista dei mazzi e dei mazzi vincenti */
+#deck-list, #vincenti-list {
     list-style: none;
     padding: 0;
     margin: 20px 0;
 }
 
-.deck-item {
+/* 📌 Stile per ogni mazzo */
+.deck-item, .vincenti-item {
     display: flex;
+    flex-wrap: wrap;
     align-items: center;
     justify-content: space-between;
     background: white;
-    padding: 12px 20px;
+    padding: 12px;
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    margin-bottom: 10px;
-    width: 100%;
-    max-width: 1000px;
-}
-
-/* 📌 Lista dei mazzi vincenti */
-#vincenti-list {
-    list-style: none;
-    padding: 0;
-    margin: 20px 0;
-}
-
-.vincente-item {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    background: white;
-    padding: 15px 25px;
-    border-radius: 10px;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
     margin-bottom: 12px;
-    width: 100%;
-    max-width: 1100px;
 }
 
-/* 📌 Campi nella barra dei mazzi */
-.deck-item span,
-.vincente-item span {
+/* 📌 Stili generici per i dettagli dei mazzi */
+.deck-item span, .vincenti-item span {
     flex: 1;
     text-align: center;
-    font-size: 18px;
+    font-size: 16px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
 }
 
-/* 📌 Stili personalizzati per i campi */
-.deck-name, .vincente-name {
+.deck-name {
     font-weight: bold;
+    font-size: 18px;
 }
 
-.deck-author, .vincente-author {
+.deck-author {
     font-style: italic;
     color: #555;
 }
 
-.deck-commander, .vincente-commander {
+.deck-commander {
     color: #333;
 }
 
-.vincente-date {
-    color: #888;
-    font-size: 16px;
-}
-
-.vincente-participants {
-    font-weight: bold;
-    color: #444;
-}
-
 /* 📌 Link ai mazzi */
-.deck-link, .vincente-link {
+.deck-link {
     color: #1abc9c;
     text-decoration: none;
     font-weight: bold;
     padding: 6px 12px;
     background-color: #ecf0f1;
-    border-radius: 6px;
+    border-radius: 5px;
     transition: background 0.3s;
 }
 
-.deck-link:hover, .vincente-link:hover {
+.deck-link:hover {
     background-color: #bdc3c7;
+}
+
+/* 📌 Prezzo del mazzo */
+.deck-price {
+    font-size: 18px;
+    font-weight: bold;
+    padding: 4px 8px;
+    border-radius: 6px;
+    display: inline-block;
+}
+
+/* 🔹 Verde se il prezzo è ≤ 100$ */
+.price-green {
+    color: white;
+    background-color: green;
+}
+
+/* 🔹 Rosso se il prezzo è > 100$ */
+.price-red {
+    color: white;
+    background-color: red;
+}
+
+/* 🔹 Allarga la barra che contiene le informazioni */
+.deck-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: white;
+    padding: 12px 16px; /* 🔹 Più spazio interno */
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-bottom: 10px;
+    width: 98%; /* 🔹 Allargata quasi a tutta la pagina */
+    max-width: 1200px; /* 🔹 Limita la larghezza massima */
+}
+
+/* 🔹 Allarga le barre per tutti i mazzi */
+.deck-item, .vincenti-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: white;
+    padding: 14px 18px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-bottom: 12px;
+    width: 100%;
+    max-width: 1400px;
+}
+
+/* 🔹 Aggiungi più spazio tra gli elementi dentro le barre */
+.deck-item span, .vincenti-item span {
+    margin-right: 15px; /* 🔹 Più spazio tra ogni elemento */
+}
+
+/* 🔹 Specifico per il numero di partecipanti nei mazzi vincenti */
+.deck-players {
+    flex-grow: 1; /* 🔹 Spinge il link "Vedi Mazzo" verso destra */
+    text-align: left;
+}
+
+/* 🔹 Specifico per l'etichetta "Year / Season" */
+.deck-season {
+    background-color: #ecf0f1;
+    color: #555;
+    font-weight: normal;
+    padding: 2px 4px;
+    border-radius: 3px;
+    font-size: 10px;
+    margin-left: 6px;
+    display: inline-block;
+    opacity: 0.8;
+    white-space: nowrap;
+    min-width: 40px;
+    text-align: center;
+}
+
+/* 🔹 Specifico per il link "Vedi Mazzo" */
+.deck-link, .vincenti-item .deck-link {
+    margin-left: auto; /* 🔹 Sposta il link completamente a destra */
+    padding: 6px 12px;
+    background-color: #1abc9c;
+    color: white;
+    font-weight: bold;
+    text-decoration: none;
+    border-radius: 6px;
+    transition: background 0.3s ease;
+}
+
+.deck-link:hover, .vincenti-item .deck-link:hover {
+    background-color: #16a085;
+}
+
+
+/* 🔹 Restringi l'etichetta "Year / Season" */
+.deck-season {
+    background-color: #ecf0f1; /* Grigio chiaro */
+    color: #555;
+    font-weight: normal;
+    padding: 2px 4px; /* 🔹 Meno spazio */
+    border-radius: 3px;
+    font-size: 10px; /* 🔹 Più piccolo */
+    margin-left: 6px; /* 🔹 Distanza dal link */
+    display: inline-block;
+    opacity: 0.8;
+    white-space: nowrap; /* 🔹 Impedisce di andare a capo */
+    min-width: 40px; /* 🔹 Impedisce che diventi troppo piccolo */
+    text-align: center;
+}
+
+
+
+/* 📌 Social bar */
+.social-bar {
+    background-color: #2d3436;
+    padding: 10px;
+    text-align: center;
+}
+
+.social-bar a {
+    color: white;
+    text-decoration: none;
+    font-size: 18px;
+    margin: 0 10px;
+    transition: color 0.3s;
+}
+
+.social-bar a:hover {
+    color: #1abc9c;
 }
 
 /* 📌 Footer */
@@ -168,86 +267,6 @@ footer {
     padding: 15px;
     font-size: 14px;
     margin-top: auto;
-}
-
-/* 📌 Social bar */
-.social-bar {
-    background-color: #2d3436;
-    padding: 10px;
-    text-align: center;
-}
-
-/* 📌 Stili per la sezione contatti */
-.contact-link {
-    display: inline-block;
-    padding: 12px 20px;
-    margin: 10px 0;
-    background-color: #1abc9c;
-    color: white;
-    font-size: 18px;
-    text-decoration: none;
-    border-radius: 8px;
-    transition: background 0.3s;
-}
-
-.contact-link i {
-    margin-right: 8px;
-}
-
-.contact-link:hover {
-    background-color: #16a085;
-}
-
-/* 📌 Stili per i social */
-.social-links {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 15px;
-    margin-top: 15px;
-}
-
-.social-btn {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 12px 20px;
-    color: white;
-    font-size: 18px;
-    text-decoration: none;
-    border-radius: 8px;
-    transition: background 0.3s;
-    width: 180px;
-    text-align: center;
-}
-
-.social-btn i {
-    margin-right: 10px;
-}
-
-/* Stili specifici per ogni social */
-.cardmarket {
-    background-color: #34495e;
-}
-
-.cardmarket:hover {
-    background-color: #2c3e50;
-}
-
-.instagram {
-    background-color: #e1306c;
-}
-
-.instagram:hover {
-    background-color: #c13584;
-}
-
-.facebook {
-    background-color: #3b5998;
-}
-
-.facebook:hover {
-    background-color: #2d4373;
 }
 
 /* 📌 Media Query per schermi più piccoli (smartphone) */
@@ -261,26 +280,15 @@ footer {
         padding: 5px 0;
     }
 
-    .deck-item, .vincente-item {
+    .deck-item, .vincenti-item {
         flex-direction: column;
         text-align: center;
         padding: 15px;
-        max-width: 100%;
     }
 
-    .deck-item span, .vincente-item span {
+    .deck-item span, .vincenti-item span {
         display: block;
         margin: 5px 0;
-    }
-
-    .social-links {
-        flex-direction: column;
-        align-items: center;
-    }
-
-    .social-btn {
-        width: 100%;
-        max-width: 300px;
     }
 }
 
@@ -294,11 +302,11 @@ footer {
         font-size: 16px;
     }
 
-    .deck-item, .vincente-item {
+    .deck-item, .vincenti-item {
         padding: 10px;
     }
 
-    .deck-link, .vincente-link {
+    .deck-link {
         font-size: 14px;
         padding: 5px 8px;
     }
