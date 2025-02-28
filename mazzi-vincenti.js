@@ -1,9 +1,9 @@
 // Funzione di callback per gestire i dati ricevuti dalla Web App
-function handleData(data) {
-    var listContainer = document.getElementById("deck-list");
+function handleVincentiData(data) {
+    var listContainer = document.getElementById("vincenti-list");
 
     if (!listContainer) {
-        console.error("Errore: elemento #deck-list non trovato nel DOM.");
+        console.error("Errore: elemento #vincenti-list non trovato nel DOM.");
         return;
     }
 
@@ -19,6 +19,8 @@ function handleData(data) {
                 <span class="deck-name">${mazzo.nome}</span> 
                 <span class="deck-author">${mazzo.autore}</span> 
                 <span class="deck-commander">${mazzo.comandante1}${mazzo.comandante2 ? " & " + mazzo.comandante2 : ""}</span> 
+                <span class="deck-date">${mazzo.data}</span>
+                <span class="deck-participants">${mazzo.partecipanti} partecipanti</span>
                 <a class="deck-link" href="${mazzo.link}" target="_blank">Vedi Mazzo</a>
             `;
             listContainer.appendChild(listItem);
@@ -30,18 +32,18 @@ function handleData(data) {
 }
 
 // Funzione per caricare i dati dalla Web App usando JSONP
-function caricaMazzi() {
+function caricaMazziVincenti() {
     var script = document.createElement("script");
 
     // Inserisci qui il tuo script ID corretto
-    var webAppURL = "https://script.google.com/macros/s/AKfycbzbWZuFpMXwmDZzsa41SX5MLjZXNM85PQbd-wHmRfbBZ1wNPA4AvmatFYVGjRM0LbfJlw/exec";
+    var webAppURL = "https://script.google.com/macros/s/AKfycbzJlGRp7Hqsm1x3vDkPfG2uki7-_FBhVqh-gD0IuL993mcupQuJqZB9llj34QfZwWgImA/exec";
 
-    script.src = webAppURL + "?callback=handleData";
+    script.src = webAppURL + "?callback=handleVincentiData";
     
     // Gestione errore in caso di problemi con il caricamento
     script.onerror = function() {
         console.error("Errore nel caricamento dello script JSONP.");
-        document.getElementById("deck-list").innerHTML = "<li>Errore nel caricamento dei dati.</li>";
+        document.getElementById("vincenti-list").innerHTML = "<li>Errore nel caricamento dei dati.</li>";
     };
 
     document.body.appendChild(script);
@@ -49,5 +51,5 @@ function caricaMazzi() {
 
 // Esegui la funzione quando la pagina è completamente caricata
 document.addEventListener("DOMContentLoaded", function() {
-    caricaMazzi();
+    caricaMazziVincenti();
 });

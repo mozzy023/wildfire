@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Commhundred - Contatti</title>
+    <title>Commhundred - Liste Vincenti</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -16,23 +16,24 @@
             <li><a href="index.html">Home</a></li>
             <li><a href="regole.html">Regole</a></li>
             <li><a href="carte-limitate.html">Carte Limitate</a></li>
-            <li><a href="liste-vincenti.html">Liste Vincenti</a></li>
+            <li><a href="liste-vincenti.html" class="active">Liste Vincenti</a></li>
             <li><a href="mazzi.html">Liste dei Mazzi</a></li>
-            <li><a href="contatti.html" class="active">Contatti</a></li>
+            <li><a href="contatti.html">Contatti</a></li>
         </ul>
     </nav>
     <div class="wrapper">
         <main>
-            <h2>Contatti</h2>
-            <p>Hai domande o vuoi inviare la tua lista? Contattaci a <a href="mailto:info@commhundred.com">info@commhundred.com</a></p>
-            <h3>Seguici sui social!</h3>
-            <p><a href="https://www.cardmarket.com/" target="_blank">Cardmarket</a></p>
-            <p><a href="https://www.instagram.com/tuo_profilo" target="_blank">Instagram</a></p>
-            <p><a href="https://www.facebook.com/tuo_profilo" target="_blank">Facebook</a></p>
+            <h2>Liste Vincenti</h2>
+            <p>Qui puoi trovare i mazzi che hanno ottenuto i migliori risultati nei tornei Commhundred.</p>
+
+            <ul id="vincenti-list">
+                <li>Caricamento in corso...</li>
+            </ul>
         </main>
     </div>
     <footer>
         <p>Commhundred - Il formato Commander a budget limitato</p>
     </footer>
+    <script src="mazzi-vincenti.js"></script>
 </body>
 </html>

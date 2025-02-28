@@ -1,50 +1,50 @@
-/* styles.css */
+/* Importazione font */
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;700&display=swap');
 
+/* 🌎 Stili globali */
 body {
     font-family: 'Poppins', sans-serif;
     background-color: #f5f5f5;
     margin: 0;
     padding: 0;
-    text-align: center;
     display: flex;
     flex-direction: column;
     min-height: 100vh;
 }
 
+/* 📌 Header */
 header {
     background-color: #1e272e;
     color: white;
     padding: 20px;
-    font-size: 28px;
+    text-align: center;
+    font-size: 24px;
     text-transform: uppercase;
-    letter-spacing: 2px;
+    letter-spacing: 1px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
 }
 
-header p {
-    font-size: 16px;
-    margin-top: 5px;
-    font-weight: 300;
-}
-
+/* 📌 Barra di navigazione */
 nav {
-    background-color: #485460;
-    padding: 15px 0;
+    background-color: #2d3436;
     position: sticky;
     top: 0;
+    width: 100%;
     z-index: 1000;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-    display: flex;
-    justify-content: center;
 }
 
 nav ul {
     list-style: none;
-    padding: 0;
     margin: 0;
+    padding: 0;
     display: flex;
-    gap: 20px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+nav ul li {
+    padding: 10px 15px;
 }
 
 nav ul li a {
@@ -52,6 +52,7 @@ nav ul li a {
     text-decoration: none;
     font-size: 18px;
     transition: color 0.3s ease;
+    padding: 8px 12px;
 }
 
 nav ul li a:hover, nav ul li a.active {
@@ -61,60 +62,173 @@ nav ul li a:hover, nav ul li a.active {
     padding-bottom: 5px;
 }
 
+/* 📌 Contenitore principale */
 .wrapper {
     flex: 1;
     padding: 20px;
+    max-width: 1100px; /* 🔹 Più spazio */
+    margin: auto;
 }
 
-.social-bar, footer {
+/* 📌 Lista dei mazzi */
+#deck-list {
+    list-style: none;
+    padding: 0;
+    margin: 20px 0;
+}
+
+.deck-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: white;
+    padding: 12px 20px; /* 🔹 Più spazio */
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-bottom: 10px;
+    width: 100%;
+    max-width: 1000px; /* 🔹 Barre più lunghe */
+}
+
+/* 📌 Lista dei mazzi vincenti */
+#vincenti-list {
+    list-style: none;
+    padding: 0;
+    margin: 20px 0;
+}
+
+.vincente-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: white;
+    padding: 15px 25px; /* 🔹 Maggiore larghezza e padding */
+    border-radius: 10px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    margin-bottom: 12px;
+    width: 100%;
+    max-width: 1100px; /* 🔹 Barre più larghe rispetto ai mazzi normali */
+}
+
+/* 📌 Campi nella barra dei mazzi */
+.deck-item span,
+.vincente-item span {
+    flex: 1;
+    text-align: center;
+    font-size: 18px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* 📌 Stili personalizzati per i campi */
+.deck-name, .vincente-name {
+    font-weight: bold;
+}
+
+.deck-author, .vincente-author {
+    font-style: italic;
+    color: #555;
+}
+
+.deck-commander, .vincente-commander {
+    color: #333;
+}
+
+.vincente-date {
+    color: #888;
+    font-size: 16px;
+}
+
+.vincente-participants {
+    font-weight: bold;
+    color: #444;
+}
+
+/* 📌 Link ai mazzi */
+.deck-link, .vincente-link {
+    color: #1abc9c;
+    text-decoration: none;
+    font-weight: bold;
+    padding: 6px 12px;
+    background-color: #ecf0f1;
+    border-radius: 6px;
+    transition: background 0.3s;
+}
+
+.deck-link:hover, .vincente-link:hover {
+    background-color: #bdc3c7;
+}
+
+/* 📌 Footer */
+footer {
     background-color: #1e272e;
     color: white;
+    text-align: center;
     padding: 15px;
-    margin-top: auto;
     font-size: 14px;
-    text-transform: uppercase;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    margin-top: auto;
+}
+
+/* 📌 Social bar */
+.social-bar {
+    background-color: #2d3436;
+    padding: 10px;
+    text-align: center;
 }
 
 .social-bar a {
     color: white;
-    font-size: 20px;
     text-decoration: none;
-    transition: color 0.3s;
+    font-size: 18px;
     margin: 0 10px;
+    transition: color 0.3s;
 }
 
 .social-bar a:hover {
     color: #1abc9c;
 }
 
-section {
-    background: white;
-    padding: 30px;
-    margin: 20px auto;
-    width: 80%;
-    border-radius: 10px;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s ease;
+/* 📌 Media Query per schermi più piccoli (smartphone) */
+@media screen and (max-width: 768px) {
+    nav ul {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    nav ul li {
+        padding: 5px 0;
+    }
+
+    .deck-item, .vincente-item {
+        flex-direction: column;
+        text-align: center;
+        padding: 15px;
+        max-width: 100%;
+    }
+
+    .deck-item span, .vincente-item span {
+        display: block;
+        margin: 5px 0;
+    }
 }
 
-section:hover {
-    transform: translateY(-5px);
-}
+/* 📌 Media Query per schermi molto piccoli (max 480px) */
+@media screen and (max-width: 480px) {
+    body {
+        font-size: 14px;
+    }
 
-button {
-    background-color: #1abc9c;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    font-size: 16px;
-    cursor: pointer;
-    border-radius: 5px;
-    transition: background 0.3s;
-}
+    nav ul li a {
+        font-size: 16px;
+    }
 
-button:hover {
-    background-color: #16a085;
+    .deck-item, .vincente-item {
+        padding: 10px;
+    }
+
+    .deck-link, .vincente-link {
+        font-size: 14px;
+        padding: 5px 8px;
+    }
 }
