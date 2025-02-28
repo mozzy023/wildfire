@@ -1,5 +1,5 @@
 const GOOGLE_SCRIPTS_VINCENTI =
-  "https://script.google.com/macros/s/AKfycbwybE9hQF77L5EsaeJ3Z3Z2IHkVmhMZ0_ID8_uz8k857-Z5Onh1NAsjO2r31GMDNbxa/exec"; // 🔹 Web App per i dati di MazziVincenti
+  "https://script.google.com/macros/s/AKfycbwkgPp0eoWDh-xrTVZ2Tnmv4T9JF66JPd52muFtnxDjH5pcPMjYbe5hGGWol5aOmpVg/exec"; // 🔹 Web App per i dati di MazziVincenti
 
 // 🔹 Funzione di callback per gestire i dati ricevuti dalla Web App (JSON)
 async function handleVincentiData(data) {

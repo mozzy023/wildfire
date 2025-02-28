@@ -1,5 +1,5 @@
 const GOOGLE_SCRIPTS_TUTTIMAZZI =
-  "https://script.google.com/macros/s/AKfycbz8PAavNxT9jtwJtfa5olyntGSS1v66PchHbrbzTbAerU-9XjobfbC1rPsGD7M-fH3DIw/exec"; // 🔹 Web App per i dati di TuttiMazzi
+  "https://script.google.com/macros/s/AKfycbytHHGKXgztw7KKVHUOmDk8gyTJo5otlZ4lHgCspEX1RhxnGcC1YBWqsWUjGwWE7LanaA/exec"; // 🔹 Web App per i dati di TuttiMazzi
 
 // 🔹 Funzione di callback per gestire i dati ricevuti dalla Web App (JSON)
 function handleData(data) {
