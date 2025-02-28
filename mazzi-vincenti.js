@@ -1,12 +1,14 @@
 const GOOGLE_SCRIPTS_VINCENTI =
   "https://script.google.com/macros/s/AKfycbwkgPp0eoWDh-xrTVZ2Tnmv4T9JF66JPd52muFtnxDjH5pcPMjYbe5hGGWol5aOmpVg/exec"; // 🔹 Web App per i dati di Mazzi Vincenti
 
-// 🔹 Funzione di callback per gestire i dati ricevuti dalla Web App (JSON)
+// 🔹 Funzione di callback per gestire i dati ricevuti dalla Web App
 function handleVincentiData(data) {
+  console.log("🔍 Dati ricevuti in handleVincentiData:", data);
+  
   var listContainer = document.getElementById("vincenti-list");
 
   if (!listContainer) {
-    console.error("Errore: elemento #vincenti-list non trovato nel DOM.");
+    console.error("❌ Errore: elemento #vincenti-list non trovato nel DOM.");
     return;
   }
 
@@ -32,24 +34,27 @@ function handleVincentiData(data) {
 
     listContainer.appendChild(listItem);
   });
+
+  console.log("✅ Dati elaborati correttamente e aggiunti alla pagina.");
 }
 
-// 🔹 Funzione per caricare i dati dei mazzi vincenti dalla Web App con `fetch()`
+// 🔹 Funzione per caricare i dati dei mazzi vincenti dalla Web App
 async function caricaMazziVincenti() {
+  console.log("🔄 Tentativo di caricamento della Web App da Google Apps Script...");
+
   try {
-    console.log("Chiamata alla Web App per i dati vincenti:", GOOGLE_SCRIPTS_VINCENTI);
-    
     const response = await fetch(GOOGLE_SCRIPTS_VINCENTI);
     
     if (!response.ok) {
-      throw new Error(`Errore nella richiesta: ${response.status}`);
+      throw new Error(`❌ Errore nella richiesta: ${response.status}`);
     }
 
     const data = await response.json();
+    console.log("✅ Dati ricevuti correttamente:", data);
     handleVincentiData(data);
 
   } catch (error) {
-    console.error("Errore nel caricamento dei dati:", error);
+    console.error("❌ Errore nel caricamento dei dati:", error);
     document.getElementById("vincenti-list").innerHTML =
       "<li>Errore nel caricamento dei dati.</li>";
   }
@@ -57,6 +62,6 @@ async function caricaMazziVincenti() {
 
 // 🔹 Esegui la funzione quando la pagina è completamente caricata
 document.addEventListener("DOMContentLoaded", function () {
-  console.log("Pagina caricata, caricamento dati vincenti...");
+  console.log("📢 La pagina è completamente caricata, ora eseguo caricaMazziVincenti!");
   caricaMazziVincenti();
 });
