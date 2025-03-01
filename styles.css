@@ -129,27 +129,6 @@ nav ul li a:hover, nav ul li a.active {
     background-color: #bdc3c7;
 }
 
-/* 📌 Prezzo del mazzo */
-.deck-price {
-    font-size: 18px;
-    font-weight: bold;
-    padding: 4px 8px;
-    border-radius: 6px;
-    display: inline-block;
-}
-
-/* 🔹 Verde se il prezzo è ≤ 100$ */
-.price-green {
-    color: white;
-    background-color: green;
-}
-
-/* 🔹 Rosso se il prezzo è > 100$ */
-.price-red {
-    color: white;
-    background-color: red;
-}
-
 /* 🔹 Allarga la barra che contiene le informazioni */
 .deck-item {
     display: flex;
@@ -236,6 +215,81 @@ nav ul li a:hover, nav ul li a.active {
     white-space: nowrap; /* 🔹 Impedisce di andare a capo */
     min-width: 40px; /* 🔹 Impedisce che diventi troppo piccolo */
     text-align: center;
+}
+
+/* 📌 Stili per i pulsanti di contatto */
+.contact-buttons {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+/* 📌 Stili per i pulsanti social */
+.social-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 10px;
+    flex-wrap: wrap;
+}
+
+.contact-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    width: 220px;
+    padding: 12px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    text-decoration: none;
+    color: white;
+    border-radius: 8px;
+    transition: background 0.3s ease, transform 0.2s;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.contact-btn i {
+    font-size: 20px;
+}
+
+/* 🎨 Stili per i diversi social */
+.whatsapp {
+    background: #25D366;
+}
+
+.whatsapp:hover {
+    background: #1EBB61;
+    transform: scale(1.05);
+}
+
+.cardmarket {
+    background: #3498db;
+}
+
+.cardmarket:hover {
+    background: #2980b9;
+    transform: scale(1.05);
+}
+
+.instagram {
+    background: #e4405f;
+}
+
+.instagram:hover {
+    background: #c1355a;
+    transform: scale(1.05);
+}
+
+.facebook {
+    background: #1877f2;
+}
+
+.facebook:hover {
+    background: #1256a3;
+    transform: scale(1.05);
 }
 
 
