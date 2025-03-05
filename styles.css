@@ -217,6 +217,37 @@ nav ul li a:hover, nav ul li a.active {
     text-align: center;
 }
 
+/* 📌 Stile per la tabella della classifica */
+#classifica-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+#classifica-table th, #classifica-table td {
+    padding: 12px;
+    border: 1px solid #ddd;
+    text-align: center;
+}
+
+#classifica-table th {
+    background-color: #1e272e;
+    color: white;
+    text-transform: uppercase;
+}
+
+#classifica-table tr:nth-child(even) {
+    background-color: #f5f5f5;
+}
+
+#classifica-table tr:hover {
+    background-color: #ddd;
+}
+
+
 /* 📌 Stili per i pulsanti di contatto */
 .contact-buttons {
     display: flex;

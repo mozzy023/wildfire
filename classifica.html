@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Commhundred - Liste dei Mazzi</title>
+    <title>Commhundred - Classifica</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -17,23 +17,35 @@
             <!-- <li><a href="regole.html">Regole</a></li> -->
             <li><a href="carte-limitate.html">Carte Limitate</a></li>
             <li><a href="liste-vincenti.html">Liste Vincenti</a></li>
-            <li><a href="mazzi.html" class="active">Liste dei Mazzi</a></li>
-            <li><a href="classifica.html">Classifica</a></li>
+            <li><a href="mazzi.html">Liste dei Mazzi</a></li>
+            <li><a href="classifica.html" class="active">Classifica</a></li>
             <li><a href="contatti.html">Contatti</a></li>
         </ul>
     </nav>
     <div class="wrapper">
         <main>
-            <h2>Liste dei Mazzi</h2>
-            <p>Qui puoi trovare le liste dei mazzi che i nostri giocatori hanno portato nel formato Commhundred.</p>
-            <ul id="deck-list">
-                <li>Caricamento in corso...</li>
-            </ul>
+            <h2>Classifica</h2>
+            <p>Qui puoi trovare la classifica aggiornata dei giocatori di Commhundred.</p>
+            
+            <!-- 📌 Tabella Classifica -->
+            <table id="classifica-table">
+                <thead>
+                    <tr>
+                        <th>Posizione</th>
+                        <th>Nome Giocatore</th>
+                        <th>Punti</th>
+                        <th>Presenze</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td colspan="4">Caricamento in corso...</td></tr>
+                </tbody>
+            </table>
         </main>
     </div>
     <footer>
         <p>Commhundred - Il formato Commander a budget limitato</p>
     </footer>
-    <script src="mazzi.js"></script>
+    <script src="classifica.js"></script>
 </body>
 </html>
