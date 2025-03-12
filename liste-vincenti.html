@@ -36,5 +36,24 @@
     
     <!-- 🔹 Importa il file JavaScript con un parametro per evitare cache -->
     <script src="mazzi-vincenti.js?t=12345"></script>
+
+      <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            var menuToggle = document.createElement("button");
+            menuToggle.innerHTML = "☰";
+            menuToggle.classList.add("menu-toggle");
+            document.querySelector("nav").insertBefore(menuToggle, document.querySelector("nav ul"));
+        
+            menuToggle.addEventListener("click", function () {
+                document.querySelector("nav ul").classList.toggle("show");
+            });
+        
+            window.addEventListener("scroll", function () {
+                document.querySelector("nav ul").classList.remove("show");
+            });
+        });
+        </script>
+        
+      
 </body>
 </html>

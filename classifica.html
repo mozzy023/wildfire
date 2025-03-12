@@ -47,5 +47,24 @@
         <p>Commhundred - Il formato Commander a budget limitato</p>
     </footer>
     <script src="classifica.js"></script>
+
+      <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            var menuToggle = document.createElement("button");
+            menuToggle.innerHTML = "☰";
+            menuToggle.classList.add("menu-toggle");
+            document.querySelector("nav").insertBefore(menuToggle, document.querySelector("nav ul"));
+        
+            menuToggle.addEventListener("click", function () {
+                document.querySelector("nav ul").classList.toggle("show");
+            });
+        
+            window.addEventListener("scroll", function () {
+                document.querySelector("nav ul").classList.remove("show");
+            });
+        });
+        </script>
+        
+      
 </body>
 </html>

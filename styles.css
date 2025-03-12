@@ -16,22 +16,37 @@ body {
 header {
     background-color: #1e272e;
     color: white;
-    padding: 20px;
+    padding: 35px 16px; /* 🔹 Sposta il titolo più in basso */
     text-align: center;
-    font-size: 24px;
+    font-size: 22px;
     text-transform: uppercase;
     letter-spacing: 1px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    margin-top: 50px; /* 🔹 Aggiunto margine per compensare la barra di navigazione */
+}
+
+header h1 {
+    font-size: 28px;
+    font-weight: bold;
+    margin-top: 15px; /* 🔹 Più spazio sopra il titolo */
+    margin-bottom: 12px; /* 🔹 Meno spazio sotto */
+}
+
+header p {
+    font-size: 16px;
+    margin-top: 0;
 }
 
 /* 📌 Barra di navigazione */
 nav {
     background-color: #2d3436;
-    position: sticky;
+    position: fixed;
     top: 0;
     width: 100%;
     z-index: 1000;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    padding: 2px 0;
+    height: 43px;
 }
 
 nav ul {
@@ -41,68 +56,107 @@ nav ul {
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
+    background-color: #2d3436; /* 🔹 Assicura sfondo opaco per il menu */
 }
 
 nav ul li {
-    padding: 10px 15px;
+    padding: 4px 8px;
 }
 
 nav ul li a {
     color: white;
     text-decoration: none;
-    font-size: 18px;
+    font-size: 16px;
+    padding: 4px 8px;
     transition: color 0.3s ease;
-    padding: 8px 12px;
 }
 
 nav ul li a:hover, nav ul li a.active {
     color: #1abc9c;
     font-weight: bold;
-    border-bottom: 3px solid #1abc9c;
-    padding-bottom: 5px;
+    border-bottom: 2px solid #1abc9c;
+    padding-bottom: 3px;
+}
+
+nav ul li a:hover, nav ul li a.active {
+    color: #1abc9c;
+    font-weight: bold;
+    border-bottom: 2px solid #1abc9c;
+    padding-bottom: 3px;
+}
+
+/* 📌 Menu mobile */
+.menu-toggle {
+    display: none;
+    background: none;
+    border: none;
+    font-size: 22px;
+    color: white;
+    cursor: pointer;
+    padding: 8px;
+}
+
+/* 📌 Animazione apertura menu */
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+nav ul.show {
+    display: flex;
+    animation: slideDown 0.2s ease-out;
 }
 
 /* 📌 Contenitore principale */
 .wrapper {
     flex: 1;
-    padding: 20px;
+    padding: 60px 15px 15px; /* 🔹 Adattato per rendere il layout più compatto */
     max-width: 1000px;
     margin: auto;
 }
 
-/* 📌 Lista dei mazzi e dei mazzi vincenti */
+/* 📌 Liste dei mazzi */
 #deck-list, #vincenti-list {
     list-style: none;
     padding: 0;
-    margin: 20px 0;
+    margin: 15px 0;
 }
 
-/* 📌 Stile per ogni mazzo */
+/* 📌 Stile per tutti i mazzi (normali e vincenti) */
 .deck-item, .vincenti-item {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
     justify-content: space-between;
     background: white;
-    padding: 12px;
+    padding: 8px 10px;
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    margin-bottom: 12px;
+    margin-bottom: 8px;
+    width: 100%;
+    max-width: 1400px;
 }
 
-/* 📌 Stili generici per i dettagli dei mazzi */
+/* 📌 Stili generici per i dettagli */
 .deck-item span, .vincenti-item span {
     flex: 1;
     text-align: center;
-    font-size: 16px;
+    font-size: 15px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    margin-right: 8px;
 }
 
 .deck-name {
     font-weight: bold;
-    font-size: 18px;
+    font-size: 17px;
 }
 
 .deck-author {
@@ -114,121 +168,36 @@ nav ul li a:hover, nav ul li a.active {
     color: #333;
 }
 
-/* 📌 Link ai mazzi */
+/* 📌 Pulsante "Vedi Mazzo" più piccolo */
 .deck-link {
-    color: #1abc9c;
+    color: white;
     text-decoration: none;
     font-weight: bold;
-    padding: 6px 12px;
-    background-color: #ecf0f1;
-    border-radius: 5px;
+    padding: 5px 10px;
+    background-color: #1abc9c;
+    border-radius: 4px;
     transition: background 0.3s;
+    font-size: 13px;
+    text-align: center;
+    min-width: 100px;
+    display: inline-block;
 }
 
 .deck-link:hover {
-    background-color: #bdc3c7;
-}
-
-/* 🔹 Allarga la barra che contiene le informazioni */
-.deck-item {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    background: white;
-    padding: 12px 16px; /* 🔹 Più spazio interno */
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    margin-bottom: 10px;
-    width: 98%; /* 🔹 Allargata quasi a tutta la pagina */
-    max-width: 1200px; /* 🔹 Limita la larghezza massima */
-}
-
-/* 🔹 Allarga le barre per tutti i mazzi */
-.deck-item, .vincenti-item {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    background: white;
-    padding: 14px 18px;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    margin-bottom: 12px;
-    width: 100%;
-    max-width: 1400px;
-}
-
-/* 🔹 Aggiungi più spazio tra gli elementi dentro le barre */
-.deck-item span, .vincenti-item span {
-    margin-right: 15px; /* 🔹 Più spazio tra ogni elemento */
-}
-
-/* 🔹 Specifico per il numero di partecipanti nei mazzi vincenti */
-.deck-players {
-    flex-grow: 1; /* 🔹 Spinge il link "Vedi Mazzo" verso destra */
-    text-align: left;
-}
-
-/* 🔹 Specifico per l'etichetta "Year / Season" */
-.deck-season {
-    background-color: #ecf0f1;
-    color: #555;
-    font-weight: normal;
-    padding: 2px 4px;
-    border-radius: 3px;
-    font-size: 10px;
-    margin-left: 6px;
-    display: inline-block;
-    opacity: 0.8;
-    white-space: nowrap;
-    min-width: 40px;
-    text-align: center;
-}
-
-/* 🔹 Specifico per il link "Vedi Mazzo" */
-.deck-link, .vincenti-item .deck-link {
-    margin-left: auto; /* 🔹 Sposta il link completamente a destra */
-    padding: 6px 12px;
-    background-color: #1abc9c;
-    color: white;
-    font-weight: bold;
-    text-decoration: none;
-    border-radius: 6px;
-    transition: background 0.3s ease;
-}
-
-.deck-link:hover, .vincenti-item .deck-link:hover {
     background-color: #16a085;
 }
 
-
-/* 🔹 Restringi l'etichetta "Year / Season" */
-.deck-season {
-    background-color: #ecf0f1; /* Grigio chiaro */
-    color: #555;
-    font-weight: normal;
-    padding: 2px 4px; /* 🔹 Meno spazio */
-    border-radius: 3px;
-    font-size: 10px; /* 🔹 Più piccolo */
-    margin-left: 6px; /* 🔹 Distanza dal link */
-    display: inline-block;
-    opacity: 0.8;
-    white-space: nowrap; /* 🔹 Impedisce di andare a capo */
-    min-width: 40px; /* 🔹 Impedisce che diventi troppo piccolo */
-    text-align: center;
-}
-
-/* 📌 Stile per la tabella della classifica */
 #classifica-table {
     width: 100%;
     border-collapse: collapse;
-    margin-top: 20px;
+    margin-top: 15px;
     background: white;
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 #classifica-table th, #classifica-table td {
-    padding: 12px;
+    padding: 10px;
     border: 1px solid #ddd;
     text-align: center;
 }
@@ -237,6 +206,7 @@ nav ul li a:hover, nav ul li a.active {
     background-color: #1e272e;
     color: white;
     text-transform: uppercase;
+    font-size: 14px;
 }
 
 #classifica-table tr:nth-child(even) {
@@ -246,84 +216,6 @@ nav ul li a:hover, nav ul li a.active {
 #classifica-table tr:hover {
     background-color: #ddd;
 }
-
-
-/* 📌 Stili per i pulsanti di contatto */
-.contact-buttons {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 10px;
-    margin-top: 20px;
-}
-
-/* 📌 Stili per i pulsanti social */
-.social-buttons {
-    display: flex;
-    justify-content: center;
-    gap: 15px;
-    margin-top: 10px;
-    flex-wrap: wrap;
-}
-
-.contact-btn {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    width: 220px;
-    padding: 12px 20px;
-    font-size: 16px;
-    font-weight: bold;
-    text-decoration: none;
-    color: white;
-    border-radius: 8px;
-    transition: background 0.3s ease, transform 0.2s;
-    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
-}
-
-.contact-btn i {
-    font-size: 20px;
-}
-
-/* 🎨 Stili per i diversi social */
-.whatsapp {
-    background: #25D366;
-}
-
-.whatsapp:hover {
-    background: #1EBB61;
-    transform: scale(1.05);
-}
-
-.cardmarket {
-    background: #3498db;
-}
-
-.cardmarket:hover {
-    background: #2980b9;
-    transform: scale(1.05);
-}
-
-.instagram {
-    background: #e4405f;
-}
-
-.instagram:hover {
-    background: #c1355a;
-    transform: scale(1.05);
-}
-
-.facebook {
-    background: #1877f2;
-}
-
-.facebook:hover {
-    background: #1256a3;
-    transform: scale(1.05);
-}
-
-
 
 /* 📌 Social bar */
 .social-bar {
@@ -335,8 +227,8 @@ nav ul li a:hover, nav ul li a.active {
 .social-bar a {
     color: white;
     text-decoration: none;
-    font-size: 18px;
-    margin: 0 10px;
+    font-size: 16px;
+    margin: 0 8px;
     transition: color 0.3s;
 }
 
@@ -349,50 +241,124 @@ footer {
     background-color: #1e272e;
     color: white;
     text-align: center;
-    padding: 15px;
-    font-size: 14px;
+    padding: 10px;
+    font-size: 12px;
     margin-top: auto;
 }
 
-/* 📌 Media Query per schermi più piccoli (smartphone) */
+/* 📌 Media Query per schermi piccoli */
 @media screen and (max-width: 768px) {
+    nav {
+        height: 35px; /* 🔹 Ancora più bassa per schermi piccoli */
+        padding: 1px 0;
+    }
+
+    header {
+        margin-top: 45px; /* 🔹 Maggiore margine per evitare sovrapposizione */
+        padding: 35px 12px;
+    }
+
     nav ul {
         flex-direction: column;
         align-items: center;
+        display: none;
+        background-color: #2d3436; /* 🔹 Sfondo solido per il menu mobile */
+        width: 100%;
     }
 
-    nav ul li {
-        padding: 5px 0;
+    nav ul.show {
+        display: flex;
+    }
+    .menu-toggle {
+        display: block;
     }
 
     .deck-item, .vincenti-item {
         flex-direction: column;
         text-align: center;
-        padding: 15px;
+        padding: 8px;
     }
 
     .deck-item span, .vincenti-item span {
         display: block;
-        margin: 5px 0;
-    }
-}
-
-/* 📌 Media Query per schermi molto piccoli (max 480px) */
-@media screen and (max-width: 480px) {
-    body {
-        font-size: 14px;
-    }
-
-    nav ul li a {
-        font-size: 16px;
-    }
-
-    .deck-item, .vincenti-item {
-        padding: 10px;
+        margin: 3px 0;
     }
 
     .deck-link {
-        font-size: 14px;
+        width: auto;
+        text-align: center;
+        padding: 6px;
+    }
+
+    #classifica-table {
+        display: block;
+        width: 100%;
+        overflow-x: auto;
+        white-space: nowrap;
+        border-radius: 5px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    #classifica-table th, #classifica-table td {
+        padding: 8px;
+        font-size: 12px;
+    }
+
+    /* 📌 Rendi la tabella più compatta per la visione mobile */
+    #classifica-table th {
+        font-size: 12px;
+        padding: 6px;
+    }
+
+    #classifica-table td {
+        padding: 6px;
+    }
+
+    .wrapper {
+        padding: 50px 10px 10px;
+    }
+
+    header {
+        padding: 12px;
+        font-size: 18px;
+    }
+
+    footer {
+        padding: 8px;
+        font-size: 11px;
+    }
+}
+
+/* 📌 Media Query per schermi molto piccoli */
+@media screen and (max-width: 480px) {
+    body {
+        font-size: 13px;
+    }
+
+    nav {
+        padding: 2px 0;
+    }
+
+    nav ul li a {
+        font-size: 15px;
+    }
+
+    .deck-item, .vincenti-item {
+        padding: 6px;
+    }
+
+    .deck-link {
+        font-size: 12px;
         padding: 5px 8px;
+    }
+
+    #classifica-table {
+        font-size: 12px;
+        border-radius: 4px;
+    }
+
+    #classifica-table th, #classifica-table td {
+        padding: 5px;
+        font-size: 11px;
     }
 }
