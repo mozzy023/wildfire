@@ -85,6 +85,21 @@ nav ul li a:hover, nav ul li a.active {
     padding-bottom: 3px;
 }
 
+/* Nuove regole per la sezione intro COMM100 */
+#intro-text {
+    background-color: #ffffff;
+    padding: 12px;
+    margin-top: 10px;
+    border-radius: 10px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-5px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
 /* 📌 Menu mobile */
 .menu-toggle {
     display: none;
