@@ -266,6 +266,21 @@ nav ul.show {
     white-space: nowrap;
 }
 
+.button-form {
+    background-color: #e67e22;
+    color: white;
+    font-weight: bold;
+    padding: 10px 16px;
+    border-radius: 8px;
+    text-decoration: none;
+    display: inline-block;
+    transition: background 0.3s;
+}
+
+.button-form:hover {
+    background-color: #d35400;
+}
+
 /* 📌 Icone */
 .contact-btn i {
     font-size: 18px;
