@@ -277,8 +277,18 @@ nav ul.show {
     transition: background 0.3s;
 }
 
-.button-form:hover {
+.btn-orange {
+    background-color: #e67e22;
+}
+.btn-orange:hover {
     background-color: #d35400;
+}
+
+.btn-blue {
+    background-color: #2980b9;
+}
+.btn-blue:hover {
+    background-color: #21618c;
 }
 
 /* 📌 Icone */
