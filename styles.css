@@ -277,15 +277,19 @@ nav ul.show {
     transition: background 0.3s;
 }
 
-.btn-orange {
-    background-color: #e67e22;
-}
 .btn-orange:hover {
     background-color: #d35400;
 }
 
-.btn-blue {
+.button-facebook {
     background-color: #2980b9;
+    color: white;
+    font-weight: bold;
+    padding: 10px 16px;
+    border-radius: 8px;
+    text-decoration: none;
+    display: inline-block;
+    transition: background 0.3s;
 }
 
 .btn-blue:hover {
