@@ -1,78 +1,106 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Commhundred - Home</title>
-    <link rel="stylesheet" href="styles.css?v=2">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Commhundred - Home</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-    <header>
-        <h1>Commhundred</h1>
-        <p>Il formato Commander con un limite di budget di 100$</p>
-    </header>
-    <nav>
+  <div class="wrapper">
+    <div class="container">
+      <header>
+        <div class="brand">
+          <img src="logo.png" alt="WildFire Logo" class="logo-img" />
+          <div class="logo-text">Commhundred</div>
+        </div>
+        <nav>
+          <a href="index.html" class="active">Home</a>
+          <a href="carte-limitate.html">Carte Limitate</a>
+          <a href="liste-vincenti.html">Liste Vincenti</a>
+          <a href="mazzi.html">Mazzi</a>
+          <a href="classifica.html">Classifica</a>
+          <a href="eventi.html">Eventi</a>
+        </nav>
+      </header>
+
+      <section>
+        <h2>Benvenuto su Commhundred</h2>
+        <p>Scopri il nuovo formato di Magic: The Gathering che combina la sfida del Commander con un budget massimo di 100$.</p>
+      </section>
+
+      <section>
+        <h2>Cos'è COMM100?</h2>
+        <p><strong>COMM100</strong> è una variante multiplayer del formato Commander in cui ogni mazzo deve avere un valore massimo di <strong>100$</strong>, calcolato su MTGGoldfish ("Tabletop"), per rendere il formato accessibile a tutti senza sacrificare competizione o profondità.</p>
         <ul>
-            <li><a href="index.html" class="active">Home</a></li>
-            <li><a href="carte-limitate.html">Carte Limitate</a></li>
-            <li><a href="liste-vincenti.html">Liste Vincenti</a></li>
-            <li><a href="mazzi.html">Liste dei Mazzi</a></li>
-            <li><a href="classifica.html">Classifica</a></li>
-            <li><a href="eventi.html">Eventi</a></li>
-            <li><a href="contatti.html">Contatti</a></li>
+          <li><strong>🎯 Accessibile</strong>: 100$ massimi per mazzo.</li>
+          <li><strong>🛡️ Fair Play</strong>: Stop alle combo al primo turno! Focus su divertimento e bilanciamento.</li>
+          <li><strong>🤝 Community attiva</strong>: Eventi settimanali e classifiche stagionali.</li>
         </ul>
-    </nav>
-    <div class="wrapper">
-        <main>
-            <h2>Benvenuto su Commhundred</h2>
-            <p>Scopri il nuovo formato di Magic: The Gathering che combina la sfida di Commander con un budget massimo di 100$.</p>
+        <p>💬 Entra nel gruppo WhatsApp <a href="https://chat.whatsapp.com/CcXMy6eZsAD4rvFhGBsZU3" target="_blank">Wildfire Community</a> per unirti a noi!</p>
+      </section>
 
-            <h2>Cos'è COMM100?</h2>
-            <p id="intro-toggle" style="cursor: pointer; color: #1abc9c; font-weight: bold;">📘 Clicca per saperne di più...</p>
-            <div id="intro-text" style="display: none;">
-              <p><strong>COMM100</strong> è una variante multiplayer del formato Commander in cui ogni mazzo deve avere un valore massimo di <strong>100$</strong>, calcolato su MTGGoldfish ("Tabletop"), per rendere il formato accessibile a tutti senza sacrificare competizione o profondità.</p>
-              <ul>
-                <li><strong>🎯 Accessibile</strong>: 100$ massimi per mazzo.</li>
-                <li><strong>🛡️ Fair Play</strong>: Stop alle combo al primo turno! Focus su divertimento e bilanciamento.</li>
-                <li><strong>🤝 Community attiva</strong>: Eventi settimanali e classifiche stagionali.</li>
-              </ul>
-              <p>💬 Entra nel gruppo WhatsApp <a href="https://chat.whatsapp.com/CcXMy6eZsAD4rvFhGBsZU3" target="_blank">Wildfire Community</a> per unirti a noi!</p>
+      <section>
+        <h2>Regole del Formato</h2>
+        <ul>
+          <li>Il mazzo deve avere esattamente 100 carte, incluso il comandante.</li>
+          <li>Le carte bandite sono le stesse della banlist ufficiale di Commander.</li>
+          <li>Il valore totale delle carte non deve superare i 100$, basato sulle valutazioni di MTG Goldfish.</li>
+          <li>I mazzi precostruiti sono ammessi anche se superano i 100$, purché non vengano modificati.</li>
+          <li>Le versioni <em>foil</em> e <em>alternative</em> non influiscono sul prezzo del mazzo: si considera la versione più economica di ogni carta.</li>
+        </ul>
+      </section>
+
+      <footer>
+        <div class="footer-wrapper">
+          <div class="footer-columns">
+            <div class="footer-column">
+              <h4>Contatti</h4>
+              <p>📍 Via della Fonte Meravigliosa, 64<br>00143 Roma RM</p>
+              <p>📞 <a href="tel:0695061442">06 9506 1442</a></p>
             </div>
-
-            <h2>Regole del Formato</h2>
-            <ul>
-                <li>Il mazzo deve avere esattamente 100 carte, incluso il comandante.</li>
-                <li>Le carte bandite sono le stesse della banlist ufficiale di Commander.</li>
-                <li>Il valore totale delle carte non deve superare i 100$, basato sulle valutazioni di MTG Goldfish.</li>
-                <li>I mazzi precostruiti sono ammessi anche se superano i 100$, purché non vengano modificati.</li>
-                <li>Le versioni <em>foil</em> e le versioni <em>alternative</em> delle carte non influiscono sul prezzo del mazzo: viene sempre considerata la versione più economica per ciascuna carta. </li>
-            </ul>
-        </main>
+            <div class="footer-column">
+              <h4>Orari di apertura</h4>
+              <p>Martedì: 11:00–13:00 / 15:30–01:30</p>
+              <p>Mercoledì: 11:00–13:00 / 15:30–19:30</p>
+              <p>Giovedì: 11:00–13:00 / 15:30–19:30</p>
+              <p>Venerdì: 11:00–13:00 / 15:30–01:30</p>
+              <p>Sabato: 11:00–13:00 / 15:30–19:30</p>
+              <p>Domenica: 11:00–19:30</p>
+              <p>Lunedì: Chiuso</p>
+            </div>
+            <div class="footer-column">
+              <h4>Seguici</h4>
+              <p>
+                <a href="#">Instagram</a><br>
+                <a href="#">Facebook</a><br>
+                <a href="#">Whatsapp</a>
+              </p>
+            </div>
+          </div>
+          <div class="footer-bottom">
+            <p>© 2025 WildFire Store Roma - Tutti i diritti riservati</p>
+            <p>P.IVA 12345678901</p>
+          </div>
+        </div>
+      </footer>
+      
     </div>
-    <footer>
-        <p>Commhundred - Il formato Commander a budget limitato</p>
-    </footer>
+  </div>
 
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            var menuToggle = document.createElement("button");
-            menuToggle.innerHTML = "☰";
-            menuToggle.classList.add("menu-toggle");
-            document.querySelector("nav").insertBefore(menuToggle, document.querySelector("nav ul"));
+  <script>
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("visible");
+        }
+      });
+    }, { threshold: 0.1 });
 
-            menuToggle.addEventListener("click", function () {
-                document.querySelector("nav ul").classList.toggle("show");
-            });
-
-            window.addEventListener("scroll", function () {
-                document.querySelector("nav ul").classList.remove("show");
-            });
-
-            document.getElementById("intro-toggle").addEventListener("click", function () {
-                const introText = document.getElementById("intro-text");
-                introText.style.display = introText.style.display === "none" ? "block" : "none";
-            });
-        });
-    </script>
+    document.querySelectorAll("section").forEach(section => {
+      observer.observe(section);
+    });
+  </script>
 </body>
 </html>

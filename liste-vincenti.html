@@ -1,60 +1,216 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Commhundred - Mazzi Vincenti</title>
-    <link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Commhundred - Mazzi Vincenti</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+
+  <style>
+    .centered-full {
+      min-height: calc(100vh - 160px);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+    }
+
+    .vincenti-list {
+      list-style: none;
+      padding: 0;
+      margin: 2rem auto;
+      max-width: 900px;
+      width: 100%;
+    }
+
+    .vincenti-item {
+      background-color: #fff;
+      margin-bottom: 1rem;
+      padding: 1.5rem;
+      border-left: 5px solid var(--rosso-wildfire);
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+    }
+
+    .vincenti-item span {
+      display: block;
+    }
+
+    .deck-name {
+      font-weight: 700;
+      font-size: 1.2rem;
+      color: var(--rosso-wildfire);
+    }
+
+    .deck-author, .deck-commander, .deck-date, .deck-players, .deck-season {
+      font-size: 0.95rem;
+      color: #333;
+    }
+
+    .deck-link {
+      align-self: flex-start;
+      margin-top: 0.5rem;
+      font-weight: 500;
+      color: var(--rosso-wildfire);
+      text-decoration: none;
+      border: 1px solid var(--rosso-wildfire);
+      padding: 0.4rem 0.8rem;
+      border-radius: 5px;
+      transition: 0.2s;
+    }
+
+    .deck-link:hover {
+      background-color: var(--rosso-wildfire);
+      color: white;
+    }
+  </style>
 </head>
 <body>
-    <header>
-        <h1>Commhundred</h1>
-        <p>Il formato Commander con un limite di budget di 100$</p>
-    </header>
-    <nav>
-        <ul>
-            <li><a href="index.html">Home</a></li>
-            <!-- <li><a href="regole.html">Regole</a></li> -->
-            <li><a href="carte-limitate.html">Carte Limitate</a></li>
-            <li><a href="liste-vincenti.html" class="active">Liste Vincenti</a></li>
-            <li><a href="mazzi.html">Liste dei Mazzi</a></li>
-            <li><a href="classifica.html">Classifica</a></li>
-            <li><a href="eventi.html">Eventi</a></li>
-            <li><a href="contatti.html">Contatti</a></li>
-        </ul>
-    </nav>
-    <div class="wrapper">
-        <main>
-            <h2>Mazzi Vincenti</h2>
-            <ul id="vincenti-list">
-                <li>Caricamento in corso...</li>
-            </ul>
-        </main>
-    </div>
-    <footer>
-        <p>Commhundred - Il formato Commander a budget limitato</p>
-    </footer>
-    
-    <!-- 🔹 Importa il file JavaScript con un parametro per evitare cache -->
-    <script src="mazzi-vincenti.js?t=12345"></script>
+  <div class="wrapper">
+    <div class="container">
+      <header>
+        <div class="brand">
+          <img src="logo.png" alt="WildFire Logo" class="logo-img" />
+          <div class="logo-text">Commhundred</div>
+        </div>
+        <nav>
+          <a href="index.html">Home</a>
+          <a href="carte-limitate.html">Carte Limitate</a>
+          <a href="liste-vincenti.html" class="active">Liste Vincenti</a>
+          <a href="mazzi.html">Mazzi</a>
+          <a href="classifica.html">Classifica</a>
+          <a href="eventi.html">Eventi</a>
+        </nav>
+      </header>
 
-      <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            var menuToggle = document.createElement("button");
-            menuToggle.innerHTML = "☰";
-            menuToggle.classList.add("menu-toggle");
-            document.querySelector("nav").insertBefore(menuToggle, document.querySelector("nav ul"));
-        
-            menuToggle.addEventListener("click", function () {
-                document.querySelector("nav ul").classList.toggle("show");
-            });
-        
-            window.addEventListener("scroll", function () {
-                document.querySelector("nav ul").classList.remove("show");
-            });
-        });
-        </script>
-        
+      <section class="centered-full">
+        <h2>Mazzi Vincenti</h2>
+        <ul id="vincenti-list" class="vincenti-list">
+          <li class="vincenti-item">Caricamento in corso...</li>
+        </ul>
+      </section>
+
+      <footer>
+        <div class="footer-wrapper">
+          <div class="footer-columns">
+            <div class="footer-column">
+              <h4>Contatti</h4>
+              <p>📍 Via della Fonte Meravigliosa, 64<br>00143 Roma RM</p>
+              <p>📞 <a href="tel:0695061442">06 9506 1442</a></p>
+            </div>
+            <div class="footer-column">
+              <h4>Orari di apertura</h4>
+              <p>Martedì: 11:00–13:00 / 15:30–01:30</p>
+              <p>Mercoledì: 11:00–13:00 / 15:30–19:30</p>
+              <p>Giovedì: 11:00–13:00 / 15:30–19:30</p>
+              <p>Venerdì: 11:00–13:00 / 15:30–01:30</p>
+              <p>Sabato: 11:00–13:00 / 15:30–19:30</p>
+              <p>Domenica: 11:00–19:30</p>
+              <p>Lunedì: Chiuso</p>
+            </div>
+            <div class="footer-column">
+              <h4>Seguici</h4>
+              <p>
+                <a href="#">Instagram</a><br>
+                <a href="#">Facebook</a><br>
+                <a href="#">Whatsapp</a>
+              </p>
+            </div>
+          </div>
+          <div class="footer-bottom">
+            <p>© 2025 WildFire Store Roma - Tutti i diritti riservati</p>
+            <p>P.IVA 12345678901</p>
+          </div>
+        </div>
+      </footer>
       
+    </div>
+  </div>
+
+  <script>
+    const GOOGLE_SCRIPTS_VINCENTI =
+      "https://script.google.com/macros/s/AKfycbwkgPp0eoWDh-xrTVZ2Tnmv4T9JF66JPd52muFtnxDjH5pcPMjYbe5hGGWol5aOmpVg/exec";
+
+    function handleVincentiData(data) {
+      console.log("🔍 Dati ricevuti:", data);
+      const listContainer = document.getElementById("vincenti-list");
+
+      if (!listContainer) {
+        console.error("❌ Elemento #vincenti-list non trovato.");
+        return;
+      }
+
+      listContainer.innerHTML = "";
+      data.sort((a, b) => a.id - b.id);
+
+      data.forEach(mazzo => {
+        const listItem = document.createElement("li");
+        listItem.classList.add("vincenti-item");
+
+        listItem.innerHTML = `
+          <span class="deck-name">${mazzo.nome}</span>
+          <span class="deck-author">${mazzo.autore}</span>
+          <span class="deck-commander">${mazzo.comandante1}${mazzo.comandante2 ? " & " + mazzo.comandante2 : ""}</span>
+          <span class="deck-date">${mazzo.data}</span>
+          <span class="deck-players">Partecipanti: ${mazzo.partecipanti}</span>
+          <a class="deck-link" href="${mazzo.link}" target="_blank">Vedi Mazzo</a>
+          ${mazzo.year_season !== "N/A" ? `<span class="deck-season">${mazzo.year_season}</span>` : ""}
+        `;
+
+        listContainer.appendChild(listItem);
+      });
+
+      // ✅ Rimuove il centraggio solo se la sezione è abbastanza alta
+      const section = document.querySelector("section");
+      const sectionHeight = section.offsetHeight;
+      const windowHeight = window.innerHeight;
+
+      if (sectionHeight > windowHeight - 160) {
+        section.classList.remove("centered-full");
+      } else {
+        section.classList.add("centered-full");
+      }
+    }
+
+    async function caricaMazziVincenti() {
+      console.log("🔄 Caricamento mazzi vincenti...");
+
+      try {
+        const response = await fetch(GOOGLE_SCRIPTS_VINCENTI);
+
+        if (!response.ok) {
+          throw new Error(`❌ Errore ${response.status}`);
+        }
+
+        const data = await response.json();
+        handleVincentiData(data);
+      } catch (error) {
+        console.error("❌ Errore nel fetch:", error);
+        document.getElementById("vincenti-list").innerHTML =
+          "<li class='vincenti-item'>Errore nel caricamento dei dati.</li>";
+      }
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("visible");
+          }
+        });
+      }, { threshold: 0.1 });
+
+      document.querySelectorAll("section").forEach(section => {
+        observer.observe(section);
+      });
+
+      caricaMazziVincenti();
+    });
+  </script>
 </body>
 </html>

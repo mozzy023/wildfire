@@ -1,108 +1,203 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Commhundred - Eventi</title>
-    <link rel="stylesheet" href="styles.css?v=2">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Commhundred - Eventi</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+
+  <style>
+    main h2, main h3 {
+      text-align: center;
+      margin-bottom: 1rem;
+      color: var(--rosso-wildfire);
+    }
+
+    .button-form,
+    .button-facebook {
+      display: inline-block;
+      margin: 1rem 0.5rem;
+      padding: 0.7rem 1.2rem;
+      border-radius: 8px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: 0.3s;
+    }
+
+    .button-form {
+      background-color: var(--rosso-wildfire);
+      color: white;
+      border: none;
+    }
+
+    .button-form:hover {
+      background-color: #b8000f;
+    }
+
+    .button-facebook {
+      background-color: #1877f2;
+      color: white;
+    }
+
+    .button-facebook:hover {
+      background-color: #125bcc;
+    }
+
+    ul {
+      max-width: 800px;
+      margin: 0 auto 1.5rem;
+      padding-left: 1.2rem;
+      text-align: left;
+    }
+
+    main p {
+      max-width: 800px;
+      margin: 0 auto 1.5rem;
+      line-height: 1.7;
+    }
+
+    #countdown {
+      font-size: 1.2rem;
+      font-weight: bold;
+      margin-bottom: 15px;
+      color: #c0392b;
+      text-align: center;
+    }
+  </style>
 </head>
 <body>
-    <header>
-        <h1>Commhundred</h1>
-        <p>Il formato Commander con un limite di budget di 100$</p>
-    </header>
-    <nav>
-        <ul>
-            <li><a href="index.html">Home</a></li>
-            <li><a href="carte-limitate.html">Carte Limitate</a></li>
-            <li><a href="liste-vincenti.html">Liste Vincenti</a></li>
-            <li><a href="mazzi.html">Liste dei Mazzi</a></li>
-            <li><a href="classifica.html">Classifica</a></li>
-            <li><a href="eventi.html" class="active">Eventi</a></li>
-            <li><a href="contatti.html">Contatti</a></li>
-        </ul>
-    </nav>
-    <div class="wrapper">
+  <div class="wrapper">
+    <div class="container">
+      <header>
+        <div class="brand">
+          <img src="logo.png" alt="WildFire Logo" class="logo-img" />
+          <div class="logo-text">Commhundred</div>
+        </div>
+        <nav>
+          <a href="index.html">Home</a>
+          <a href="carte-limitate.html">Carte Limitate</a>
+          <a href="liste-vincenti.html">Liste Vincenti</a>
+          <a href="mazzi.html">Mazzi</a>
+          <a href="classifica.html">Classifica</a>
+          <a href="eventi.html" class="active">Eventi</a>
+        </nav>
+      </header>
+
+      <section>
         <main>
-            <h2>COMM100 World Cup – 19 Maggio</h2>
-<div id="countdown" style="font-size: 20px; font-weight: bold; margin-bottom: 15px; color: #c0392b;"></div>
-            <p>Preparati per l'evento più atteso dell'anno: la <strong>COMM100 World Cup</strong> si terrà <strong>domenica 19 maggio</strong> presso il Wildfire Store!</p>
-            <ul>
-                <li>Inizio evento: ore 21:00</li>
-                <li>Formato: Commander Multiplayer Budget (COMM100)</li>
-                <li>Iscrizione: 15€</li>
-                <li>Posti limitati: è consigliata la prenotazione</li>
-            </ul>
-            <p>Non perdere l'occasione di partecipare a un evento speciale con premi esclusivi e una community incredibile!</p>
-            <a href="https://docs.google.com/forms/d/e/1FAIpQLSdbJ9BR6jBOCqG63PiwFH-HvRfsiIuRY_8RjRioTJ98viRzKA/viewform?usp=dialog" target="_blank" class="button-form">📝 Iscriviti alla World Cup</a>
-            <a href="https://www.facebook.com/events/2461166427560121" target="_blank" class="button-facebook">📅 Visualizza evento su Facebook</a>
-            
-            <hr>
-            <h2>Eventi Settimanali</h2>
-            <p>Partecipa agli eventi settimanali di COMM100 e unisciti alla nostra community!</p>
+          <h2>COMM100 World Cup – 19 Maggio</h2>
+          <div id="countdown"></div>
+          <p>Preparati per l'evento più atteso dell'anno: la <strong>COMM100 World Cup</strong> si terrà <strong>domenica 19 maggio</strong> presso il Wildfire Store!</p>
+          <ul>
+            <li>Inizio evento: ore 21:00</li>
+            <li>Formato: Commander Multiplayer Budget (COMM100)</li>
+            <li>Iscrizione: 15€</li>
+            <li>Posti limitati: è consigliata la prenotazione</li>
+          </ul>
+          <p>Non perdere l'occasione di partecipare a un evento speciale con premi esclusivi e una community incredibile!</p>
+          <a href="https://docs.google.com/forms/d/e/1FAIpQLSdbJ9BR6jBOCqG63PiwFH-HvRfsiIuRY_8RjRioTJ98viRzKA/viewform?usp=dialog" target="_blank" class="button-form">📝 Iscriviti alla World Cup</a>
+          <a href="https://www.facebook.com/events/2461166427560121" target="_blank" class="button-facebook">📅 Visualizza evento su Facebook</a>
 
-            <ul>
-                <li><strong>🗓️ Quando:</strong> Tutti i martedì e venerdì alle 21:30</li>
-                <li><strong>📍 Dove:</strong> Wildfire Store, Via della Fonte Meravigliosa 64, 00143 Roma (RM), Italia</li>
-                <li><strong>💵 Quota d’iscrizione:</strong> 5€</li>
-                <li><strong>🏆 Premi:</strong> Buono da dividere tra i vincitori del tavolo</li>
-            </ul>
+          <hr>
 
-            <h3>Come Partecipare</h3>
-            <ul>
-                <li>Carica la tua lista su MTGGoldfish (modalità Tabletop)</li>
-                <li>Invia il link e uno screenshot al numero <strong>392 382 2701</strong> su WhatsApp</li>
-                <li>Puoi anche usare il <strong>bot Telegram</strong> per registrare la lista la sera stessa</li>
-            </ul>
+          <h2>Eventi Settimanali</h2>
+          <p>Partecipa agli eventi settimanali di COMM100 e unisciti alla nostra community!</p>
 
-            <p>I partecipanti vengono inseriti automaticamente nella classifica della stagione "Road to Invitational". Consulta la sezione <a href="classifica.html">Classifica</a> per vedere i tuoi progressi!</p>
+          <ul>
+            <li><strong>🗓️ Quando:</strong> Tutti i martedì e venerdì alle 21:30</li>
+            <li><strong>📍 Dove:</strong> Wildfire Store, Via della Fonte Meravigliosa 64, 00143 Roma (RM), Italia</li>
+            <li><strong>💵 Quota d’iscrizione:</strong> 5€</li>
+            <li><strong>🏆 Premi:</strong> Buono da dividere tra i vincitori del tavolo</li>
+          </ul>
 
-            <p>💬 Entra nel gruppo <a href="https://chat.whatsapp.com/CcXMy6eZsAD4rvFhGBsZU3" target="_blank">Wildfire Community</a> per restare aggiornato su eventi, comunicazioni e novità.</p>
+          <h3>Come Partecipare</h3>
+          <ul>
+            <li>Carica la tua lista su MTGGoldfish (modalità Tabletop)</li>
+            <li>Invia il link e uno screenshot al numero <strong>392 382 2701</strong> su WhatsApp</li>
+            <li>Puoi anche usare il <strong>bot Telegram</strong> per registrare la lista la sera stessa</li>
+          </ul>
+
+          <p>I partecipanti vengono inseriti automaticamente nella classifica della stagione "Road to Invitational". Consulta la sezione <a href="classifica.html">Classifica</a> per vedere i tuoi progressi!</p>
+
+          <p>💬 Entra nel gruppo <a href="https://chat.whatsapp.com/CcXMy6eZsAD4rvFhGBsZU3" target="_blank">Wildfire Community</a> per restare aggiornato su eventi, comunicazioni e novità.</p>
         </main>
+      </section>
+
+      <footer>
+        <div class="footer-wrapper">
+          <div class="footer-columns">
+            <div class="footer-column">
+              <h4>Contatti</h4>
+              <p>📍 Via della Fonte Meravigliosa, 64<br>00143 Roma RM</p>
+              <p>📞 <a href="tel:0695061442">06 9506 1442</a></p>
+            </div>
+            <div class="footer-column">
+              <h4>Orari di apertura</h4>
+              <p>Martedì: 11:00–13:00 / 15:30–01:30</p>
+              <p>Mercoledì: 11:00–13:00 / 15:30–19:30</p>
+              <p>Giovedì: 11:00–13:00 / 15:30–19:30</p>
+              <p>Venerdì: 11:00–13:00 / 15:30–01:30</p>
+              <p>Sabato: 11:00–13:00 / 15:30–19:30</p>
+              <p>Domenica: 11:00–19:30</p>
+              <p>Lunedì: Chiuso</p>
+            </div>
+            <div class="footer-column">
+              <h4>Seguici</h4>
+              <p>
+                <a href="#">Instagram</a><br>
+                <a href="#">Facebook</a><br>
+                <a href="#">Whatsapp</a>
+              </p>
+            </div>
+          </div>
+          <div class="footer-bottom">
+            <p>© 2025 WildFire Store Roma - Tutti i diritti riservati</p>
+            <p>P.IVA 12345678901</p>
+          </div>
+        </div>
+      </footer>
+      
     </div>
-    <footer>
-        <p>Commhundred - Il formato Commander a budget limitato</p>
-    </footer>
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            var menuToggle = document.createElement("button");
-            menuToggle.innerHTML = "☰";
-            menuToggle.classList.add("menu-toggle");
-            document.querySelector("nav").insertBefore(menuToggle, document.querySelector("nav ul"));
+  </div>
 
-            menuToggle.addEventListener("click", function () {
-                document.querySelector("nav ul").classList.toggle("show");
-            });
-
-            window.addEventListener("scroll", function () {
-                document.querySelector("nav ul").classList.remove("show");
-            });
-        });
-    </script>
-<script>
-    const targetDate = new Date("2025-05-19T14:30:00").getTime();
+  <script>
+    const targetDate = new Date("2025-05-19T21:00:00").getTime();
     const countdownEl = document.getElementById("countdown");
 
     function updateCountdown() {
-        const now = new Date().getTime();
-        const distance = targetDate - now;
+      const now = new Date().getTime();
+      const distance = targetDate - now;
 
-        if (distance < 0) {
-            countdownEl.innerHTML = "🏆 L'evento è in corso!";
-            clearInterval(interval);
-            return;
-        }
+      if (distance < 0) {
+        countdownEl.innerHTML = "🏆 L'evento è in corso!";
+        clearInterval(interval);
+        return;
+      }
 
-        const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-        const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-        const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-        const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
-        countdownEl.innerHTML = `⏳ Mancano ${days}g ${hours}h ${minutes}m ${seconds}s all'inizio della World Cup!`;
+      countdownEl.innerHTML = `⏳ Mancano ${days}g ${hours}h ${minutes}m ${seconds}s all'inizio della World Cup!`;
     }
 
     const interval = setInterval(updateCountdown, 1000);
     updateCountdown();
-</script>
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("visible");
+        }
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll("section").forEach(section => {
+      observer.observe(section);
+    });
+  </script>
 </body>
 </html>
