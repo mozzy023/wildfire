@@ -79,8 +79,8 @@
           <a href="index.html">Home</a>
           <a href="carte-limitate.html">Carte Limitate</a>
           <a href="liste-vincenti.html">Liste Vincenti</a>
-          <a href="mazzi.html">Mazzi</a>
-          <a href="classifica.html">Classifica</a>
+          <!--<a href="mazzi.html">Mazzi</a>-->
+          <!--<a href="classifica.html">Classifica</a>-->
           <a href="eventi.html" class="active">Eventi</a>
         </nav>
       </header>
@@ -97,8 +97,9 @@
             <li>Posti limitati: è consigliata la prenotazione</li>
           </ul>
           <p>Non perdere l'occasione di partecipare a un evento speciale con premi esclusivi e una community incredibile!</p>
-          <a href="https://docs.google.com/forms/d/e/1FAIpQLSdbJ9BR6jBOCqG63PiwFH-HvRfsiIuRY_8RjRioTJ98viRzKA/viewform?usp=dialog" target="_blank" class="button-form">📝 Iscriviti alla World Cup</a>
-          <a href="https://www.facebook.com/events/2461166427560121" target="_blank" class="button-facebook">📅 Visualizza evento su Facebook</a>
+          <div style="text-align: center; margin: 1rem 0;">
+            <a href="https://www.facebook.com/events/2461166427560121" target="_blank" class="button-facebook">📅 Visualizza evento su Facebook</a>
+          </div>
 
           <hr>
 
@@ -143,14 +144,15 @@
               <p>Domenica: 11:00–19:30</p>
               <p>Lunedì: Chiuso</p>
             </div>
-            <div class="footer-column">
-              <h4>Seguici</h4>
-              <p>
-                <a href="#">Instagram</a><br>
-                <a href="#">Facebook</a><br>
-                <a href="#">Whatsapp</a>
-              </p>
-            </div>
+              <div class="footer-column">
+                <h4>Seguici</h4>
+                <p>
+                  <a href="https://www.instagram.com/wildfire_store/" target="_blank">Instagram</a><br>
+                  <a href="https://www.facebook.com/Wildfirestore" target="_blank">Facebook</a><br>
+                  <a href="#" target="_blank">Community Whatsapp</a><br>
+                  <a href="https://www.cardmarket.com/it/Magic/Users/Wildfirestore" target="_blank">Cardmarket MTG</a>
+                </p>
+              </div>
           </div>
           <div class="footer-bottom">
             <p>© 2025 WildFire Store Roma - Tutti i diritti riservati</p>
@@ -171,7 +173,7 @@
       const distance = targetDate - now;
 
       if (distance < 0) {
-        countdownEl.innerHTML = "🏆 L'evento è in corso!";
+        countdownEl.innerHTML = "🏆 L'evento è concluso!";
         clearInterval(interval);
         return;
       }
