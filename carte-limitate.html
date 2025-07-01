@@ -7,22 +7,6 @@
 
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="styles.css" />
-
-  <style>
-    .centered-full {
-      min-height: calc(100vh - 160px);
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
-    }
-
-    .centered-full p {
-      font-size: 1.2rem;
-      color: #555;
-    }
-  </style>
 </head>
 <body>
   <div class="wrapper">
@@ -33,19 +17,57 @@
           <div class="logo-text">Commhundred</div>
         </div>
         <nav>
-          <a href="index.html" class="active">Home</a>
-          <a href="carte-limitate.html">Carte Limitate</a>
+          <a href="index.html">Home</a>
+          <a href="carte-limitate.html" class="active">Carte Limitate</a>
           <a href="liste-vincenti.html">Liste Vincenti</a>
-          <!-- <a href="mazzi.html">Mazzi</a>-->
+          <!--<a href="mazzi.html">Mazzi</a>-->
           <!--<a href="classifica.html">Classifica</a>-->
           <a href="eventi.html">Eventi</a>
         </nav>
       </header>
 
+      <section>
+        <h2>Carte con Budget Ridotto</h2>
+        <div class="limit-grid">
 
-      <section class="centered-full">
-        <h2>Carte Limitate</h2>
-        <p><strong>Ancora non ci sono carte limitate.</strong></p>
+          <div class="limit-category">
+            <h3>Format Defining<br><span class="budget-tag">Budget: 80$</span></h3>
+            <ul>
+              <li>Inalla, Archmage Ritualist</li>
+              <li>Winota, Joiner of Forces</li>
+              <li>Tivit, Seller of Secrets</li>
+              <li>K'rrik, Son of Yawgmoth</li>
+            </ul>
+          </div>
+
+          <div class="limit-category">
+            <h3>Must Answer<br><span class="budget-tag">Budget: 90$</span></h3>
+            <ul>
+              <li>Maelstrom Wanderer</li>
+              <li>Rocco, Cabaretti Caterer</li>
+              <li>Kinnan, Bonder Prodigy</li>
+              <li>Stella Lee, Wild Card</li>
+              <li>Malcolm, Keen-Eyed Navigator</li>
+              <li>Selvala, Heart of the Wilds</li>
+              <li>The Gitrog Monster</li>
+            </ul>
+          </div>
+
+          <div class="limit-category">
+            <h3>Watchlist<br><span class="budget-tag">Nessuna restrizione</span></h3>
+            <ul>
+              <li>Yuriko, the Tiger's Shadow</li>
+              <li>Urza, Lord High Artificer</li>
+              <li>Magda, Brazen Outlaw</li>
+              <li>Rakdos, The Muscle</li>
+              <li>Najeela, the Blade-Blossom</li>
+              <li>Shorikai, Genesis Engine</li>
+              <li>Etali, Primal Conqueror</li>
+            </ul>
+          </div>
+        </div>
+
+        <p style="text-align: center; margin-top: 2rem;">⚠️ La lista viene aggiornata dopo ogni evento premium.</p>
       </section>
 
       <footer>
@@ -56,7 +78,7 @@
               <p>📍 Via della Fonte Meravigliosa, 64<br>00143 Roma RM</p>
               <p>📞 <a href="tel:0695061442">06 9506 1442</a></p>
             </div>
-             <div class="footer-column">
+            <div class="footer-column">
               <h4>Orari di apertura</h4>
               <p>Lunedì: 19:00-02:00</p>
               <p>Martedì: 11:00–13:00 / 15:30–01:30</p>
@@ -66,15 +88,15 @@
               <p>Sabato: 11:00–13:00 / 15:30–19:30</p>
               <p>Domenica: 11:00–19:30</p>
             </div>
-              <div class="footer-column">
-                <h4>Seguici</h4>
-                <p>
-                  <a href="https://www.instagram.com/wildfire_store/" target="_blank">Instagram</a><br>
-                  <a href="https://www.facebook.com/Wildfirestore" target="_blank">Facebook</a><br>
-                  <a href="https://chat.whatsapp.com/CcXMy6eZsAD4rvFhGBsZU3" target="_blank">Community Whatsapp</a><br>
-                  <a href="https://www.cardmarket.com/it/Magic/Users/Wildfirestore" target="_blank">Cardmarket MTG</a>
-                </p>
-              </div>
+            <div class="footer-column">
+              <h4>Seguici</h4>
+              <p>
+                <a href="https://www.instagram.com/wildfire_store/" target="_blank">Instagram</a><br>
+                <a href="https://www.facebook.com/Wildfirestore" target="_blank">Facebook</a><br>
+                <a href="https://chat.whatsapp.com/CcXMy6eZsAD4rvFhGBsZU3" target="_blank">Community Whatsapp</a><br>
+                <a href="https://www.cardmarket.com/it/Magic/Users/Wildfirestore" target="_blank">Cardmarket MTG</a>
+              </p>
+            </div>
           </div>
           <div class="footer-bottom">
             <p>© 2025 WildFire Store Roma - Tutti i diritti riservati</p>
@@ -82,9 +104,58 @@
           </div>
         </div>
       </footer>
-      
     </div>
   </div>
+
+  <style>
+    .limit-grid {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 2rem;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    .limit-category {
+      background: white;
+      border-left: 5px solid var(--rosso-wildfire);
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      padding: 1.5rem;
+      width: 300px;
+      border-radius: 8px;
+      text-align: left;
+    }
+
+    .limit-category h3 {
+      font-size: 1.3rem;
+      margin-bottom: 1rem;
+      color: var(--rosso-wildfire);
+      line-height: 1.4;
+    }
+
+    .limit-category ul {
+      padding-left: 1.2rem;
+      font-size: 1rem;
+    }
+
+    .budget-tag {
+      font-size: 0.9rem;
+      font-weight: normal;
+      color: #555;
+    }
+
+    @media (max-width: 768px) {
+      .limit-grid {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .limit-category {
+        width: 90%;
+      }
+    }
+  </style>
 
   <script>
     const observer = new IntersectionObserver((entries) => {

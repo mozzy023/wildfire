@@ -57,14 +57,6 @@
       margin: 0 auto 1.5rem;
       line-height: 1.7;
     }
-
-    #countdown {
-      font-size: 1.2rem;
-      font-weight: bold;
-      margin-bottom: 15px;
-      color: #c0392b;
-      text-align: center;
-    }
   </style>
 </head>
 <body>
@@ -87,29 +79,13 @@
 
       <section>
         <main>
-          <h2>COMM100 World Cup – 19 Maggio</h2>
-          <div id="countdown"></div>
-          <p>Preparati per l'evento più atteso dell'anno: la <strong>COMM100 World Cup</strong> si terrà <strong>domenica 19 maggio</strong> presso il Wildfire Store!</p>
-          <ul>
-            <li>Inizio evento: ore 21:00</li>
-            <li>Formato: Commander Multiplayer Budget (COMM100)</li>
-            <li>Iscrizione: 15€</li>
-            <li>Posti limitati: è consigliata la prenotazione</li>
-          </ul>
-          <p>Non perdere l'occasione di partecipare a un evento speciale con premi esclusivi e una community incredibile!</p>
-          <div style="text-align: center; margin: 1rem 0;">
-            <a href="https://www.facebook.com/events/2461166427560121" target="_blank" class="button-facebook">📅 Visualizza evento su Facebook</a>
-          </div>
-
-          <hr>
-
           <h2>Eventi Settimanali</h2>
           <p>Partecipa agli eventi settimanali di COMM100 e unisciti alla nostra community!</p>
 
           <ul>
-            <li><strong>🗓️ Quando:</strong> Tutti i martedì e venerdì alle 21:30</li>
+            <li><strong>🗓️ Quando:</strong> Martedì e Venerdì alle 21:30, Domenica alle 16:30</li>
             <li><strong>📍 Dove:</strong> Wildfire Store, Via della Fonte Meravigliosa 64, 00143 Roma (RM), Italia</li>
-            <li><strong>💵 Quota d’iscrizione:</strong> 5€</li>
+            <li><strong>💵 Quota d’iscrizione:</strong> 6€ (5€ al torneo, 1€ al montepremi del Mondiale)</li>
             <li><strong>🏆 Premi:</strong> Buono da dividere tra i vincitori del tavolo</li>
           </ul>
 
@@ -123,6 +99,15 @@
           <p>I partecipanti vengono inseriti automaticamente nella classifica della stagione "Road to Invitational". Consulta la sezione <a href="classifica.html">Classifica</a> per vedere i tuoi progressi!</p>
 
           <p>💬 Entra nel gruppo <a href="https://chat.whatsapp.com/CcXMy6eZsAD4rvFhGBsZU3" target="_blank">Wildfire Community</a> per restare aggiornato su eventi, comunicazioni e novità.</p>
+
+          <hr>
+          <h2>Eventi Premier</h2>
+          <p>Durante la stagione organizzeremo anche eventi speciali:</p>
+          <ul>
+            <li><strong>3 Invitational Open</strong> – Iscrizione 15€, premi potenziati, card personalizzate, tappetino esclusivo al vincitore.</li>
+            <li><strong>2 Two-Headed Giant</strong> – Formato a coppie, 10€ a testa, premi e tappetini di coppia.</li>
+            <li><strong>Il Mondiale</strong> – Evento annuale gratuito su invito per i primi 32 in classifica, con montepremi raccolto durante l’anno.</li>
+          </ul>
         </main>
       </section>
 
@@ -144,15 +129,15 @@
               <p>Sabato: 11:00–13:00 / 15:30–19:30</p>
               <p>Domenica: 11:00–19:30</p>
             </div>
-              <div class="footer-column">
-                <h4>Seguici</h4>
-                <p>
-                  <a href="https://www.instagram.com/wildfire_store/" target="_blank">Instagram</a><br>
-                  <a href="https://www.facebook.com/Wildfirestore" target="_blank">Facebook</a><br>
-                  <a href="https://chat.whatsapp.com/CcXMy6eZsAD4rvFhGBsZU3" target="_blank">Community Whatsapp</a><br>
-                  <a href="https://www.cardmarket.com/it/Magic/Users/Wildfirestore" target="_blank">Cardmarket MTG</a>
-                </p>
-              </div>
+            <div class="footer-column">
+              <h4>Seguici</h4>
+              <p>
+                <a href="https://www.instagram.com/wildfire_store/" target="_blank">Instagram</a><br>
+                <a href="https://www.facebook.com/Wildfirestore" target="_blank">Facebook</a><br>
+                <a href="https://chat.whatsapp.com/CcXMy6eZsAD4rvFhGBsZU3" target="_blank">Community Whatsapp</a><br>
+                <a href="https://www.cardmarket.com/it/Magic/Users/Wildfirestore" target="_blank">Cardmarket MTG</a>
+              </p>
+            </div>
           </div>
           <div class="footer-bottom">
             <p>© 2025 WildFire Store Roma - Tutti i diritti riservati</p>
@@ -160,35 +145,10 @@
           </div>
         </div>
       </footer>
-      
     </div>
   </div>
 
   <script>
-    const targetDate = new Date("2025-05-19T21:00:00").getTime();
-    const countdownEl = document.getElementById("countdown");
-
-    function updateCountdown() {
-      const now = new Date().getTime();
-      const distance = targetDate - now;
-
-      if (distance < 0) {
-        countdownEl.innerHTML = "🏆 L'evento è concluso!";
-        clearInterval(interval);
-        return;
-      }
-
-      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-      countdownEl.innerHTML = `⏳ Mancano ${days}g ${hours}h ${minutes}m ${seconds}s all'inizio della World Cup!`;
-    }
-
-    const interval = setInterval(updateCountdown, 1000);
-    updateCountdown();
-
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
