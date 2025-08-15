@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Commhundred - Classifica Giocatori</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+
+  <style>
+    /* Stile coerente, più compatto e con header sticky funzionante */
+    .ranking-wrapper {
+      max-width: 1100px;
+      margin: 0 auto;
+      width: 100%;
+    }
+
+    .ranking-table {
+      width: 100%;
+      border-collapse: separate; /* sticky più affidabile */
+      border-spacing: 0;
+      background: #fff;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+      border-left: 5px solid var(--rosso-wildfire);
+      border-radius: 12px;
+    }
+
+    .ranking-table thead th {
+      text-align: left;
+      padding: 0.6rem 0.9rem;
+      background: #ffffff;
+      border-bottom: 1px solid #eee;
+      color: var(--nero-wildfire);
+      position: sticky;
+      top: 0;
+      z-index: 3;
+      box-shadow: 0 1px 0 rgba(0,0,0,0.06);
+    }
+
+    .ranking-table thead th .hdr-pill {
+      display: inline-block;
+      padding: 0.25rem 0.55rem;
+      border-radius: 999px;
+      font-weight: 700;
+      line-height: 1;
+      letter-spacing: 0.01em;
+      background: color-mix(in srgb, var(--rosso-wildfire) 10%, white);
+      border: 1px solid color-mix(in srgb, var(--rosso-wildfire) 30%, white);
+      color: color-mix(in srgb, var(--rosso-wildfire) 75%, black);
+    }
+
+    .ranking-table tbody td {
+      padding: 0.65rem 0.9rem;
+      border-bottom: 1px solid #f0f0f0;
+      font-size: 0.95rem;
+      vertical-align: middle;
+    }
+    .ranking-table tbody tr:hover td {
+      background: #fafafa;
+    }
+
+    /* Allineamenti */
+    .ranking-table th.num,
+    .ranking-table td.num {
+      text-align: right;
+      font-variant-numeric: tabular-nums;
+    }
+    .ranking-table td.name {
+      font-weight: 600;
+      color: #222;
+    }
+
+    /* Colonna "posizione" stretta e numerica a destra */
+    .ranking-table thead th:first-child,
+    .ranking-table tbody td:first-child {
+      width: 5.5ch;
+      text-align: right;
+    }
+
+    .ranking-loading, .ranking-error, .ranking-empty {
+      text-align: center;
+      padding: 1.2rem 1rem;
+      background: #fff;
+      border-left: 5px solid var(--rosso-wildfire);
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+      max-width: 800px;
+      margin: 0.75rem auto 0 auto;
+    }
+
+    .legend {
+      margin: 0 auto 0.75rem auto;
+      max-width: 1000px;
+      color: #555;
+      font-size: 0.95rem;
+      text-align: center;
+    }
+
+    @media (max-width: 640px) {
+      .ranking-table thead {
+        display: none;
+      }
+      .ranking-table, .ranking-table tbody, .ranking-table tr, .ranking-table td {
+        display: block;
+        width: 100%;
+      }
+      .ranking-table tbody tr {
+        margin: 0.4rem 0;
+        border: 1px solid #eee;
+        border-left: 5px solid var(--rosso-wildfire);
+        border-radius: 10px;
+        background: #fff;
+        box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+      }
+      .ranking-table td {
+        border: none;
+        border-bottom: 1px solid #f1f1f1;
+        position: relative;
+        padding-left: 7.2rem;
+        min-height: 40px;
+      }
+      .ranking-table td::before {
+        content: attr(data-label);
+        position: absolute;
+        left: 0.8rem;
+        top: 50%;
+        transform: translateY(-50%);
+        font-weight: 700;
+        color: #444;
+        padding: 0.18rem 0.5rem;
+        border-radius: 999px;
+        background: #f5f5f5;
+        border: 1px solid #eee;
+      }
+      .ranking-table td.name {
+        font-weight: 700;
+      }
+      .ranking-table td.num {
+        text-align: left; /* su mobile l'etichetta occupa la sinistra */
+      }
+    }
+
+  </style>
+</head>
+<body>
+  <div class="wrapper">
+    <div class="container">
+      <header>
+        <div class="brand">
+          <img src="logo.png" alt="WildFire Logo" class="logo-img" />
+          <div class="logo-text">Commhundred</div>
+        </div>
+        <nav>
+          <a href="index.html">Home</a>
+          <a href="carte-limitate.html">Carte Limitate</a>
+          <a href="classifica-giocatori.html" class="active">Classifica Giocatori</a>
+          <a href="liste-vincenti.html">Liste Vincenti</a>
+          <a href="eventi.html">Eventi</a>
+        </nav>
+      </header>
+
+      <section>
+        <h2>Classifica Giocatori</h2>
+        <div id="ranking-container" class="ranking-wrapper">
+          <div class="ranking-loading">Caricamento classifica...</div>
+        </div>
+      </section>
+
+      <footer>
+        <div class="footer-wrapper">
+          <div class="footer-columns">
+            <div class="footer-column">
+              <h4>Contatti</h4>
+              <p>📍 Via della Fonte Meravigliosa, 64<br>00143 Roma RM</p>
+              <p>📞 <a href="tel:0695061442">06 9506 1442</a></p>
+            </div>
+            <div class="footer-column">
+              <h4>Orari di apertura</h4>
+              <p>Lunedì: 19:00-02:00</p>
+              <p>Martedì: 11:00–13:00 / 15:30–01:30</p>
+              <p>Mercoledì: 11:00–13:00 / 15:30–19:30</p>
+              <p>Giovedì: 11:00–13:00 / 15:30–19:30</p>
+              <p>Venerdì: 11:00–13:00 / 15:30–01:30</p>
+              <p>Sabato: 11:00–13:00 / 15:30–19:30</p>
+              <p>Domenica: 11:00–19:30</p>
+            </div>
+            <div class="footer-column">
+              <h4>Seguici</h4>
+              <p>
+                <a href="https://www.instagram.com/wildfire_store/" target="_blank">Instagram</a><br>
+                <a href="https://www.facebook.com/Wildfirestore" target="_blank">Facebook</a><br>
+                <a href="https://chat.whatsapp.com/CcXMy6eZsAD4rvFhGBsZU3" target="_blank">Community Whatsapp</a><br>
+                <a href="https://www.cardmarket.com/it/Magic/Users/Wildfirestore" target="_blank">Cardmarket MTG</a>
+              </p>
+            </div>
+          </div>
+          <div class="footer-bottom">
+            <p>© 2025 WildFire Store Roma - Tutti i diritti riservati</p>
+            <p>P.IVA 12345678901</p>
+          </div>
+        </div>
+      </footer>
+    </div>
+  </div>
+
+  <script src="classifica-giocatori.js"></script>
+  <script>
+    // Adatta etichette su mobile aggiungendo data-label in base alle intestazioni calcolate
+    document.addEventListener("DOMContentLoaded", () => {
+      const tableObserver = new MutationObserver(() => {
+        const table = document.querySelector(".ranking-table");
+        if (!table) return;
+        const headers = Array.from(table.querySelectorAll("thead th")).map(th => th.textContent.trim());
+        table.querySelectorAll("tbody tr").forEach(tr => {
+          Array.from(tr.children).forEach((td, i) => {
+            td.setAttribute("data-label", headers[i] || `Col ${i+1}`);
+          });
+        });
+      });
+      tableObserver.observe(document.getElementById("ranking-container"), { childList: true, subtree: true });
+    });
+  </script>
+</body>
+</html>
