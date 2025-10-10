@@ -8,6 +8,17 @@
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="styles.css" />
 
+  <!-- Favicon & App Icons -->
+  <link rel="icon" href="assets/icons/favicon.ico?v=1">
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/icons/favicon-32x32.png?v=1">
+  <link rel="icon" type="image/png" sizes="16x16" href="assets/icons/favicon-16x16.png?v=1">
+  <link rel="apple-touch-icon" sizes="180x180" href="assets/icons/apple-touch-icon.png?v=1">
+  <link rel="manifest" href="assets/icons/site.webmanifest?v=1">
+
+  <!-- Colore barra indirizzi su mobile -->
+  <meta name="theme-color" content="#e30613">
+  <meta name="msapplication-TileColor" content="#e30613">
+
   <style>
     /* Stile coerente, più compatto e con header sticky funzionante */
     .ranking-wrapper {
@@ -98,47 +109,56 @@
     }
 
     @media (max-width: 640px) {
-      .ranking-table thead {
-        display: none;
-      }
-      .ranking-table, .ranking-table tbody, .ranking-table tr, .ranking-table td {
+      .ranking-table thead { display: none; }
+
+      .ranking-table,
+      .ranking-table tbody,
+      .ranking-table tr,
+      .ranking-table td {
         display: block;
         width: 100%;
       }
+
       .ranking-table tbody tr {
-        margin: 0.4rem 0;
+        margin: 0.5rem 0;
         border: 1px solid #eee;
         border-left: 5px solid var(--rosso-wildfire);
-        border-radius: 10px;
+        border-radius: 12px;
         background: #fff;
-        box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+        box-shadow: 0 2px 6px rgba(0,0,0,0.06);
+        overflow: hidden;
       }
+
+      /* celle a blocchi, niente padding-left enorme */
       .ranking-table td {
         border: none;
-        border-bottom: 1px solid #f1f1f1;
+        border-bottom: 1px solid #f3f3f3;
         position: relative;
-        padding-left: 7.2rem;
-        min-height: 40px;
+        padding: .6rem .9rem;
+        min-height: auto;
       }
+
+      /* etichetta sopra al valore, non sovrapposta */
       .ranking-table td::before {
         content: attr(data-label);
-        position: absolute;
-        left: 0.8rem;
-        top: 50%;
-        transform: translateY(-50%);
-        font-weight: 700;
-        color: #444;
-        padding: 0.18rem 0.5rem;
+        position: static;            /* NON assoluta */
+        transform: none;
+        display: inline-block;
+        margin-bottom: .25rem;
+        padding: .15rem .5rem;
         border-radius: 999px;
         background: #f5f5f5;
         border: 1px solid #eee;
-      }
-      .ranking-table td.name {
         font-weight: 700;
+        font-size: .85rem;
+        color: #444;
       }
-      .ranking-table td.num {
-        text-align: left; /* su mobile l'etichetta occupa la sinistra */
-      }
+
+      .ranking-table td.name { font-weight: 700; }
+      .ranking-table td.num { text-align: left; } /* niente allineamento a destra su mobile */
+
+      /* rimuove l’ultimo bordo */
+      .ranking-table td:last-child { border-bottom: none; }
     }
 
   </style>
@@ -158,6 +178,63 @@
           <a href="liste-vincenti.html">Liste Vincenti</a>
           <a href="eventi.html">Eventi</a>
         </nav>
+        <script>
+        document.addEventListener("DOMContentLoaded", function () {
+          const header = document.querySelector("header");
+          const nav = document.querySelector("nav");
+
+          if (!header || !nav) return;
+
+          // 1) Crea il pulsante ☰ se non esiste
+          let menuToggle = document.querySelector(".menu-toggle");
+          if (!menuToggle) {
+            menuToggle = document.createElement("button");
+            menuToggle.className = "menu-toggle";
+            menuToggle.textContent = "☰";
+            header.appendChild(menuToggle);
+          }
+
+          // 2) Toggle apertura/chiusura
+          function openMenu()  { nav.classList.add("show"); }
+          function closeMenu() { nav.classList.remove("show"); }
+          function isOpen()    { return nav.classList.contains("show"); }
+
+          menuToggle.addEventListener("click", (e) => {
+            e.stopPropagation();               // non far arrivare il click al document
+            isOpen() ? closeMenu() : openMenu();
+          });
+
+          // 3) Chiudi quando clicchi/tocchi fuori dal menu o dal bottone
+          function outsideHandler(e) {
+            const target = e.target;
+            if (!isOpen()) return;
+            // se il click NON è dentro al nav e NON è sul bottone, chiudi
+            if (!nav.contains(target) && !menuToggle.contains(target)) {
+              closeMenu();
+            }
+          }
+          // supporto mobile: pointerdown prende tap immediatamente
+          document.addEventListener("pointerdown", outsideHandler);
+          document.addEventListener("click", outsideHandler);
+
+          // 4) Chiudi quando scegli una voce del menu (navigazione)
+          nav.querySelectorAll("a").forEach(a => {
+            a.addEventListener("click", () => closeMenu());
+          });
+
+          // 5) Chiudi con ESC
+          document.addEventListener("keydown", (e) => {
+            if (e.key === "Escape" && isOpen()) closeMenu();
+          });
+
+          // 6) Logo/scritta -> Home
+          const brand = document.querySelector(".brand");
+          if (brand) {
+            brand.style.cursor = "pointer";
+            brand.addEventListener("click", () => { window.location.href = "index.html"; });
+          }
+        });
+        </script>
       </header>
 
       <section>

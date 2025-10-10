@@ -8,6 +8,17 @@
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="styles.css" />
 
+  <!-- Favicon & App Icons -->
+  <link rel="icon" href="assets/icons/favicon.ico?v=1">
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/icons/favicon-32x32.png?v=1">
+  <link rel="icon" type="image/png" sizes="16x16" href="assets/icons/favicon-16x16.png?v=1">
+  <link rel="apple-touch-icon" sizes="180x180" href="assets/icons/apple-touch-icon.png?v=1">
+  <link rel="manifest" href="assets/icons/site.webmanifest?v=1">
+
+  <!-- Colore barra indirizzi su mobile -->
+  <meta name="theme-color" content="#e30613">
+  <meta name="msapplication-TileColor" content="#e30613">
+
   <style>
     .centered-full {
       min-height: calc(100vh - 160px);
@@ -68,8 +79,39 @@
       background-color: var(--rosso-wildfire);
       color: white;
     }
+
+    /* 🔽 Stile per i filtri */
+    .filter-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+      gap: 1rem;
+      margin-top: 1.2rem;
+      margin-bottom: 1.6rem;
+    }
+
+    .filter-container label {
+      font-weight: 600;
+      color: var(--rosso-wildfire);
+    }
+
+    .filter-container select {
+      padding: 0.45rem 0.8rem;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      background: #fff;
+      font-family: 'Poppins', sans-serif;
+      font-size: 1rem;
+      transition: border-color .2s;
+    }
+
+    .filter-container select:hover {
+      border-color: var(--rosso-wildfire);
+    }
   </style>
 </head>
+
 <body>
   <div class="wrapper">
     <div class="container">
@@ -83,14 +125,83 @@
           <a href="carte-limitate.html">Carte Limitate</a>
           <a href="classifica-giocatori.html">Classifica Giocatori</a>
           <a href="liste-vincenti.html" class="active">Liste Vincenti</a>
-          <!--<a href="mazzi.html">Mazzi</a>-->
-          <!--<a href="classifica.html">Classifica</a>-->
           <a href="eventi.html">Eventi</a>
         </nav>
+        <script>
+        document.addEventListener("DOMContentLoaded", function () {
+          const header = document.querySelector("header");
+          const nav = document.querySelector("nav");
+
+          if (!header || !nav) return;
+
+          // 1) Crea il pulsante ☰ se non esiste
+          let menuToggle = document.querySelector(".menu-toggle");
+          if (!menuToggle) {
+            menuToggle = document.createElement("button");
+            menuToggle.className = "menu-toggle";
+            menuToggle.textContent = "☰";
+            header.appendChild(menuToggle);
+          }
+
+          // 2) Toggle apertura/chiusura
+          function openMenu()  { nav.classList.add("show"); }
+          function closeMenu() { nav.classList.remove("show"); }
+          function isOpen()    { return nav.classList.contains("show"); }
+
+          menuToggle.addEventListener("click", (e) => {
+            e.stopPropagation();               // non far arrivare il click al document
+            isOpen() ? closeMenu() : openMenu();
+          });
+
+          // 3) Chiudi quando clicchi/tocchi fuori dal menu o dal bottone
+          function outsideHandler(e) {
+            const target = e.target;
+            if (!isOpen()) return;
+            // se il click NON è dentro al nav e NON è sul bottone, chiudi
+            if (!nav.contains(target) && !menuToggle.contains(target)) {
+              closeMenu();
+            }
+          }
+          // supporto mobile: pointerdown prende tap immediatamente
+          document.addEventListener("pointerdown", outsideHandler);
+          document.addEventListener("click", outsideHandler);
+
+          // 4) Chiudi quando scegli una voce del menu (navigazione)
+          nav.querySelectorAll("a").forEach(a => {
+            a.addEventListener("click", () => closeMenu());
+          });
+
+          // 5) Chiudi con ESC
+          document.addEventListener("keydown", (e) => {
+            if (e.key === "Escape" && isOpen()) closeMenu();
+          });
+
+          // 6) Logo/scritta -> Home
+          const brand = document.querySelector(".brand");
+          if (brand) {
+            brand.style.cursor = "pointer";
+            brand.addEventListener("click", () => { window.location.href = "index.html"; });
+          }
+        });
+        </script>
       </header>
 
       <section class="centered-full">
         <h2>Mazzi Vincenti</h2>
+
+        <!-- 🔽 Filtri dinamici -->
+        <div class="filter-container">
+          <label for="filter-y">Year:</label>
+          <select id="filter-y">
+            <option value="tutte">Tutte</option>
+          </select>
+
+          <label for="filter-s">Season:</label>
+          <select id="filter-s">
+            <option value="tutte">Tutte</option>
+          </select>
+        </div>
+
         <ul id="vincenti-list" class="vincenti-list">
           <li class="vincenti-item">Caricamento in corso...</li>
         </ul>
@@ -104,7 +215,7 @@
               <p>📍 Via della Fonte Meravigliosa, 64<br>00143 Roma RM</p>
               <p>📞 <a href="tel:0695061442">06 9506 1442</a></p>
             </div>
-             <div class="footer-column">
+            <div class="footer-column">
               <h4>Orari di apertura</h4>
               <p>Lunedì: 19:00-02:00</p>
               <p>Martedì: 11:00–13:00 / 15:30–01:30</p>
@@ -130,89 +241,138 @@
           </div>
         </div>
       </footer>
-      
     </div>
   </div>
 
-  <script>
-    const GOOGLE_SCRIPTS_VINCENTI =
-      "https://script.google.com/macros/s/AKfycbwkgPp0eoWDh-xrTVZ2Tnmv4T9JF66JPd52muFtnxDjH5pcPMjYbe5hGGWol5aOmpVg/exec";
+<script>
+  const GOOGLE_SCRIPTS_VINCENTI =
+    "https://script.google.com/macros/s/AKfycbwkgPp0eoWDh-xrTVZ2Tnmv4T9JF66JPd52muFtnxDjH5pcPMjYbe5hGGWol5aOmpVg/exec";
 
-    function handleVincentiData(data) {
-      console.log("🔍 Dati ricevuti:", data);
-      const listContainer = document.getElementById("vincenti-list");
+  function handleVincentiData(data) {
+    const listContainer = document.getElementById("vincenti-list");
+    if (!listContainer) return;
 
-      if (!listContainer) {
-        console.error("❌ Elemento #vincenti-list non trovato.");
-        return;
-      }
+    listContainer.innerHTML = "";
+    (data || []).sort((a, b) => a.id - b.id);
 
-      listContainer.innerHTML = "";
-      data.sort((a, b) => a.id - b.id);
+    (data || []).forEach(mazzo => {
+      const li = document.createElement("li");
+      li.classList.add("vincenti-item");
 
-      data.forEach(mazzo => {
-        const listItem = document.createElement("li");
-        listItem.classList.add("vincenti-item");
+      // markup scheda
+      li.innerHTML = `
+        <span class="deck-name">${mazzo.nome || ""}</span>
+        <span class="deck-author">${mazzo.autore || ""}</span>
+        <span class="deck-commander">
+          ${(mazzo.comandante1 || "")}${mazzo.comandante2 ? " & " + mazzo.comandante2 : ""}
+        </span>
+        <span class="deck-date">${mazzo.data || ""}</span>
+        <span class="deck-players">Partecipanti: ${mazzo.partecipanti || ""}</span>
+        <a class="deck-link" href="${mazzo.link || "#"}" target="_blank">Vedi Mazzo</a>
+        ${mazzo.year_season && mazzo.year_season !== "N/A" ? `<span class="deck-season">${mazzo.year_season}</span>` : ""}
+      `;
 
-        listItem.innerHTML = `
-          <span class="deck-name">${mazzo.nome}</span>
-          <span class="deck-author">${mazzo.autore}</span>
-          <span class="deck-commander">${mazzo.comandante1}${mazzo.comandante2 ? " & " + mazzo.comandante2 : ""}</span>
-          <span class="deck-date">${mazzo.data}</span>
-          <span class="deck-players">Partecipanti: ${mazzo.partecipanti}</span>
-          <a class="deck-link" href="${mazzo.link}" target="_blank">Vedi Mazzo</a>
-          ${mazzo.year_season !== "N/A" ? `<span class="deck-season">${mazzo.year_season}</span>` : ""}
-        `;
+      // Parser robusto delle etichette S?/Y? (accetta "S3/Y1", "Y1/S3", spazi, minuscole, ecc.)
+      const tag = String(mazzo.year_season || "").toUpperCase();
+      const sMatch = tag.match(/S\s*(\d+)/);
+      const yMatch = tag.match(/Y\s*(\d+)/);
+      if (sMatch) li.dataset.s = `S${sMatch[1]}`;
+      if (yMatch) li.dataset.y = `Y${yMatch[1]}`;
 
-        listContainer.appendChild(listItem);
-      });
+      listContainer.appendChild(li);
+    });
 
-      // ✅ Rimuove il centraggio solo se la sezione è abbastanza alta
-      const section = document.querySelector("section");
+    // gestisci centratura se la sezione è corta
+    const section = document.querySelector("section");
+    if (section) {
       const sectionHeight = section.offsetHeight;
       const windowHeight = window.innerHeight;
-
-      if (sectionHeight > windowHeight - 160) {
-        section.classList.remove("centered-full");
-      } else {
-        section.classList.add("centered-full");
-      }
+      if (sectionHeight > windowHeight - 160) section.classList.remove("centered-full");
+      else section.classList.add("centered-full");
     }
 
-    async function caricaMazziVincenti() {
-      console.log("🔄 Caricamento mazzi vincenti...");
+    populateFilters();
+    applyFilters(); // applica l'eventuale selezione corrente
+  }
 
-      try {
-        const response = await fetch(GOOGLE_SCRIPTS_VINCENTI);
-
-        if (!response.ok) {
-          throw new Error(`❌ Errore ${response.status}`);
-        }
-
-        const data = await response.json();
-        handleVincentiData(data);
-      } catch (error) {
-        console.error("❌ Errore nel fetch:", error);
-        document.getElementById("vincenti-list").innerHTML =
-          "<li class='vincenti-item'>Errore nel caricamento dei dati.</li>";
-      }
-    }
-
-    document.addEventListener("DOMContentLoaded", () => {
-      const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add("visible");
-          }
-        });
-      }, { threshold: 0.1 });
-
-      document.querySelectorAll("section").forEach(section => {
-        observer.observe(section);
-      });
-
-      caricaMazziVincenti();
+  // --- FILTRI DINAMICI ---
+  function populateFilters() {
+    const sSet = new Set(), ySet = new Set();
+    document.querySelectorAll(".vincenti-item").forEach(li => {
+      if (li.dataset.s) sSet.add(li.dataset.s);
+      if (li.dataset.y) ySet.add(li.dataset.y);
     });
-  </script>
-</body>
-</html>
+
+    fillSelect("filter-s", sSet);
+    fillSelect("filter-y", ySet);
+  }
+
+  function fillSelect(id, valuesSet) {
+    const select = document.getElementById(id);
+    if (!select) return;
+
+    const current = select.value || "tutte";
+    const values = Array.from(valuesSet).sort((a, b) => {
+      // Ordina S1 < S2 < S3… / Y1 < Y2…
+      const na = parseInt(a.replace(/[^\d]/g, "")) || 0;
+      const nb = parseInt(b.replace(/[^\d]/g, "")) || 0;
+      if (a[0] === b[0]) return na - nb;       // stessa lettera (S o Y)
+      return a[0].localeCompare(b[0]);         // S prima di Y, o viceversa
+    });
+
+    select.innerHTML =
+      '<option value="tutte">Tutte</option>' +
+      values.map(v => `<option value="${v}">${v}</option>`).join("");
+
+    // ripristina la scelta se già c'era
+    if ([...select.options].some(o => o.value === current)) {
+      select.value = current;
+    }
+  }
+
+  function applyFilters() {
+    const y = (document.getElementById("filter-y")?.value || "tutte").toUpperCase();
+    const s = (document.getElementById("filter-s")?.value || "tutte").toUpperCase();
+
+    document.querySelectorAll("#vincenti-list .vincenti-item").forEach(li => {
+      const okY = (y === "TUTTE") || (li.dataset.y === y);
+      const okS = (s === "TUTTE") || (li.dataset.s === s);
+      li.style.display = (okY && okS) ? "flex" : "none";
+    });
+  }
+
+  // cambia filtro → aggiorna lista
+  document.addEventListener("change", (e) => {
+    if (e.target && (e.target.id === "filter-y" || e.target.id === "filter-s")) {
+      applyFilters();
+    }
+  });
+
+  async function caricaMazziVincenti() {
+    try {
+      const resp = await fetch(GOOGLE_SCRIPTS_VINCENTI);
+      const data = await resp.json();
+      handleVincentiData(data);
+    } catch (e) {
+      console.error("Errore nel caricamento:", e);
+      document.getElementById("vincenti-list").innerHTML =
+        "<li class='vincenti-item'>Errore nel caricamento dei dati.</li>";
+    }
+  }
+
+  // animazioni + fetch dati
+  document.addEventListener("DOMContentLoaded", () => {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add("visible"); });
+    }, { threshold: 0.1 });
+    document.querySelectorAll("section").forEach(s => observer.observe(s));
+
+    // assicurati che nel markup del header il logo usi src='./logo.png'
+    const logo = document.querySelector(".logo-img");
+    if (logo && logo.getAttribute("src") === "logo.png") {
+      logo.setAttribute("src", "./logo.png");
+    }
+
+    caricaMazziVincenti();
+  });
+</script>
