@@ -8,7 +8,7 @@
   <!-- Foglio di stile globale -->
   <link rel="stylesheet" href="styles.css?v=4" />
 
-  <!-- Favicon (se usi la variante con sfondo bianco) -->
+  <!-- Favicon (versione whitebg consigliata) -->
   <link rel="icon" type="image/png" sizes="48x48" href="/assets/icons-whitebg/favicon-48x48.png?v=3">
   <link rel="icon" type="image/png" sizes="32x32" href="/assets/icons-whitebg/favicon-32x32.png?v=3">
   <link rel="icon" type="image/png" sizes="16x16" href="/assets/icons-whitebg/favicon-16x16.png?v=3">
@@ -16,13 +16,13 @@
   <link rel="apple-touch-icon" sizes="180x180" href="/assets/icons-whitebg/apple-touch-icon.png?v=3">
   <meta name="theme-color" content="#e30613">
 
-  <!-- Stili specifici per questa pagina (layout artwork + info) -->
+  <!-- Stili specifici per questa pagina (layout artwork + info + loader) -->
   <style>
     /* --- Card mazzo: layout immagine + info affiancati --- */
     .vincenti-item { padding: 1rem; }
     .deck-row{
       display:grid;
-      grid-template-columns: 320px 1fr;      /* immagine fissa, testo flessibile */
+      grid-template-columns: 320px 1fr;   /* immagine fissa, testo flessibile */
       gap:16px;
       align-items:start;
     }
@@ -30,12 +30,12 @@
       width:100%;
       border-radius:12px;
       overflow:hidden;
-      background:#f7f7f8;                    /* “letterbox” elegante se rapporti diversi */
-      padding:6px;                           /* cornice leggera */
+      background:#f7f7f8;                /* “letterbox” elegante se rapporti diversi */
+      padding:6px;                       /* cornice leggera */
     }
     .deck-art img{
       width:100%;
-      height:auto;                           /* ⬅️ non tagliamo l’immagine */
+      height:auto;                       /* non tagliamo l’immagine */
       display:block;
       border-radius:10px;
       object-fit:contain;
@@ -44,7 +44,7 @@
     }
     .deck-art.pair{
       display:grid;
-      grid-template-rows: 1fr 1fr;           /* due comandanti → immagini impilate */
+      grid-template-rows: 1fr 1fr;       /* due comandanti → immagini impilate */
       gap:8px;
       padding:0;
       background:none;
@@ -54,6 +54,18 @@
 
     /* Filtri in alto: larghezza piacevole */
     .filter-container { max-width: 920px; }
+
+    /* Loader */
+    .loading{
+      display:flex; align-items:center; justify-content:center; gap:8px;
+      color:#666; font-size:.95rem; margin:.5rem auto 1rem;
+    }
+    .spinner{
+      width:16px; height:16px; border:2px solid #ddd;
+      border-top-color: var(--rosso-wildfire);
+      border-radius:50%; animation:spin .8s linear infinite;
+    }
+    @keyframes spin{ to{ transform:rotate(360deg); } }
 
     /* Responsive */
     @media (max-width: 1024px){
@@ -113,6 +125,12 @@
             <select id="filter-s">
               <option value="tutte">Tutte</option>
             </select>
+          </div>
+
+          <!-- Loading (rimane finché i dati non arrivano) -->
+          <div id="loading" class="loading">
+            <span class="spinner" aria-hidden="true"></span>
+            Caricamento in corso…
           </div>
 
           <!-- Lista -->
@@ -283,6 +301,15 @@
     }
 
     /* ==========================
+       Loader helper
+       ========================== */
+    function setLoading(on){
+      const el = document.getElementById("loading");
+      if (!el) return;
+      el.style.display = on ? "" : "none";
+    }
+
+    /* ==========================
        Render liste + filtri Y/S
        ========================== */
     function populateFilters() {
@@ -375,7 +402,7 @@
         if (sMatch) li.dataset.s = `S${sMatch[1]}`;
         if (yMatch) li.dataset.y = `Y${yMatch[1]}`;
 
-        listContainer.appendChild(li);
+        document.getElementById("vincenti-list").appendChild(li);
 
         // Artwork comandante (uno o due)
         insertCommanderArt(art, mazzo.comandante1, mazzo.comandante2);
@@ -386,6 +413,7 @@
     }
 
     async function caricaMazziVincenti() {
+      setLoading(true);
       try {
         const resp = await fetch(GOOGLE_SCRIPTS_VINCENTI);
         const data = await resp.json();
@@ -396,6 +424,8 @@
         if (listContainer) {
           listContainer.innerHTML = "<li class='vincenti-item'>Errore nel caricamento dei dati.</li>";
         }
+      } finally {
+        setLoading(false); // nasconde "Caricamento in corso…" sia in successo che in errore
       }
     }
 
