@@ -67,7 +67,7 @@ section p,section ul{
 }
 section ul{list-style:disc;padding-left:1.5rem;text-align:left}
 
-/* ====== LISTE VINCENTI ====== */
+/* ====== LISTE VINCENTI (struttura base) ====== */
 .centered-full{min-height:calc(100vh - var(--header-height));display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center}
 .vincenti-list{list-style:none;padding:0;margin:2rem auto;max-width:900px;width:100%}
 .vincenti-item{
@@ -173,14 +173,6 @@ section ul{list-style:disc;padding-left:1.5rem;text-align:left}
   nav a:hover,
   nav a.active{ background:var(--rosso-wildfire); color:#fff; }
 
-  /* bottone hamburger sopra al pannello */
-  .menu-toggle{
-    position:absolute; right:12px; top:10px;
-    background:var(--rosso-wildfire); color:#fff; border:none; border-radius:10px;
-    padding:.35rem .6rem; font-size:1rem; line-height:1; cursor:pointer; display:block;
-    z-index:1200;
-  }
-
   /* contenuti */
   section{padding:3rem 1rem}
   section h2{font-size:1.9rem}
@@ -221,6 +213,53 @@ section ul{list-style:disc;padding-left:1.5rem;text-align:left}
   .footer-bottom{font-size:.82rem}
 }
 
-/* ============ HAMBURGER fallback (desktop: nascosto) ============ */
-.menu-toggle{display:none}
-@media (max-width:768px){ .menu-toggle{display:block} }
+/* ================================================================== */
+/* ============ HAMBURGER: visibile SOLO su mobile (globale) ========= */
+/* ================================================================== */
+.menu-toggle{ display:none !important; }   /* default: nascondi su desktop */
+
+@media (max-width:768px){
+  .menu-toggle{
+    width:44px; height:44px; padding:0;
+    display:grid; place-items:center; border-radius:10px;
+    background:var(--rosso-wildfire); color:#fff; border:none; cursor:pointer;
+    z-index:1200;
+  }
+
+  /* assicura che il bottone non porti pseudo-elementi propri */
+  .menu-toggle::before,
+  .menu-toggle::after{ content:none !important; display:none !important; }
+
+  /* 3 barrette centrate (unica sorgente: lo span.bar) */
+  .menu-toggle span.bar{
+    position:relative; display:block; width:22px; height:2px;
+    background:#fff; border-radius:2px;
+    transition:transform .2s ease, background .2s ease;
+  }
+  .menu-toggle span.bar::before,
+  .menu-toggle span.bar::after{
+    content:""; position:absolute; left:0; right:0; height:2px;
+    background:#fff; border-radius:2px;
+    transition:transform .2s ease, top .2s ease;
+  }
+  .menu-toggle span.bar::before{ top:-6px; }
+  .menu-toggle span.bar::after { top: 6px; }
+
+  /* stato aperto → X (facoltativo) */
+  .menu-toggle.is-open span.bar{ background:transparent; }
+  .menu-toggle.is-open span.bar::before{ top:0; transform:rotate(45deg); }
+  .menu-toggle.is-open span.bar::after { top:0; transform:rotate(-45deg); }
+}
+
+/* Hotfix hamburger: visibile SOLO su mobile */
+.menu-toggle{ display:none; } /* rimuovi l'!important qui */
+
+@media (max-width:768px){
+  .menu-toggle{
+    display:grid !important;   /* forza la visibilità su mobile */
+    width:44px; height:44px; padding:0;
+    place-items:center; border-radius:10px;
+    background:var(--rosso-wildfire); color:#fff; border:none; cursor:pointer;
+    z-index:1200;
+  }
+}

@@ -185,52 +185,52 @@
         document.addEventListener("DOMContentLoaded", function () {
           const header = document.querySelector("header");
           const nav = document.querySelector("nav");
-
           if (!header || !nav) return;
 
-          // 1) Crea il pulsante ☰ se non esiste
+          // crea il bottone se non esiste
           let menuToggle = document.querySelector(".menu-toggle");
           if (!menuToggle) {
             menuToggle = document.createElement("button");
             menuToggle.className = "menu-toggle";
-            menuToggle.textContent = "☰";
+            menuToggle.type = "button";
+            menuToggle.setAttribute("aria-label", "Apri il menu");
+            menuToggle.setAttribute("aria-expanded", "false");
+            // tre barrette centrate via CSS
+            menuToggle.innerHTML = '<span class="bar" aria-hidden="true"></span>';
             header.appendChild(menuToggle);
           }
 
-          // 2) Toggle apertura/chiusura
-          function openMenu()  { nav.classList.add("show"); }
-          function closeMenu() { nav.classList.remove("show"); }
-          function isOpen()    { return nav.classList.contains("show"); }
+          const openMenu = () => {
+            nav.classList.add("show");
+            menuToggle.classList.add("is-open");
+            menuToggle.setAttribute("aria-label", "Chiudi il menu");
+            menuToggle.setAttribute("aria-expanded", "true");
+          };
+          const closeMenu = () => {
+            nav.classList.remove("show");
+            menuToggle.classList.remove("is-open");
+            menuToggle.setAttribute("aria-label", "Apri il menu");
+            menuToggle.setAttribute("aria-expanded", "false");
+          };
+          const isOpen = () => nav.classList.contains("show");
 
           menuToggle.addEventListener("click", (e) => {
-            e.stopPropagation();               // non far arrivare il click al document
+            e.stopPropagation();
             isOpen() ? closeMenu() : openMenu();
           });
 
-          // 3) Chiudi quando clicchi/tocchi fuori dal menu o dal bottone
-          function outsideHandler(e) {
-            const target = e.target;
-            if (!isOpen()) return;
-            // se il click NON è dentro al nav e NON è sul bottone, chiudi
-            if (!nav.contains(target) && !menuToggle.contains(target)) {
-              closeMenu();
-            }
-          }
-          // supporto mobile: pointerdown prende tap immediatamente
-          document.addEventListener("pointerdown", outsideHandler);
-          document.addEventListener("click", outsideHandler);
-
-          // 4) Chiudi quando scegli una voce del menu (navigazione)
-          nav.querySelectorAll("a").forEach(a => {
-            a.addEventListener("click", () => closeMenu());
+          // chiusura al tap/click fuori
+          document.addEventListener("pointerdown", (e) => {
+            if (isOpen() && !nav.contains(e.target) && !menuToggle.contains(e.target)) closeMenu();
           });
 
-          // 5) Chiudi con ESC
-          document.addEventListener("keydown", (e) => {
-            if (e.key === "Escape" && isOpen()) closeMenu();
-          });
+          // chiudi quando scegli una voce
+          nav.querySelectorAll("a").forEach(a => a.addEventListener("click", closeMenu));
 
-          // 6) Logo/scritta -> Home
+          // chiudi con ESC
+          document.addEventListener("keydown", (e) => { if (e.key === "Escape" && isOpen()) closeMenu(); });
+
+          // logo/scritta → Home
           const brand = document.querySelector(".brand");
           if (brand) {
             brand.style.cursor = "pointer";
@@ -277,7 +277,7 @@
           </div>
           <div class="footer-bottom">
             <p>© 2025 WildFire Store Roma - Tutti i diritti riservati</p>
-            <p>P.IVA 12345678901</p>
+            <p>P.IVA 14182451006</p>
           </div>
         </div>
       </footer>

@@ -2,19 +2,19 @@
 <html lang="it">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Liste Vincenti • Commhundred</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Commhundred - Liste Vincenti</title>
 
   <!-- Foglio di stile globale -->
   <link rel="stylesheet" href="styles.css?v=4" />
 
-  <!-- Favicon (versione whitebg consigliata) -->
-  <link rel="icon" type="image/png" sizes="48x48" href="/assets/icons-whitebg/favicon-48x48.png?v=3">
-  <link rel="icon" type="image/png" sizes="32x32" href="/assets/icons-whitebg/favicon-32x32.png?v=3">
-  <link rel="icon" type="image/png" sizes="16x16" href="/assets/icons-whitebg/favicon-16x16.png?v=3">
-  <link rel="icon" href="/assets/icons-whitebg/favicon.ico?v=3" sizes="any">
-  <link rel="apple-touch-icon" sizes="180x180" href="/assets/icons-whitebg/apple-touch-icon.png?v=3">
-  <meta name="theme-color" content="#e30613">
+  <link rel="icon" href="assets/icons/favicon.ico?v=1">
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/icons-whitebg/favicon-32x32.png?v=1">
+  <link rel="icon" type="image/png" sizes="16x16" href="assets/icons-whitebg/favicon-16x16.png?v=1">
+  <link rel="apple-touch-icon" sizes="180x180" href="assets/icons-whitebg/apple-touch-icon.png?v=1">
+  <link rel="manifest" href="assets/icons-whitebg/site.webmanifest?v=1">
+  <link rel="icon" type="image/png" sizes="48x48" href="/assets/icons-whitebg/favicon-48x48.png?v=2">
+  <link rel="icon" href="/favicon.ico?v=3" sizes="any">
 
   <!-- Stili specifici per questa pagina (layout artwork + info + loader) -->
   <style>
@@ -87,6 +87,31 @@
     }
     .art-credits a { color: var(--rosso-wildfire); text-decoration: none; }
     .art-credits a:hover { text-decoration: underline; }
+
+    /* ===== HAMBURGER FIX (solo per questa pagina) ===== */
+    .menu-toggle{
+      width:44px; height:44px; padding:0;
+      display:grid; place-items:center; border-radius:10px;
+      background:var(--rosso-wildfire); color:#fff; border:none; cursor:pointer;
+    }
+    /* disattiva pseudo-elementi eventuali sul bottone */
+    .menu-toggle::before,.menu-toggle::after{content:none!important;display:none!important;}
+    /* 3 barrette centrali */
+    .menu-toggle span.bar{
+      position:relative; display:block; width:22px; height:2px;
+      background:#fff; border-radius:2px;
+    }
+    .menu-toggle span.bar::before,
+    .menu-toggle span.bar::after{
+      content:""; position:absolute; left:0; right:0; height:2px;
+      background:#fff; border-radius:2px;
+    }
+    .menu-toggle span.bar::before{ top:-6px; }
+    .menu-toggle span.bar::after{  top: 6px; }
+    /* stato aperto → X (facoltativo) */
+    .menu-toggle.is-open span.bar{ background:transparent; }
+    .menu-toggle.is-open span.bar::before{ top:0; transform:rotate(45deg); }
+    .menu-toggle.is-open span.bar::after { top:0; transform:rotate(-45deg); }
   </style>
 </head>
 
@@ -146,7 +171,10 @@
 
       <!-- Footer semplice -->
       <footer class="footer-wrapper">
-        <div class="footer-bottom">© Commhundred • Wildfire</div>
+        <div class="footer-bottom">
+          <p>© 2025 WildFire Store Roma - Tutti i diritti riservati</p>
+          <p>P.IVA 14182451006</p>
+        </div>
       </footer>
     </div>
   </div>
@@ -164,17 +192,30 @@
       const header = document.querySelector("header");
       const nav = document.querySelector("nav");
       if (header && nav) {
-        // Crea il pulsante ☰ se non esiste
+        // Crea il pulsante se non esiste (3 barrette via CSS)
         let menuToggle = document.querySelector(".menu-toggle");
         if (!menuToggle) {
           menuToggle = document.createElement("button");
           menuToggle.className = "menu-toggle";
-          menuToggle.textContent = "☰";
+          menuToggle.type = "button";
+          menuToggle.setAttribute("aria-label", "Apri il menu");
+          menuToggle.setAttribute("aria-expanded", "false");
+          menuToggle.innerHTML = '<span class="bar" aria-hidden="true"></span>';
           header.appendChild(menuToggle);
         }
 
-        function openMenu(){ nav.classList.add("show"); }
-        function closeMenu(){ nav.classList.remove("show"); }
+        function openMenu(){ 
+          nav.classList.add("show");
+          menuToggle.classList.add("is-open");
+          menuToggle.setAttribute("aria-label","Chiudi il menu");
+          menuToggle.setAttribute("aria-expanded","true");
+        }
+        function closeMenu(){ 
+          nav.classList.remove("show"); 
+          menuToggle.classList.remove("is-open");
+          menuToggle.setAttribute("aria-label","Apri il menu");
+          menuToggle.setAttribute("aria-expanded","false");
+        }
         function isOpen(){ return nav.classList.contains("show"); }
 
         menuToggle.addEventListener("click", (e)=>{
