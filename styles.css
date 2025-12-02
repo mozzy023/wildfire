@@ -88,6 +88,7 @@ section ul{list-style:disc;padding-left:1.5rem;text-align:left}
 .vincenti-item--special{
   background:var(--rosso-wildfire);
   color:var(--bianco);
+  /*border-left:5px solid color-mix(in srgb, var(--rosso-wildfire) 25%, white);*/
 }
 
 .vincenti-item--special .deck-name,
@@ -99,9 +100,9 @@ section ul{list-style:disc;padding-left:1.5rem;text-align:left}
   color:var(--bianco);
 }
 
-/* badge con il testo dell'evento speciale (colonna I) */
+/* 🔹 badge con il testo dell'evento speciale (colonna I) */
 .deck-special{
-  display:inline-block;
+  display:inline-block;          /* si adatta alla lunghezza del testo */
   align-self:flex-start;
   margin-bottom:.4rem;
   padding:.18rem .75rem;
@@ -110,8 +111,8 @@ section ul{list-style:disc;padding-left:1.5rem;text-align:left}
   font-weight:700;
   text-transform:uppercase;
   letter-spacing:.03em;
-  background:var(--bianco);
-  color:var(--rosso-wildfire);
+  background:var(--bianco);      /* pill bianca */
+  color:var(--rosso-wildfire);   /* testo rosso */
   border:1px solid rgba(0,0,0,0.08);
 }
 
@@ -124,6 +125,7 @@ section ul{list-style:disc;padding-left:1.5rem;text-align:left}
   background:var(--bianco);
   color:var(--rosso-wildfire);
 }
+
 
 /* Filtri Y/S */
 .filter-container{
@@ -139,10 +141,8 @@ section ul{list-style:disc;padding-left:1.5rem;text-align:left}
 
 /* ====== CLASSIFICA (desktop) ====== */
 .ranking-wrapper{max-width:1100px;margin:0 auto;width:100%}
-.ranking-table{
-  width:100%;border-collapse:separate;border-spacing:0;background:#fff;
-  box-shadow:0 2px 10px rgba(0,0,0,.08);border-left:5px solid var(--rosso-wildfire);border-radius:12px
-}
+.ranking-table{width:100%;border-collapse:separate;border-spacing:0;background:#fff;
+  box-shadow:0 2px 10px rgba(0,0,0,.08);border-left:5px solid var(--rosso-wildfire);border-radius:12px}
 .ranking-table thead th{
   text-align:left;padding:.6rem .9rem;background:#fff;border-bottom:1px solid #eee;color:var(--nero-wildfire);
   position:sticky;top:0;z-index:3;box-shadow:0 1px 0 rgba(0,0,0,.06)
@@ -153,34 +153,20 @@ section ul{list-style:disc;padding-left:1.5rem;text-align:left}
   border:1px solid color-mix(in srgb, var(--rosso-wildfire) 30%, white);
   color:color-mix(in srgb, var(--rosso-wildfire) 75%, black)
 }
-.ranking-table tbody td{
-  padding:.65rem .9rem;border-bottom:1px solid #f0f0f0;font-size:.96rem;vertical-align:middle
-}
+.ranking-table tbody td{padding:.65rem .9rem;border-bottom:1px solid #f0f0f0;font-size:.96rem;vertical-align:middle}
 .ranking-table tbody tr:hover td{background:#fafafa}
-.ranking-table th.num,.ranking-table td.num{
-  text-align:right;font-variant-numeric:tabular-nums
-}
+.ranking-table th.num,.ranking-table td.num{ text-align:right; font-variant-numeric:tabular-nums }
 .ranking-table td.name{font-weight:600;color:#222}
-.ranking-table thead th:first-child,.ranking-table tbody td:first-child{
-  width:5.5ch;text-align:right
-}
+.ranking-table thead th:first-child,.ranking-table tbody td:first-child{width:5.5ch;text-align:right}
 
 /* ============ FOOTER ============ */
-.footer-wrapper{
-  padding:3rem 2rem;background:var(--nero-wildfire);color:#fff;text-align:center
-}
-.footer-columns{
-  display:flex;flex-wrap:wrap;justify-content:center;gap:3rem;margin-bottom:2rem;text-align:left
-}
+.footer-wrapper{padding:3rem 2rem;background:var(--nero-wildfire);color:#fff;text-align:center}
+.footer-columns{display:flex;flex-wrap:wrap;justify-content:center;gap:3rem;margin-bottom:2rem;text-align:left}
 .footer-column{min-width:200px;max-width:300px}
 .footer-column h4{margin-bottom:1rem;color:var(--rosso-wildfire);font-size:1.1rem}
-.footer-column p,.footer-column a{
-  color:#fff;font-size:.95rem;line-height:1.6;text-decoration:none
-}
+.footer-column p,.footer-column a{color:#fff;font-size:.95rem;line-height:1.6;text-decoration:none}
 .footer-column a:hover{text-decoration:underline;color:var(--rosso-wildfire)}
-.footer-bottom{
-  border-top:1px solid #444;padding-top:1rem;font-size:.85rem;color:#ccc
-}
+.footer-bottom{border-top:1px solid #444;padding-top:1rem;font-size:.85rem;color:#ccc}
 
 /* ============ TABLET ============ */
 @media (max-width:992px){
@@ -197,25 +183,26 @@ section ul{list-style:disc;padding-left:1.5rem;text-align:left}
   .logo-img{height:40px}
   .logo-text{font-size:1.4rem;text-align:center}
 
-  /* NAV MOBILE: pannello fisso sotto l’header */
+  /* ===== NAV MOBILE: pannello fisso sotto l’header ===== */
   nav{
     position:fixed;
     left:0; right:0;
-    top:var(--header-height);
+    top:var(--header-height);    /* subito sotto l’header fisso */
     width:100vw;
 
-    display:none;
+    display:none;                /* chiuso di default */
     flex-direction:column;
     align-items:stretch;
     gap:0;
 
-    background:#ffffff;
-    border-bottom:2px solid var(--rosso-wildfire);
+    background:#ffffff;          /* opaco */
+    border-bottom:2px solid var(--rosso-wildfire); /* linea finale ben visibile */
     box-shadow:0 10px 24px rgba(0,0,0,.10);
     z-index:1100;
   }
-  nav.show{display:flex;}
+  nav.show{ display:flex; }
 
+  /* voci menu */
   nav a{
     display:block;
     height:auto;
@@ -227,8 +214,9 @@ section ul{list-style:disc;padding-left:1.5rem;text-align:left}
   }
   nav a:first-child{border-top:none}
   nav a:hover,
-  nav a.active{background:var(--rosso-wildfire);color:#fff;}
+  nav a.active{ background:var(--rosso-wildfire); color:#fff; }
 
+  /* contenuti */
   section{padding:3rem 1rem}
   section h2{font-size:1.9rem}
   section p,section ul{font-size:1rem;line-height:1.6}
@@ -239,87 +227,89 @@ section ul{list-style:disc;padding-left:1.5rem;text-align:left}
   .filter-container select{width:100%;font-size:.95rem;padding:.55rem}
 
   /* liste vincenti */
-  .vincenti-item{
-    width:95%;margin:0 auto 1rem;border-left-width:4px;padding:1rem
-  }
+  .vincenti-item{width:95%;margin:0 auto 1rem;border-left-width:4px;padding:1rem}
   .deck-name{font-size:1.05rem}
   .deck-link{width:100%;text-align:center;padding:.6rem;font-size:.92rem}
 
-  /* CLASSIFICA: card più compatte e leggere su mobile */
-  .ranking-table thead{display:none}
-  .ranking-table,
-  .ranking-table tbody,
-  .ranking-table tr,
-  .ranking-table td{
-    display:block;
-    width:100%;
-  }
+/* CLASSIFICA: versione minimale su mobile */
+.ranking-table thead{
+  display:none;
+}
 
-  .ranking-table tbody tr{
-    margin:.5rem 0;
-    border:1px solid #eee;
-    border-left:4px solid var(--rosso-wildfire);
-    border-radius:12px;
-    background:#fff;
-    box-shadow:0 2px 6px rgba(0,0,0,.06);
-    padding:.65rem .9rem;
-    overflow:hidden;
-  }
+.ranking-table,
+.ranking-table tbody,
+.ranking-table tr,
+.ranking-table td{
+  display:block;
+  width:100%;
+}
+.ranking-table tbody tr{
+  margin:.5rem 0;
+  border:1px solid #eee;
+  border-left:4px solid var(--rosso-wildfire);
+  border-radius:12px;
+  background:#fff;
+  box-shadow:0 2px 6px rgba(0,0,0,.06);
+  padding:.65rem .9rem;
+  overflow:hidden;
+}
+.ranking-table td{
+  border:none;
+  padding:.15rem 0;
+  position:relative;
+}
+/* niente pillole con data-label per ogni cella */
+.ranking-table td::before{
+  content:"";
+  display:none;
+}
+/* 1ª colonna: "Posizione 1" piccola in alto */
+.ranking-table td:first-child{
+  font-size:.8rem;
+  font-weight:600;
+  color:#555;
+  margin-bottom:.1rem;
+}
+.ranking-table td:first-child::before{
+  content:"Posizione ";
+  display:inline;
+  font-weight:600;
+  color:#555;
+}
+/* 2ª colonna (td.name): nome grosso */
+.ranking-table td.name{
+  font-size:1rem;
+  font-weight:700;
+  color:#111;
+  margin-bottom:.25rem;
+}
+/* 3ª e 4ª colonna: Punti e Presenze sulla stessa riga */
+.ranking-table td:nth-child(3),
+.ranking-table td:nth-child(4){
+  display:inline;
+  width:auto;               /* 🔹 questo è il punto chiave */
+  font-size:.85rem;
+  color:#555;
+}
 
-  .ranking-table td{
-    border:none;
-    padding:.15rem 0;
-    position:relative;
-  }
+.ranking-table td:nth-child(3)::before{
+  content:"Punti: ";
+  display:inline;
+  font-weight:600;
+}
+.ranking-table td:nth-child(3)::after{
+  content:"  · ";  /* Due spazi prima del punto per più spazio a sinistra */
+  display:inline;
+  font-weight:600;
+  color:#555;
+}
+.ranking-table td:nth-child(4)::before{
+  content:"Presenze: ";
+  display:inline;
+  font-weight:600;
+}
 
-  /* niente etichette-pill generiche */
-  .ranking-table td::before{
-    content:"";
-    display:none;
-  }
 
-  /* posizione: "Posizione 1" piccola e grigia */
-  .ranking-table td:first-child{
-    font-size:.8rem;
-    font-weight:600;
-    color:#555;
-    margin-bottom:.1rem;
-  }
-  .ranking-table td:first-child::before{
-    content:"Posizione ";
-    display:inline;
-    font-weight:600;
-    color:#555;
-  }
-
-  /* nome giocatore: riga principale */
-  .ranking-table td.name{
-    font-size:1rem;
-    font-weight:700;
-    color:#111;
-    margin-bottom:.25rem;
-  }
-
-  /* punti + presenze sulla stessa riga */
-  .ranking-table td:nth-child(3),
-  .ranking-table td:nth-child(4){
-    display:inline;
-    font-size:.85rem;
-    color:#555;
-  }
-
-  .ranking-table td:nth-child(3)::before{
-    content:"Punti: ";
-    display:inline;
-    font-weight:600;
-  }
-
-  .ranking-table td:nth-child(4)::before{
-    content:" · Presenze: ";
-    display:inline;
-    font-weight:600;
-    margin-left:.15rem;
-  }
 
   /* footer mobile */
   .footer-columns{flex-direction:column;align-items:center;text-align:center;gap:2rem}
@@ -330,34 +320,50 @@ section ul{list-style:disc;padding-left:1.5rem;text-align:left}
 /* ================================================================== */
 /* ============ HAMBURGER: visibile SOLO su mobile (globale) ========= */
 /* ================================================================== */
-.menu-toggle{display:none;}   /* default: nascondi su desktop */
+.menu-toggle{ display:none !important; }   /* default: nascondi su desktop */
 
 @media (max-width:768px){
   .menu-toggle{
-    width:44px;height:44px;padding:0;
-    display:grid;place-items:center;border-radius:10px;
-    background:var(--rosso-wildfire);color:#fff;border:none;cursor:pointer;
+    width:44px; height:44px; padding:0;
+    display:grid; place-items:center; border-radius:10px;
+    background:var(--rosso-wildfire); color:#fff; border:none; cursor:pointer;
     z-index:1200;
   }
 
+  /* assicura che il bottone non porti pseudo-elementi propri */
   .menu-toggle::before,
-  .menu-toggle::after{content:none !important;display:none !important;}
+  .menu-toggle::after{ content:none !important; display:none !important; }
 
+  /* 3 barrette centrate (unica sorgente: lo span.bar) */
   .menu-toggle span.bar{
-    position:relative;display:block;width:22px;height:2px;
-    background:#fff;border-radius:2px;
-    transition:transform .2s ease,background .2s ease;
+    position:relative; display:block; width:22px; height:2px;
+    background:#fff; border-radius:2px;
+    transition:transform .2s ease, background .2s ease;
   }
   .menu-toggle span.bar::before,
   .menu-toggle span.bar::after{
-    content:"";position:absolute;left:0;right:0;height:2px;
-    background:#fff;border-radius:2px;
-    transition:transform .2s ease,top .2s ease;
+    content:""; position:absolute; left:0; right:0; height:2px;
+    background:#fff; border-radius:2px;
+    transition:transform .2s ease, top .2s ease;
   }
-  .menu-toggle span.bar::before{top:-6px;}
-  .menu-toggle span.bar::after{top:6px;}
+  .menu-toggle span.bar::before{ top:-6px; }
+  .menu-toggle span.bar::after { top: 6px; }
 
-  .menu-toggle.is-open span.bar{background:transparent;}
-  .menu-toggle.is-open span.bar::before{top:0;transform:rotate(45deg);}
-  .menu-toggle.is-open span.bar::after{top:0;transform:rotate(-45deg);}
+  /* stato aperto → X (facoltativo) */
+  .menu-toggle.is-open span.bar{ background:transparent; }
+  .menu-toggle.is-open span.bar::before{ top:0; transform:rotate(45deg); }
+  .menu-toggle.is-open span.bar::after { top:0; transform:rotate(-45deg); }
+}
+
+/* Hotfix hamburger: visibile SOLO su mobile */
+.menu-toggle{ display:none; } /* rimuovi l'!important qui */
+
+@media (max-width:768px){
+  .menu-toggle{
+    display:grid !important;   /* forza la visibilità su mobile */
+    width:44px; height:44px; padding:0;
+    place-items:center; border-radius:10px;
+    background:var(--rosso-wildfire); color:#fff; border:none; cursor:pointer;
+    z-index:1200;
+  }
 }
