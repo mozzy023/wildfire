@@ -4,13 +4,9 @@
 
 /**
  * URL della WebApp Apps Script che restituisce l'array di mazzi in JSON.
- * Assicurati che la tua doGet(e) faccia:
- *   var cb = e.parameter.callback;
- *   return ContentService.createTextOutput(cb + "(" + json + ");")
- *          .setMimeType(ContentService.MimeType.JAVASCRIPT);
  */
 const GOOGLE_SCRIPTS_VINCENTI =
-  "https://script.google.com/macros/s/AKfycbxfsF7axySAFq228jRXAICg8DgeZ-N7jm5QB6ibyRSOMol-lvlbaFayvmbhtLq6zGQOQg/exec";
+  "https://script.google.com/macros/s/AKfycby-4AjjJVDkYhzCUCVow6xpGTFOwvdoFWAboSH-dnM7xPoy1FRyhZPcEKAXg87YzQUa_Q/exec";
 
 /* ==========================
    NAV: hamburger + brand → home
@@ -200,11 +196,7 @@ async function insertCommanderArt(container, commander1, commander2) {
 }
 
 /* ==========================
-   Utility: mostra solo la data (no orario)
-   ========================== */
-
-/* ==========================
-   Utility: mostra solo giorno/settimana + data (no orario)
+   Utility: giorno-settimana + data (no orario)
    ========================== */
 
 function formatDateValue(value) {
@@ -229,8 +221,6 @@ function formatDateValue(value) {
 
   return s;
 }
-
-
 
 /* ==========================
    Filtri Y/S (dipendenti: Year -> Season)
@@ -265,7 +255,7 @@ function populateYearFilter() {
     const na = parseInt(a.replace(/[^\d]/g, "")) || 0;
     const nb = parseInt(b.replace(/[^\d]/g, "")) || 0;
     if (na === nb) return a.localeCompare(b);
-    return na - nb; // o nb - na se vuoi l'anno più recente in alto
+    return na - nb;
   });
 
   selectY.innerHTML =
@@ -287,7 +277,6 @@ function populateSeasonFilter() {
 
   const selectedYear = selectY.value || "tutte";
 
-  // Se nessun anno selezionato ⇒ season disabilitata
   if (selectedYear === "tutte") {
     selectS.innerHTML =
       '<option value="tutte">Tutte le season</option>';
@@ -341,7 +330,6 @@ function applyFilters() {
 // Eventi sui <select> di filtro
 document.addEventListener("change", (e) => {
   if (e.target && e.target.id === "filter-y") {
-    // Cambiando anno, aggiorno le season possibili e applico il filtro
     populateSeasonFilter();
     applyFilters();
   } else if (e.target && e.target.id === "filter-s") {
@@ -360,7 +348,6 @@ function handleVincentiData(data) {
 
     listContainer.innerHTML = "";
 
-    // reset meta filtri a ogni nuovo caricamento
     filterMeta.years.clear();
     filterMeta.seasonsByYear = {};
 
@@ -369,6 +356,11 @@ function handleVincentiData(data) {
     (data || []).forEach((mazzo) => {
       const li = document.createElement("li");
       li.classList.add("vincenti-item");
+
+      // 🔴 evento speciale se special_note è valorizzato
+      if (mazzo.special_note) {
+        li.classList.add("vincenti-item--special");
+      }
 
       const row = document.createElement("div");
       row.className = "deck-row";
@@ -382,6 +374,7 @@ function handleVincentiData(data) {
       const dateText = formatDateValue(mazzo.data);
 
       info.innerHTML = `
+        ${mazzo.special_note ? `<span class="deck-special">${mazzo.special_note}</span>` : ""}
         <span class="deck-name">${mazzo.nome || ""}</span>
         <span class="deck-author">${mazzo.autore || ""}</span>
         <span class="deck-commander">
@@ -407,28 +400,24 @@ function handleVincentiData(data) {
       row.appendChild(info);
       li.appendChild(row);
 
-      // Tag S/Y per i filtri
       const tag = String(mazzo.year_season || "").toUpperCase();
       const sMatch = tag.match(/S\s*(\d+)/);
       const yMatch = tag.match(/Y\s*(\d+)/);
       if (sMatch) li.dataset.s = `S${sMatch[1]}`;
       if (yMatch) li.dataset.y = `Y${yMatch[1]}`;
 
-      // registra per meta filtri (year -> seasons)
       registerDeckForFilters(li);
 
       listContainer.appendChild(li);
 
-      // Artwork comandante (uno o due)
       insertCommanderArt(art, mazzo.comandante1, mazzo.comandante2);
     });
 
-    // inizializza filtri dipendenti
     populateYearFilter();
     populateSeasonFilter();
     applyFilters();
   } finally {
-    setLoading(false); // stop spinner quando i dati sono pronti (o se qualcosa va storto)
+    setLoading(false);
   }
 }
 
@@ -466,7 +455,6 @@ function caricaMazziVincenti() {
    ========================== */
 
 document.addEventListener("DOMContentLoaded", () => {
-  // opzionale: animazione sezioni
   const observer = new IntersectionObserver(
     (entries) => {
       entries.forEach((entry) => {

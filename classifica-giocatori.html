@@ -17,154 +17,9 @@
   <link rel="icon" type="image/png" sizes="48x48" href="/assets/icons-whitebg/favicon-48x48.png?v=2">
   <link rel="icon" href="/favicon.ico?v=3" sizes="any">
 
-
   <!-- Colore barra indirizzi su mobile -->
   <meta name="theme-color" content="#e30613">
   <meta name="msapplication-TileColor" content="#e30613">
-
-  <style>
-    /* Stile coerente, più compatto e con header sticky funzionante */
-    .ranking-wrapper {
-      max-width: 1100px;
-      margin: 0 auto;
-      width: 100%;
-    }
-
-    .ranking-table {
-      width: 100%;
-      border-collapse: separate; /* sticky più affidabile */
-      border-spacing: 0;
-      background: #fff;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.08);
-      border-left: 5px solid var(--rosso-wildfire);
-      border-radius: 12px;
-    }
-
-    .ranking-table thead th {
-      text-align: left;
-      padding: 0.6rem 0.9rem;
-      background: #ffffff;
-      border-bottom: 1px solid #eee;
-      color: var(--nero-wildfire);
-      position: sticky;
-      top: 0;
-      z-index: 3;
-      box-shadow: 0 1px 0 rgba(0,0,0,0.06);
-    }
-
-    .ranking-table thead th .hdr-pill {
-      display: inline-block;
-      padding: 0.25rem 0.55rem;
-      border-radius: 999px;
-      font-weight: 700;
-      line-height: 1;
-      letter-spacing: 0.01em;
-      background: color-mix(in srgb, var(--rosso-wildfire) 10%, white);
-      border: 1px solid color-mix(in srgb, var(--rosso-wildfire) 30%, white);
-      color: color-mix(in srgb, var(--rosso-wildfire) 75%, black);
-    }
-
-    .ranking-table tbody td {
-      padding: 0.65rem 0.9rem;
-      border-bottom: 1px solid #f0f0f0;
-      font-size: 0.95rem;
-      vertical-align: middle;
-    }
-    .ranking-table tbody tr:hover td {
-      background: #fafafa;
-    }
-
-    /* Allineamenti */
-    .ranking-table th.num,
-    .ranking-table td.num {
-      text-align: right;
-      font-variant-numeric: tabular-nums;
-    }
-    .ranking-table td.name {
-      font-weight: 600;
-      color: #222;
-    }
-
-    /* Colonna "posizione" stretta e numerica a destra */
-    .ranking-table thead th:first-child,
-    .ranking-table tbody td:first-child {
-      width: 5.5ch;
-      text-align: right;
-    }
-
-    .ranking-loading, .ranking-error, .ranking-empty {
-      text-align: center;
-      padding: 1.2rem 1rem;
-      background: #fff;
-      border-left: 5px solid var(--rosso-wildfire);
-      border-radius: 10px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
-      max-width: 800px;
-      margin: 0.75rem auto 0 auto;
-    }
-
-    .legend {
-      margin: 0 auto 0.75rem auto;
-      max-width: 1000px;
-      color: #555;
-      font-size: 0.95rem;
-      text-align: center;
-    }
-
-    @media (max-width: 640px) {
-      .ranking-table thead { display: none; }
-
-      .ranking-table,
-      .ranking-table tbody,
-      .ranking-table tr,
-      .ranking-table td {
-        display: block;
-        width: 100%;
-      }
-
-      .ranking-table tbody tr {
-        margin: 0.5rem 0;
-        border: 1px solid #eee;
-        border-left: 5px solid var(--rosso-wildfire);
-        border-radius: 12px;
-        background: #fff;
-        box-shadow: 0 2px 6px rgba(0,0,0,0.06);
-        overflow: hidden;
-      }
-
-      /* celle a blocchi, niente padding-left enorme */
-      .ranking-table td {
-        border: none;
-        border-bottom: 1px solid #f3f3f3;
-        position: relative;
-        padding: .6rem .9rem;
-        min-height: auto;
-      }
-
-      /* etichetta sopra al valore, non sovrapposta */
-      .ranking-table td::before {
-        content: attr(data-label);
-        position: static;            /* NON assoluta */
-        transform: none;
-        display: inline-block;
-        margin-bottom: .25rem;
-        padding: .15rem .5rem;
-        border-radius: 999px;
-        background: #f5f5f5;
-        border: 1px solid #eee;
-        font-weight: 700;
-        font-size: .85rem;
-        color: #444;
-      }
-
-      .ranking-table td.name { font-weight: 700; }
-      .ranking-table td.num { text-align: left; } /* niente allineamento a destra su mobile */
-
-      /* rimuove l’ultimo bordo */
-      .ranking-table td:last-child { border-bottom: none; }
-    }
-
-  </style>
 </head>
 <body>
   <div class="wrapper">
@@ -187,7 +42,6 @@
           const nav = document.querySelector("nav");
           if (!header || !nav) return;
 
-          // crea il bottone se non esiste
           let menuToggle = document.querySelector(".menu-toggle");
           if (!menuToggle) {
             menuToggle = document.createElement("button");
@@ -195,7 +49,6 @@
             menuToggle.type = "button";
             menuToggle.setAttribute("aria-label", "Apri il menu");
             menuToggle.setAttribute("aria-expanded", "false");
-            // tre barrette centrate via CSS
             menuToggle.innerHTML = '<span class="bar" aria-hidden="true"></span>';
             header.appendChild(menuToggle);
           }
@@ -219,18 +72,16 @@
             isOpen() ? closeMenu() : openMenu();
           });
 
-          // chiusura al tap/click fuori
           document.addEventListener("pointerdown", (e) => {
             if (isOpen() && !nav.contains(e.target) && !menuToggle.contains(e.target)) closeMenu();
           });
 
-          // chiudi quando scegli una voce
           nav.querySelectorAll("a").forEach(a => a.addEventListener("click", closeMenu));
 
-          // chiudi con ESC
-          document.addEventListener("keydown", (e) => { if (e.key === "Escape" && isOpen()) closeMenu(); });
+          document.addEventListener("keydown", (e) => {
+            if (e.key === "Escape" && isOpen()) closeMenu();
+          });
 
-          // logo/scritta → Home
           const brand = document.querySelector(".brand");
           if (brand) {
             brand.style.cursor = "pointer";
@@ -242,6 +93,19 @@
 
       <section>
         <h2>Classifica Giocatori</h2>
+
+        <!-- Filtro Season (stile identico a liste-vincenti, usa .filter-container già in styles.css) -->
+        <div class="filter-container">
+          <label for="filter-season">Season:</label>
+          <select id="filter-season">
+            <!-- Le opzioni possono essere popolate anche da JS, ma le mettiamo qui per chiarezza -->
+            <option value="y3_all">Year 3 – Classifica generale</option>
+            <option value="y3_s1">Year 3 – Season 1</option>
+            <option value="y3_s2">Year 3 – Season 2</option>
+            <option value="y3_s3">Year 3 – Season 3</option>
+          </select>
+        </div>
+
         <div id="ranking-container" class="ranking-wrapper">
           <div class="ranking-loading">Caricamento classifica...</div>
         </div>
@@ -285,21 +149,5 @@
   </div>
 
   <script src="classifica-giocatori.js"></script>
-  <script>
-    // Adatta etichette su mobile aggiungendo data-label in base alle intestazioni calcolate
-    document.addEventListener("DOMContentLoaded", () => {
-      const tableObserver = new MutationObserver(() => {
-        const table = document.querySelector(".ranking-table");
-        if (!table) return;
-        const headers = Array.from(table.querySelectorAll("thead th")).map(th => th.textContent.trim());
-        table.querySelectorAll("tbody tr").forEach(tr => {
-          Array.from(tr.children).forEach((td, i) => {
-            td.setAttribute("data-label", headers[i] || `Col ${i+1}`);
-          });
-        });
-      });
-      tableObserver.observe(document.getElementById("ranking-container"), { childList: true, subtree: true });
-    });
-  </script>
 </body>
 </html>
