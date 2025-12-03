@@ -5,7 +5,7 @@
 
 // ⛓️ URL della WebApp Apps Script (quella che hai appena pubblicato)
 const RANKING_API_URL =
-  "https://script.google.com/macros/s/AKfycbxTePXJEbTAcEPTmXsS373ADuwKUATnbAAnJ1p7qKmybXvMcULSgLTzYnxyG-MAwyUP/exec";
+  "https://script.google.com/macros/s/AKfycbwDBWzCUf2M-jDDwdlBZOBXRcYU70AR9femxizhQagjaWb9oNLD54YUcymk-hPC8Gg/exec";
 
 // Chiavi di season disponibili
 const SEASONS = {

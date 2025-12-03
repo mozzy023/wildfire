@@ -6,7 +6,7 @@
  * URL della WebApp Apps Script che restituisce l'array di mazzi in JSON.
  */
 const GOOGLE_SCRIPTS_VINCENTI =
-  "https://script.google.com/macros/s/AKfycby-4AjjJVDkYhzCUCVow6xpGTFOwvdoFWAboSH-dnM7xPoy1FRyhZPcEKAXg87YzQUa_Q/exec";
+  "https://script.google.com/macros/s/AKfycbzwopMMnyS6V_uDuCRt5i_fesH51xkU9wH9sokRXJmEGVOpdbiF-hCoXe0EuDxUTfrRZQ/exec";
 
 /* ==========================
    NAV: hamburger + brand → home
