@@ -1,8 +1,9 @@
 <!DOCTYPE html>
 <html lang="it">
+
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Commhundred - Liste Vincenti</title>
 
   <!-- Foglio di stile globale -->
@@ -21,62 +22,107 @@
   <!-- Stili specifici per questa pagina (layout artwork + info + loader) -->
   <style>
     /* --- Card mazzo: layout immagine + info affiancati --- */
-    .vincenti-item { padding: 1rem; }
-    .deck-row{
-      display:grid;
-      grid-template-columns: 320px 1fr;   /* immagine fissa, testo flessibile */
-      gap:16px;
-      align-items:start;
+    .vincenti-item {
+      padding: 1rem;
     }
-    .deck-art{
-      width:100%;
-      border-radius:12px;
-      overflow:hidden;
-      background:#f7f7f8;                /* “letterbox” elegante se rapporti diversi */
-      padding:6px;                       /* cornice leggera */
+
+    .deck-row {
+      display: grid;
+      grid-template-columns: 320px 1fr;
+      /* immagine fissa, testo flessibile */
+      gap: 16px;
+      align-items: start;
     }
-    .deck-art img{
-      width:100%;
-      height:auto;                       /* non tagliamo l’immagine */
-      display:block;
-      border-radius:10px;
-      object-fit:contain;
-      background:#f7f7f8;
-      box-shadow:0 2px 6px rgba(0,0,0,.08);
+
+    .deck-art {
+      width: 100%;
+      border-radius: 12px;
+      overflow: hidden;
+      background: #f7f7f8;
+      /* “letterbox” elegante se rapporti diversi */
+      padding: 6px;
+      /* cornice leggera */
     }
-    .deck-art.pair{
-      display:grid;
-      grid-template-rows: 1fr 1fr;       /* due comandanti → immagini impilate */
-      gap:8px;
-      padding:0;
-      background:none;
+
+    .deck-art img {
+      width: 100%;
+      height: auto;
+      /* non tagliamo l’immagine */
+      display: block;
+      border-radius: 10px;
+      object-fit: contain;
+      background: #f7f7f8;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, .08);
     }
-    .deck-info{ display:flex; flex-direction:column; gap:.4rem; }
-    .deck-link{ align-self:flex-start; }
+
+    .deck-art.pair {
+      display: grid;
+      grid-template-rows: 1fr 1fr;
+      /* due comandanti → immagini impilate */
+      gap: 8px;
+      padding: 0;
+      background: none;
+    }
+
+    .deck-info {
+      display: flex;
+      flex-direction: column;
+      gap: .4rem;
+    }
+
+    .deck-link {
+      align-self: flex-start;
+    }
 
     /* Filtri in alto: larghezza piacevole */
-    .filter-container { max-width: 920px; }
+
 
     /* Loader */
-    .loading{
-      display:flex; align-items:center; justify-content:center; gap:8px;
-      color:#666; font-size:.95rem; margin:.5rem auto 1rem;
+    .loading {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      color: #666;
+      font-size: .95rem;
+      margin: .5rem auto 1rem;
     }
-    .spinner{
-      width:16px; height:16px; border:2px solid #ddd;
+
+    .spinner {
+      width: 16px;
+      height: 16px;
+      border: 2px solid #ddd;
       border-top-color: var(--rosso-wildfire);
-      border-radius:50%; animation:spin .8s linear infinite;
+      border-radius: 50%;
+      animation: spin .8s linear infinite;
     }
-    @keyframes spin{ to{ transform:rotate(360deg); } }
+
+    @keyframes spin {
+      to {
+        transform: rotate(360deg);
+      }
+    }
 
     /* Responsive */
-    @media (max-width: 1024px){
-      .deck-row{ grid-template-columns: 280px 1fr; }
+    @media (max-width: 1024px) {
+      .deck-row {
+        grid-template-columns: 280px 1fr;
+      }
     }
-    @media (max-width: 768px){
-      .deck-row{ grid-template-columns: 1fr; }
-      .deck-art{ padding:0; }
-      .deck-link{ width:100%; text-align:center; }
+
+    @media (max-width: 768px) {
+      .deck-row {
+        grid-template-columns: 1fr;
+      }
+
+      .deck-art {
+        padding: 0;
+      }
+
+      .deck-link {
+        width: 100%;
+        text-align: center;
+      }
     }
 
     /* Crediti Scryfall */
@@ -85,35 +131,81 @@
       text-align: center;
       font-size: .85rem;
       color: #666;
-      max-width: 920px;
     }
-    .art-credits a { color: var(--rosso-wildfire); text-decoration: none; }
-    .art-credits a:hover { text-decoration: underline; }
+
+    .art-credits a {
+      color: var(--rosso-wildfire);
+      text-decoration: none;
+    }
+
+    .art-credits a:hover {
+      text-decoration: underline;
+    }
 
     /* ===== HAMBURGER FIX (solo per questa pagina) ===== */
-    .menu-toggle{
-      width:44px; height:44px; padding:0;
-      display:grid; place-items:center; border-radius:10px;
-      background:var(--rosso-wildfire); color:#fff; border:none; cursor:pointer;
+    .menu-toggle {
+      width: 44px;
+      height: 44px;
+      padding: 0;
+      display: grid;
+      place-items: center;
+      border-radius: 10px;
+      background: var(--rosso-wildfire);
+      color: #fff;
+      border: none;
+      cursor: pointer;
     }
+
     /* disattiva pseudo-elementi eventuali sul bottone */
-    .menu-toggle::before,.menu-toggle::after{content:none!important;display:none!important;}
+    .menu-toggle::before,
+    .menu-toggle::after {
+      content: none !important;
+      display: none !important;
+    }
+
     /* 3 barrette centrali */
-    .menu-toggle span.bar{
-      position:relative; display:block; width:22px; height:2px;
-      background:#fff; border-radius:2px;
+    .menu-toggle span.bar {
+      position: relative;
+      display: block;
+      width: 22px;
+      height: 2px;
+      background: #fff;
+      border-radius: 2px;
     }
+
     .menu-toggle span.bar::before,
-    .menu-toggle span.bar::after{
-      content:""; position:absolute; left:0; right:0; height:2px;
-      background:#fff; border-radius:2px;
+    .menu-toggle span.bar::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: #fff;
+      border-radius: 2px;
     }
-    .menu-toggle span.bar::before{ top:-6px; }
-    .menu-toggle span.bar::after{  top: 6px; }
+
+    .menu-toggle span.bar::before {
+      top: -6px;
+    }
+
+    .menu-toggle span.bar::after {
+      top: 6px;
+    }
+
     /* stato aperto → X (facoltativo) */
-    .menu-toggle.is-open span.bar{ background:transparent; }
-    .menu-toggle.is-open span.bar::before{ top:0; transform:rotate(45deg); }
-    .menu-toggle.is-open span.bar::after { top:0; transform:rotate(-45deg); }
+    .menu-toggle.is-open span.bar {
+      background: transparent;
+    }
+
+    .menu-toggle.is-open span.bar::before {
+      top: 0;
+      transform: rotate(45deg);
+    }
+
+    .menu-toggle.is-open span.bar::after {
+      top: 0;
+      transform: rotate(-45deg);
+    }
   </style>
 </head>
 
@@ -130,7 +222,9 @@
           <a href="index.html">Home</a>
           <a href="carte-limitate.html">Carte Limitate</a>
           <a href="classifica-giocatori.html">Classifica Giocatori</a>
+          <a href="classifica-duel.html">Classifica Duel</a>
           <a class="active" href="liste-vincenti.html">Liste Vincenti</a>
+          <a href="liste-vincenti-duel.html">Liste Vincenti Duel</a>
           <a href="eventi.html">Eventi</a>
         </nav>
         <!-- Il pulsante hamburger viene creato via JS -->
@@ -185,4 +279,5 @@
   <script src="mazzi-vincenti.js?v=1"></script>
 
 </body>
+
 </html>

@@ -1,14 +1,15 @@
 <!DOCTYPE html>
 <html lang="it">
+
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Commhundred - Carte Limitate</title>
 
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="styles.css" />
 
-    <!-- Favicon & App Icons -->
+  <!-- Favicon & App Icons -->
   <link rel="icon" href="assets/icons-whitebg/favicon.ico?v=1">
   <link rel="icon" type="image/png" sizes="48x48" href="/assets/icons-whitebg/favicon-48x48.png?v=2">
   <link rel="icon" type="image/png" sizes="32x32" href="assets/icons-whitebg/favicon-32x32.png?v=1">
@@ -22,6 +23,7 @@
   <meta name="theme-color" content="#e30613">
   <meta name="msapplication-TileColor" content="#e30613">
 </head>
+
 <body>
   <div class="wrapper">
     <div class="container">
@@ -34,67 +36,67 @@
           <a href="index.html">Home</a>
           <a href="carte-limitate.html" class="active">Carte Limitate</a>
           <a href="classifica-giocatori.html">Classifica Giocatori</a>
+          <a href="classifica-duel.html">Classifica Duel</a>
           <a href="liste-vincenti.html">Liste Vincenti</a>
-          <!--<a href="mazzi.html">Mazzi</a>-->
-          <!--<a href="classifica.html">Classifica</a>-->
+          <a href="liste-vincenti-duel.html">Liste Vincenti Duel</a>
           <a href="eventi.html">Eventi</a>
         </nav>
         <script>
-        document.addEventListener("DOMContentLoaded", function () {
-          const header = document.querySelector("header");
-          const nav = document.querySelector("nav");
-          if (!header || !nav) return;
+          document.addEventListener("DOMContentLoaded", function () {
+            const header = document.querySelector("header");
+            const nav = document.querySelector("nav");
+            if (!header || !nav) return;
 
-          // crea il bottone se non esiste
-          let menuToggle = document.querySelector(".menu-toggle");
-          if (!menuToggle) {
-            menuToggle = document.createElement("button");
-            menuToggle.className = "menu-toggle";
-            menuToggle.type = "button";
-            menuToggle.setAttribute("aria-label", "Apri il menu");
-            menuToggle.setAttribute("aria-expanded", "false");
-            // tre barrette centrate via CSS
-            menuToggle.innerHTML = '<span class="bar" aria-hidden="true"></span>';
-            header.appendChild(menuToggle);
-          }
+            // crea il bottone se non esiste
+            let menuToggle = document.querySelector(".menu-toggle");
+            if (!menuToggle) {
+              menuToggle = document.createElement("button");
+              menuToggle.className = "menu-toggle";
+              menuToggle.type = "button";
+              menuToggle.setAttribute("aria-label", "Apri il menu");
+              menuToggle.setAttribute("aria-expanded", "false");
+              // tre barrette centrate via CSS
+              menuToggle.innerHTML = '<span class="bar" aria-hidden="true"></span>';
+              header.appendChild(menuToggle);
+            }
 
-          const openMenu = () => {
-            nav.classList.add("show");
-            menuToggle.classList.add("is-open");
-            menuToggle.setAttribute("aria-label", "Chiudi il menu");
-            menuToggle.setAttribute("aria-expanded", "true");
-          };
-          const closeMenu = () => {
-            nav.classList.remove("show");
-            menuToggle.classList.remove("is-open");
-            menuToggle.setAttribute("aria-label", "Apri il menu");
-            menuToggle.setAttribute("aria-expanded", "false");
-          };
-          const isOpen = () => nav.classList.contains("show");
+            const openMenu = () => {
+              nav.classList.add("show");
+              menuToggle.classList.add("is-open");
+              menuToggle.setAttribute("aria-label", "Chiudi il menu");
+              menuToggle.setAttribute("aria-expanded", "true");
+            };
+            const closeMenu = () => {
+              nav.classList.remove("show");
+              menuToggle.classList.remove("is-open");
+              menuToggle.setAttribute("aria-label", "Apri il menu");
+              menuToggle.setAttribute("aria-expanded", "false");
+            };
+            const isOpen = () => nav.classList.contains("show");
 
-          menuToggle.addEventListener("click", (e) => {
-            e.stopPropagation();
-            isOpen() ? closeMenu() : openMenu();
+            menuToggle.addEventListener("click", (e) => {
+              e.stopPropagation();
+              isOpen() ? closeMenu() : openMenu();
+            });
+
+            // chiusura al tap/click fuori
+            document.addEventListener("pointerdown", (e) => {
+              if (isOpen() && !nav.contains(e.target) && !menuToggle.contains(e.target)) closeMenu();
+            });
+
+            // chiudi quando scegli una voce
+            nav.querySelectorAll("a").forEach(a => a.addEventListener("click", closeMenu));
+
+            // chiudi con ESC
+            document.addEventListener("keydown", (e) => { if (e.key === "Escape" && isOpen()) closeMenu(); });
+
+            // logo/scritta → Home
+            const brand = document.querySelector(".brand");
+            if (brand) {
+              brand.style.cursor = "pointer";
+              brand.addEventListener("click", () => { window.location.href = "index.html"; });
+            }
           });
-
-          // chiusura al tap/click fuori
-          document.addEventListener("pointerdown", (e) => {
-            if (isOpen() && !nav.contains(e.target) && !menuToggle.contains(e.target)) closeMenu();
-          });
-
-          // chiudi quando scegli una voce
-          nav.querySelectorAll("a").forEach(a => a.addEventListener("click", closeMenu));
-
-          // chiudi con ESC
-          document.addEventListener("keydown", (e) => { if (e.key === "Escape" && isOpen()) closeMenu(); });
-
-          // logo/scritta → Home
-          const brand = document.querySelector(".brand");
-          if (brand) {
-            brand.style.cursor = "pointer";
-            brand.addEventListener("click", () => { window.location.href = "index.html"; });
-          }
-        });
         </script>
       </header>
 
@@ -185,14 +187,14 @@
       flex-wrap: wrap;
       justify-content: center;
       gap: 2rem;
-      max-width: 1000px;
+      max-width: 1140px;
       margin: 0 auto;
     }
 
     .limit-category {
       background: white;
       border-left: 5px solid var(--rosso-wildfire);
-      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
       padding: 1.5rem;
       width: 300px;
       border-radius: 8px;
@@ -243,4 +245,5 @@
     });
   </script>
 </body>
+
 </html>

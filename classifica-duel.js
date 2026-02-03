@@ -1,39 +1,27 @@
 /**
- * Classifica Giocatori - JSONP loader da Apps Script
- * Season: y3_all, y3_s1, y3_s2, y3_s3
+ * Classifica Duel (1vs1) - JSONP loader da Apps Script
+ * Basato sulla struttura funzionante di classifica-giocatori.js
  */
 
-// ⛓️ URL della WebApp Apps Script (quella che hai appena pubblicato)
-// foglio Ranking Generale Comm100 + Mazzi
-const RANKING_API_URL =
-  "https://script.google.com/macros/s/AKfycbydFxcrG75JT4LUW6Uprb3XKrjN8j4GhTHafAJT0sTRlGzi9JvZ7DaFMhcOCWvqrJ8n/exec";
+const RANKING_API_URL = "https://script.google.com/macros/s/AKfycbxCEK43YFSNwQLsZ9W6hwlhJdfYlykc-Lu9bUf9rchp833SR2J9Z3JnsK20oZ5GNnh3VQ/exec";
 
-// Chiavi di season disponibili
 const SEASONS = {
-  y3_all: "Year 3 – Classifica generale",
-  y3_s1: "Year 3 – Season 1",
-  y3_s2: "Year 3 – Season 2",
-  y3_s3: "Year 3 – Season 3",
+  duel_all: "Duel – Classifica generale",
+  duel_s1: "Duel – Season 1",
 };
 
 const RANKING_HEADERS = ["Posizione", "Giocatore", "Punti", "Presenze"];
-const NUMERIC_COL_INDEXES = [0, 2, 3]; // posizione, punti, presenze
+const NUMERIC_COL_INDEXES = [0, 2, 3];
 
-let currentSeasonKey = "y3_all";
+let currentSeasonKey = "duel_all";
 let rankingScriptEl = null;
 
-/* ==========================
-   Messaggi di stato
-   ========================== */
 function showRankingMessage(msgClass, text) {
   const container = document.getElementById("ranking-container");
   if (!container) return;
   container.innerHTML = `<div class="${msgClass}">${text}</div>`;
 }
 
-/* ==========================
-   Render tabella classifica
-   ========================== */
 function renderRanking(players, seasonKey) {
   const container = document.getElementById("ranking-container");
   if (!container) return;
@@ -42,12 +30,10 @@ function renderRanking(players, seasonKey) {
   const list = Array.isArray(players) ? players.slice() : [];
 
   if (!list.length) {
-    container.innerHTML =
-      `<div class="ranking-empty">Nessun dato disponibile per questa season.</div>`;
+    container.innerHTML = `<div class="ranking-empty">Nessun dato disponibile per questa season.</div>`;
     return;
   }
 
-  // Ordina per posizione numerica (già ordinato lato Apps Script, ma per sicurezza)
   list.sort((a, b) => {
     const pa = Number(String(a.posizione).replace(",", ".")) || 0;
     const pb = Number(String(b.posizione).replace(",", ".")) || 0;
@@ -57,7 +43,6 @@ function renderRanking(players, seasonKey) {
   const table = document.createElement("table");
   table.className = "ranking-table";
 
-  // THEAD
   const thead = document.createElement("thead");
   const trHead = document.createElement("tr");
   RANKING_HEADERS.forEach((h, i) => {
@@ -72,7 +57,6 @@ function renderRanking(players, seasonKey) {
   thead.appendChild(trHead);
   table.appendChild(thead);
 
-  // TBODY
   const tbody = document.createElement("tbody");
   list.forEach((p) => {
     const tr = document.createElement("tr");
@@ -98,68 +82,55 @@ function renderRanking(players, seasonKey) {
   container.appendChild(table);
 }
 
-/* ==========================
-   JSONP callback (Apps Script)
-   ========================== */
 function handleRankingData(payload) {
+  console.log("Dati ricevuti da Apps Script (Duel):", JSON.stringify(payload));
   try {
-    if (!payload || !Array.isArray(payload.players)) {
-      console.error("Payload non valido:", payload);
-      showRankingMessage(
-        "ranking-error",
-        "Formato dati non valido dalla classifica."
-      );
+    if (!payload) {
+      console.error("Payload nullo o non definito.");
+      showRankingMessage("ranking-error", "Errore: nessun dato ricevuto.");
       return;
     }
-    renderRanking(payload.players, payload.season || currentSeasonKey);
+
+    // Verifichiamo se i dati sono in 'players' o in un'altra proprietà
+    const players = payload.players || payload.data || payload;
+
+    if (!Array.isArray(players)) {
+      console.error("I dati ricevi non sono un array di giocatori:", players);
+      showRankingMessage("ranking-error", "Formato dati non riconosciuto.");
+      return;
+    }
+
+    renderRanking(players, payload.season || currentSeasonKey);
   } catch (e) {
-    console.error("Errore nel rendering classifica:", e);
-    showRankingMessage(
-      "ranking-error",
-      "Errore nel rendering della classifica."
-    );
+    console.error("Errore nel rendering classifica Duel:", e);
+    showRankingMessage("ranking-error", "Errore nel rendering della classifica.");
   }
 }
 
-/* ==========================
-   Caricamento JSONP per una season
-   ========================== */
 function loadRankingForSeason(seasonKey) {
-  currentSeasonKey = seasonKey || "y3_all";
+  currentSeasonKey = seasonKey || "duel_all";
   showRankingMessage("ranking-loading", "Caricamento classifica...");
 
-  // Rimuovi eventuale script precedente
   if (rankingScriptEl && rankingScriptEl.parentNode) {
     rankingScriptEl.parentNode.removeChild(rankingScriptEl);
   }
 
   rankingScriptEl = document.createElement("script");
-  const url =
-    RANKING_API_URL +
-    "?season=" +
-    encodeURIComponent(currentSeasonKey) +
-    "&callback=handleRankingData";
+  const url = RANKING_API_URL + "?season=" + encodeURIComponent(currentSeasonKey) + "&callback=handleRankingData";
 
   rankingScriptEl.src = url;
   rankingScriptEl.async = true;
   rankingScriptEl.onerror = () => {
-    showRankingMessage(
-      "ranking-error",
-      "Errore nel caricamento della classifica (network/permessi)."
-    );
+    showRankingMessage("ranking-error", "Errore nel caricamento della classifica (network/permessi).");
   };
 
   document.body.appendChild(rankingScriptEl);
 }
 
-/* ==========================
-   Inizializzazione filtro Season
-   ========================== */
 function initRankingFilters() {
   const select = document.getElementById("filter-season");
   if (!select) return;
 
-  // Popola le opzioni (se non già definite in HTML)
   if (!select.options.length) {
     Object.entries(SEASONS).forEach(([key, label]) => {
       const opt = document.createElement("option");
@@ -175,23 +146,14 @@ function initRankingFilters() {
   });
 }
 
-/* ==========================
-   Animazioni sezione e avvio
-   ========================== */
-
 document.addEventListener("DOMContentLoaded", () => {
-  // Reveal animato sezioni (coerente con le altre pagine)
-  const observer = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) entry.target.classList.add("visible");
-      });
-    },
-    { threshold: 0.1 }
-  );
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) entry.target.classList.add("visible");
+    });
+  }, { threshold: 0.1 });
   document.querySelectorAll("section").forEach((s) => observer.observe(s));
 
-  // Filtro Season + classifica iniziale (Year 3 generale)
   initRankingFilters();
   loadRankingForSeason(currentSeasonKey);
 });

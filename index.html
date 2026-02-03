@@ -1,8 +1,9 @@
 <!DOCTYPE html>
 <html lang="it">
+
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Commhundred - Home</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="styles.css" />
@@ -21,6 +22,7 @@
   <meta name="msapplication-TileColor" content="#e30613">
 
 </head>
+
 <body>
   <div class="wrapper">
     <div class="container">
@@ -33,85 +35,115 @@
           <a href="index.html" class="active">Home</a>
           <a href="carte-limitate.html">Carte Limitate</a>
           <a href="classifica-giocatori.html">Classifica Giocatori</a>
+          <a href="classifica-duel.html">Classifica Duel</a>
           <a href="liste-vincenti.html">Liste Vincenti</a>
-          <!-- <a href="mazzi.html">Mazzi</a>-->
-          <!--<a href="classifica.html">Classifica</a>-->
+          <a href="liste-vincenti-duel.html">Liste Vincenti Duel</a>
           <a href="eventi.html">Eventi</a>
         </nav>
         <script>
-        document.addEventListener("DOMContentLoaded", function () {
-          const header = document.querySelector("header");
-          const nav = document.querySelector("nav");
-          if (!header || !nav) return;
+          document.addEventListener("DOMContentLoaded", function () {
+            const header = document.querySelector("header");
+            const nav = document.querySelector("nav");
+            if (!header || !nav) return;
 
-          // crea il bottone se non esiste
-          let menuToggle = document.querySelector(".menu-toggle");
-          if (!menuToggle) {
-            menuToggle = document.createElement("button");
-            menuToggle.className = "menu-toggle";
-            menuToggle.type = "button";
-            menuToggle.setAttribute("aria-label", "Apri il menu");
-            menuToggle.setAttribute("aria-expanded", "false");
-            // tre barrette centrate via CSS
-            menuToggle.innerHTML = '<span class="bar" aria-hidden="true"></span>';
-            header.appendChild(menuToggle);
-          }
+            // crea il bottone se non esiste
+            let menuToggle = document.querySelector(".menu-toggle");
+            if (!menuToggle) {
+              menuToggle = document.createElement("button");
+              menuToggle.className = "menu-toggle";
+              menuToggle.type = "button";
+              menuToggle.setAttribute("aria-label", "Apri il menu");
+              menuToggle.setAttribute("aria-expanded", "false");
+              // tre barrette centrate via CSS
+              menuToggle.innerHTML = '<span class="bar" aria-hidden="true"></span>';
+              header.appendChild(menuToggle);
+            }
 
-          const openMenu = () => {
-            nav.classList.add("show");
-            menuToggle.classList.add("is-open");
-            menuToggle.setAttribute("aria-label", "Chiudi il menu");
-            menuToggle.setAttribute("aria-expanded", "true");
-          };
-          const closeMenu = () => {
-            nav.classList.remove("show");
-            menuToggle.classList.remove("is-open");
-            menuToggle.setAttribute("aria-label", "Apri il menu");
-            menuToggle.setAttribute("aria-expanded", "false");
-          };
-          const isOpen = () => nav.classList.contains("show");
+            const openMenu = () => {
+              nav.classList.add("show");
+              menuToggle.classList.add("is-open");
+              menuToggle.setAttribute("aria-label", "Chiudi il menu");
+              menuToggle.setAttribute("aria-expanded", "true");
+            };
+            const closeMenu = () => {
+              nav.classList.remove("show");
+              menuToggle.classList.remove("is-open");
+              menuToggle.setAttribute("aria-label", "Apri il menu");
+              menuToggle.setAttribute("aria-expanded", "false");
+            };
+            const isOpen = () => nav.classList.contains("show");
 
-          menuToggle.addEventListener("click", (e) => {
-            e.stopPropagation();
-            isOpen() ? closeMenu() : openMenu();
+            menuToggle.addEventListener("click", (e) => {
+              e.stopPropagation();
+              isOpen() ? closeMenu() : openMenu();
+            });
+
+            // chiusura al tap/click fuori
+            document.addEventListener("pointerdown", (e) => {
+              if (isOpen() && !nav.contains(e.target) && !menuToggle.contains(e.target)) closeMenu();
+            });
+
+            // chiudi quando scegli una voce
+            nav.querySelectorAll("a").forEach(a => a.addEventListener("click", closeMenu));
+
+            // chiudi con ESC
+            document.addEventListener("keydown", (e) => { if (e.key === "Escape" && isOpen()) closeMenu(); });
+
+            // logo/scritta → Home
+            const brand = document.querySelector(".brand");
+            if (brand) {
+              brand.style.cursor = "pointer";
+              brand.addEventListener("click", () => { window.location.href = "index.html"; });
+            }
           });
-
-          // chiusura al tap/click fuori
-          document.addEventListener("pointerdown", (e) => {
-            if (isOpen() && !nav.contains(e.target) && !menuToggle.contains(e.target)) closeMenu();
-          });
-
-          // chiudi quando scegli una voce
-          nav.querySelectorAll("a").forEach(a => a.addEventListener("click", closeMenu));
-
-          // chiudi con ESC
-          document.addEventListener("keydown", (e) => { if (e.key === "Escape" && isOpen()) closeMenu(); });
-
-          // logo/scritta → Home
-          const brand = document.querySelector(".brand");
-          if (brand) {
-            brand.style.cursor = "pointer";
-            brand.addEventListener("click", () => { window.location.href = "index.html"; });
-          }
-        });
         </script>
 
       </header>
 
       <section>
         <h2>Benvenuto su Commhundred</h2>
-        <p>Scopri il nuovo formato di Magic: The Gathering che combina la sfida del Commander con un budget massimo di 100$.</p>
+        <p>Scopri il nuovo formato di Magic: The Gathering che combina la sfida del Commander con un budget massimo di
+          100$.</p>
       </section>
 
       <section>
         <h2>Cos'è COMM100?</h2>
-        <p><strong>COMM100</strong> è una variante multiplayer del formato Commander in cui ogni mazzo deve avere un valore massimo di <strong>100$</strong>, calcolato su MTGGoldfish ("Tabletop"), per rendere il formato accessibile a tutti senza sacrificare competizione o profondità.</p>
+        <p><strong>COMM100</strong> è una variante multiplayer del formato Commander in cui ogni mazzo deve avere un
+          valore massimo di <strong>100$</strong>, calcolato su MTGGoldfish ("Tabletop"), per rendere il formato
+          accessibile a tutti senza sacrificare competizione o profondità.</p>
         <ul>
           <li><strong>🎯 Accessibile</strong>: 100$ massimi per mazzo.</li>
-          <li><strong>🛡️ Fair Play</strong>: Stop alle combo al primo turno! Focus su divertimento e bilanciamento.</li>
+          <li><strong>🛡️ Fair Play</strong>: Stop alle combo al primo turno! Focus su divertimento e bilanciamento.
+          </li>
           <li><strong>🤝 Community attiva</strong>: Eventi settimanali e classifiche stagionali.</li>
         </ul>
-        <p>💬 Entra nel gruppo WhatsApp <a href="https://chat.whatsapp.com/CcXMy6eZsAD4rvFhGBsZU3" target="_blank">Wildfire Community</a> per unirti a noi!</p>
+        <p>💬 Entra nel gruppo WhatsApp <a href="https://chat.whatsapp.com/CcXMy6eZsAD4rvFhGBsZU3"
+            target="_blank">Wildfire Community</a> per unirti a noi!</p>
+      </section>
+
+      <section id="duel" class="duel-promo">
+        <h2>⚔️ Duel Commhundred – Ogni Lunedì al Wildfire! ⚔️</h2>
+
+        <div class="info-grid">
+          <div class="info-item">📅 <strong>Lunedì</strong></div>
+          <div class="info-item">🕤 <strong>21:00</strong></div>
+          <div class="info-item">💸 <strong>5€</strong></div>
+          <div class="info-item">🤼 <strong>1vs1</strong></div>
+        </div>
+
+        <p><strong>Duel Commhundred</strong> è una variante del formato Duel Commander in cui ogni mazzo deve avere un
+          valore massimo di <strong>100$</strong>, calcolato su MTGGoldfish (modalità “Tabletop”).</p>
+        <p>Un formato pensato per essere accessibile a tutti, senza rinunciare a competitività, profondità e
+          divertimento!</p>
+
+        <div style="margin-top: 2rem; text-align: left; max-width: 800px; margin-left: auto; margin-right: auto;">
+          <h3 style="color: var(--rosso-wildfire); margin-bottom: 1rem;">📜 Regole principali</h3>
+          <ul style="margin-bottom: 1.5rem;">
+            <li>La lista deve rispettare la banlist ufficiale di <strong>Duel Commander</strong><br>
+              🔗 <a href="https://www.duelcommander.org/" target="_blank">www.duelcommander.org</a></li>
+            <li>Valore massimo del mazzo: <strong>100$ MTGGoldfish – Tabletop</strong></li>
+          </ul>
+        </div>
       </section>
 
       <!--<section>
@@ -135,65 +167,69 @@
           <li>Le carte bandite sono le stesse della banlist ufficiale di Commander.</li>
           <li>Il valore totale delle carte non deve superare i 100$, basato sulle valutazioni di MTG Goldfish.</li>
           <li>I mazzi precostruiti sono ammessi anche se superano i 100$, purché non vengano modificati.</li>
-          <li>Le versioni <em>foil</em> e <em>alternative</em> non influiscono sul prezzo del mazzo: si considera la versione più economica di ogni carta.</li>
+          <li>Le versioni <em>foil</em> e <em>alternative</em> non influiscono sul prezzo del mazzo: si considera la
+            versione più economica di ogni carta.</li>
         </ul>
       </section>
-      
-<section id="punti" class="punti">
-  <h2>🔥 Scalate la classifica e conquistate l’accesso agli eventi più prestigiosi! 🔥</h2>
 
-  <p>
-    Partecipate ai tornei, mettete alla prova le vostre abilità e accumulate punti per emergere nella classifica stagionale.
-    Ogni partita conta e ogni risultato può fare la differenza nel vostro percorso verso i grandi eventi di Commhundred!
-  </p>
+      <section id="punti" class="punti">
+        <h2>🔥 Scalate la classifica e conquistate l’accesso agli eventi più prestigiosi! 🔥</h2>
 
-<h3><span style="display:inline-block; margin-left:20px;">🏆 Sistema di Punteggio</span></h3>
+        <p>
+          Partecipate ai tornei, mettete alla prova le vostre abilità e accumulate punti per emergere nella classifica
+          stagionale.
+          Ogni partita conta e ogni risultato può fare la differenza nel vostro percorso verso i grandi eventi di
+          Commhundred!
+        </p>
 
-  <ul class="punti-lista">
-    <li>+1 punto per la partecipazione a ogni torneo</li>
-    <li>+1 punto per il miglior punteggio del torneo</li>
+        <h3><span style="display:inline-block; margin-left:20px;">🏆 Sistema di Punteggio</span></h3>
 
-    <li><strong>Classifica del tavolo</strong>
-      <ul>
-        <li>+6 punti al 1° classificato</li>
-        <li>+2 punti al 2° classificato</li>
-        <li>+1 punto al 3° classificato</li>
-      </ul>
-    </li>
+        <ul class="punti-lista">
+          <li>+1 punto per la partecipazione a ogni torneo</li>
+          <li>+1 punto per il miglior punteggio del torneo</li>
 
-    <li><strong>Pareggio passivo</strong>
-      <ul>
-        <li>+1 punto</li>
-      </ul>
-    </li>
+          <li><strong>Classifica del tavolo</strong>
+            <ul>
+              <li>+6 punti al 1° classificato</li>
+              <li>+2 punti al 2° classificato</li>
+              <li>+1 punto al 3° classificato</li>
+            </ul>
+          </li>
 
-    <li><strong>Pareggio attivo</strong>
-      <ul>
-        <li>+4 punti al 1° classificato del tavolo</li>
-        <li>+3 punti al 2° classificato</li>
-        <li>+2 punti al 3° classificato</li>
-        <li>+1 punto al 4° classificato</li>
-      </ul>
-    </li>
-  </ul>
+          <li><strong>Pareggio passivo</strong>
+            <ul>
+              <li>+1 punto</li>
+            </ul>
+          </li>
 
-<h3><span style="display:inline-block; margin-left:20px;">⭐ Eventi Premier</span></h3>
-  <p>
-    Gli Eventi Premier (Invitational e Two-Headed&nbsp;Giant) assegnano punti con moltiplicatore <strong>x3</strong>,
-    rendendoli fondamentali per la corsa alla vetta.
-  </p>
+          <li><strong>Pareggio attivo</strong>
+            <ul>
+              <li>+4 punti al 1° classificato del tavolo</li>
+              <li>+3 punti al 2° classificato</li>
+              <li>+2 punti al 3° classificato</li>
+              <li>+1 punto al 4° classificato</li>
+            </ul>
+          </li>
+        </ul>
 
-<h3><span style="display:inline-block; margin-left:20px;">🔄 Reset e stagione</span></h3>
-  <ul class="punti-lista">
-    <li>La classifica stagionale si azzera dopo ogni Invitational</li>
-    <li>I punti validi per il Mondiale si accumulano invece per tutte le stagioni</li>
-  </ul>
+        <h3><span style="display:inline-block; margin-left:20px;">⭐ Eventi Premier</span></h3>
+        <p>
+          Gli Eventi Premier (Invitational e Two-Headed&nbsp;Giant) assegnano punti con moltiplicatore
+          <strong>x3</strong>,
+          rendendoli fondamentali per la corsa alla vetta.
+        </p>
 
-  <p>
-    Affilate le strategie, scegliete il mazzo giusto e preparatevi a lasciare il segno.
-    La vetta della classifica vi aspetta! 🧙‍♂️✨
-  </p>
-</section>
+        <h3><span style="display:inline-block; margin-left:20px;">🔄 Reset e stagione</span></h3>
+        <ul class="punti-lista">
+          <li>La classifica stagionale si azzera dopo ogni Invitational</li>
+          <li>I punti validi per il Mondiale si accumulano invece per tutte le stagioni</li>
+        </ul>
+
+        <p>
+          Affilate le strategie, scegliete il mazzo giusto e preparatevi a lasciare il segno.
+          La vetta della classifica vi aspetta! 🧙‍♂️✨
+        </p>
+      </section>
 
 
 
@@ -205,7 +241,7 @@
               <p>📍 Via della Fonte Meravigliosa, 64<br>00143 Roma RM</p>
               <p>📞 <a href="tel:0695061442">06 9506 1442</a></p>
             </div>
-             <div class="footer-column">
+            <div class="footer-column">
               <h4>Orari di apertura</h4>
               <p>Lunedì: 19:00-02:00</p>
               <p>Martedì: 11:00–13:00 / 15:30–01:30</p>
@@ -231,7 +267,7 @@
           </div>
         </div>
       </footer>
-      
+
     </div>
   </div>
 
@@ -249,18 +285,20 @@
     });
   </script>
 
-    <!-- Histats.com  START  (aync)-->
-    <script type="text/javascript">var _Hasync= _Hasync|| [];
+  <!-- Histats.com  START  (aync)-->
+  <script type="text/javascript">var _Hasync = _Hasync || [];
     _Hasync.push(['Histats.start', '1,4997199,4,0,0,0,00010000']);
     _Hasync.push(['Histats.fasi', '1']);
     _Hasync.push(['Histats.track_hits', '']);
-    (function() {
-    var hs = document.createElement('script'); hs.type = 'text/javascript'; hs.async = true;
-    hs.src = ('//s10.histats.com/js15_as.js');
-    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(hs);
+    (function () {
+      var hs = document.createElement('script'); hs.type = 'text/javascript'; hs.async = true;
+      hs.src = ('//s10.histats.com/js15_as.js');
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(hs);
     })();</script>
-    <noscript><a href="/" target="_blank"><img  src="//sstatic1.histats.com/0.gif?4997199&101" alt="statistiche web" border="0"></a></noscript>
-    <!-- Histats.com  END  -->
+  <noscript><a href="/" target="_blank"><img src="//sstatic1.histats.com/0.gif?4997199&101" alt="statistiche web"
+        border="0"></a></noscript>
+  <!-- Histats.com  END  -->
 
 </body>
+
 </html>

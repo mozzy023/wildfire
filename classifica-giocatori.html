@@ -1,8 +1,9 @@
 <!DOCTYPE html>
 <html lang="it">
+
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Commhundred - Classifica Giocatori</title>
 
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap" rel="stylesheet" />
@@ -21,6 +22,7 @@
   <meta name="theme-color" content="#e30613">
   <meta name="msapplication-TileColor" content="#e30613">
 </head>
+
 <body>
   <div class="wrapper">
     <div class="container">
@@ -33,68 +35,71 @@
           <a href="index.html">Home</a>
           <a href="carte-limitate.html">Carte Limitate</a>
           <a href="classifica-giocatori.html" class="active">Classifica Giocatori</a>
+          <a href="classifica-duel.html">Classifica Duel</a>
           <a href="liste-vincenti.html">Liste Vincenti</a>
+          <a href="liste-vincenti-duel.html">Liste Vincenti Duel</a>
           <a href="eventi.html">Eventi</a>
         </nav>
         <script>
-        document.addEventListener("DOMContentLoaded", function () {
-          const header = document.querySelector("header");
-          const nav = document.querySelector("nav");
-          if (!header || !nav) return;
+          document.addEventListener("DOMContentLoaded", function () {
+            const header = document.querySelector("header");
+            const nav = document.querySelector("nav");
+            if (!header || !nav) return;
 
-          let menuToggle = document.querySelector(".menu-toggle");
-          if (!menuToggle) {
-            menuToggle = document.createElement("button");
-            menuToggle.className = "menu-toggle";
-            menuToggle.type = "button";
-            menuToggle.setAttribute("aria-label", "Apri il menu");
-            menuToggle.setAttribute("aria-expanded", "false");
-            menuToggle.innerHTML = '<span class="bar" aria-hidden="true"></span>';
-            header.appendChild(menuToggle);
-          }
+            let menuToggle = document.querySelector(".menu-toggle");
+            if (!menuToggle) {
+              menuToggle = document.createElement("button");
+              menuToggle.className = "menu-toggle";
+              menuToggle.type = "button";
+              menuToggle.setAttribute("aria-label", "Apri il menu");
+              menuToggle.setAttribute("aria-expanded", "false");
+              menuToggle.innerHTML = '<span class="bar" aria-hidden="true"></span>';
+              header.appendChild(menuToggle);
+            }
 
-          const openMenu = () => {
-            nav.classList.add("show");
-            menuToggle.classList.add("is-open");
-            menuToggle.setAttribute("aria-label", "Chiudi il menu");
-            menuToggle.setAttribute("aria-expanded", "true");
-          };
-          const closeMenu = () => {
-            nav.classList.remove("show");
-            menuToggle.classList.remove("is-open");
-            menuToggle.setAttribute("aria-label", "Apri il menu");
-            menuToggle.setAttribute("aria-expanded", "false");
-          };
-          const isOpen = () => nav.classList.contains("show");
+            const openMenu = () => {
+              nav.classList.add("show");
+              menuToggle.classList.add("is-open");
+              menuToggle.setAttribute("aria-label", "Chiudi il menu");
+              menuToggle.setAttribute("aria-expanded", "true");
+            };
+            const closeMenu = () => {
+              nav.classList.remove("show");
+              menuToggle.classList.remove("is-open");
+              menuToggle.setAttribute("aria-label", "Apri il menu");
+              menuToggle.setAttribute("aria-expanded", "false");
+            };
+            const isOpen = () => nav.classList.contains("show");
 
-          menuToggle.addEventListener("click", (e) => {
-            e.stopPropagation();
-            isOpen() ? closeMenu() : openMenu();
+            menuToggle.addEventListener("click", (e) => {
+              e.stopPropagation();
+              isOpen() ? closeMenu() : openMenu();
+            });
+
+            document.addEventListener("pointerdown", (e) => {
+              if (isOpen() && !nav.contains(e.target) && !menuToggle.contains(e.target)) closeMenu();
+            });
+
+            nav.querySelectorAll("a").forEach(a => a.addEventListener("click", closeMenu));
+
+            document.addEventListener("keydown", (e) => {
+              if (e.key === "Escape" && isOpen()) closeMenu();
+            });
+
+            const brand = document.querySelector(".brand");
+            if (brand) {
+              brand.style.cursor = "pointer";
+              brand.addEventListener("click", () => { window.location.href = "index.html"; });
+            }
           });
-
-          document.addEventListener("pointerdown", (e) => {
-            if (isOpen() && !nav.contains(e.target) && !menuToggle.contains(e.target)) closeMenu();
-          });
-
-          nav.querySelectorAll("a").forEach(a => a.addEventListener("click", closeMenu));
-
-          document.addEventListener("keydown", (e) => {
-            if (e.key === "Escape" && isOpen()) closeMenu();
-          });
-
-          const brand = document.querySelector(".brand");
-          if (brand) {
-            brand.style.cursor = "pointer";
-            brand.addEventListener("click", () => { window.location.href = "index.html"; });
-          }
-        });
         </script>
       </header>
 
       <section>
         <h2>Classifica Giocatori</h2>
 
-        <div style="margin:16px 0; padding:12px 14px; border:1px solid rgba(0,0,0,0.15); border-radius:12px; background:rgba(255,255,255,0.7);">
+        <div
+          style="margin:16px 0; padding:12px 14px; border:1px solid rgba(0,0,0,0.15); border-radius:12px; background:rgba(255,255,255,0.7);">
           <strong>🏆 Come funzionano i punti?</strong><br>
           <span>
             Il regolamento completo è qui:
@@ -159,4 +164,5 @@
 
   <script src="classifica-giocatori.js?v=2"></script>
 </body>
+
 </html>

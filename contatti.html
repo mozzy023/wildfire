@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="it">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,6 +8,7 @@
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
 </head>
+
 <body>
     <header>
         <h1>Commhundred</h1>
@@ -37,7 +39,8 @@
 
             <h3>Seguici sui social!</h3>
             <div class="social-buttons">
-                <a href="https://www.cardmarket.com/it/Magic/Users/Wildfirestore" target="_blank" class="contact-btn cardmarket">
+                <a href="https://www.cardmarket.com/it/Magic/Users/Wildfirestore" target="_blank"
+                    class="contact-btn cardmarket">
                     <i class="fas fa-store"></i> Cardmarket
                 </a>
                 <a href="https://www.instagram.com/wildfire_store/" target="_blank" class="contact-btn instagram">
@@ -53,23 +56,24 @@
         <p>Commhundred - Il formato Commander a budget limitato</p>
     </footer>
 
-      <script>
+    <script>
         document.addEventListener("DOMContentLoaded", function () {
             var menuToggle = document.createElement("button");
             menuToggle.innerHTML = "☰";
             menuToggle.classList.add("menu-toggle");
             document.querySelector("nav").insertBefore(menuToggle, document.querySelector("nav ul"));
-        
+
             menuToggle.addEventListener("click", function () {
                 document.querySelector("nav ul").classList.toggle("show");
             });
-        
+
             window.addEventListener("scroll", function () {
                 document.querySelector("nav ul").classList.remove("show");
             });
         });
-        </script>
-        
-      
+    </script>
+
+
 </body>
+
 </html>

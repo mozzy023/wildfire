@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="it">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -24,7 +25,8 @@
   <meta name="msapplication-TileColor" content="#e30613">
 
   <style>
-    main h2, main h3 {
+    main h2,
+    main h3 {
       text-align: center;
       margin-bottom: 1rem;
       color: var(--rosso-wildfire);
@@ -61,19 +63,18 @@
     }
 
     ul {
-      max-width: 800px;
       margin: 0 auto 1.5rem;
       padding-left: 1.2rem;
       text-align: left;
     }
 
     main p {
-      max-width: 800px;
       margin: 0 auto 1.5rem;
       line-height: 1.7;
     }
   </style>
 </head>
+
 <body>
   <div class="wrapper">
     <div class="container">
@@ -85,68 +86,68 @@
         <nav>
           <a href="index.html">Home</a>
           <a href="carte-limitate.html">Carte Limitate</a>
-           <a href="classifica-giocatori.html">Classifica Giocatori</a>
+          <a href="classifica-giocatori.html">Classifica Giocatori</a>
+          <a href="classifica-duel.html">Classifica Duel</a>
           <a href="liste-vincenti.html">Liste Vincenti</a>
-          <!--<a href="mazzi.html">Mazzi</a>-->
-          <!--<a href="classifica.html">Classifica</a>-->
+          <a href="liste-vincenti-duel.html">Liste Vincenti Duel</a>
           <a href="eventi.html" class="active">Eventi</a>
         </nav>
         <script>
-        document.addEventListener("DOMContentLoaded", function () {
-          const header = document.querySelector("header");
-          const nav = document.querySelector("nav");
-          if (!header || !nav) return;
+          document.addEventListener("DOMContentLoaded", function () {
+            const header = document.querySelector("header");
+            const nav = document.querySelector("nav");
+            if (!header || !nav) return;
 
-          // crea il bottone se non esiste
-          let menuToggle = document.querySelector(".menu-toggle");
-          if (!menuToggle) {
-            menuToggle = document.createElement("button");
-            menuToggle.className = "menu-toggle";
-            menuToggle.type = "button";
-            menuToggle.setAttribute("aria-label", "Apri il menu");
-            menuToggle.setAttribute("aria-expanded", "false");
-            // tre barrette centrate via CSS
-            menuToggle.innerHTML = '<span class="bar" aria-hidden="true"></span>';
-            header.appendChild(menuToggle);
-          }
+            // crea il bottone se non esiste
+            let menuToggle = document.querySelector(".menu-toggle");
+            if (!menuToggle) {
+              menuToggle = document.createElement("button");
+              menuToggle.className = "menu-toggle";
+              menuToggle.type = "button";
+              menuToggle.setAttribute("aria-label", "Apri il menu");
+              menuToggle.setAttribute("aria-expanded", "false");
+              // tre barrette centrate via CSS
+              menuToggle.innerHTML = '<span class="bar" aria-hidden="true"></span>';
+              header.appendChild(menuToggle);
+            }
 
-          const openMenu = () => {
-            nav.classList.add("show");
-            menuToggle.classList.add("is-open");
-            menuToggle.setAttribute("aria-label", "Chiudi il menu");
-            menuToggle.setAttribute("aria-expanded", "true");
-          };
-          const closeMenu = () => {
-            nav.classList.remove("show");
-            menuToggle.classList.remove("is-open");
-            menuToggle.setAttribute("aria-label", "Apri il menu");
-            menuToggle.setAttribute("aria-expanded", "false");
-          };
-          const isOpen = () => nav.classList.contains("show");
+            const openMenu = () => {
+              nav.classList.add("show");
+              menuToggle.classList.add("is-open");
+              menuToggle.setAttribute("aria-label", "Chiudi il menu");
+              menuToggle.setAttribute("aria-expanded", "true");
+            };
+            const closeMenu = () => {
+              nav.classList.remove("show");
+              menuToggle.classList.remove("is-open");
+              menuToggle.setAttribute("aria-label", "Apri il menu");
+              menuToggle.setAttribute("aria-expanded", "false");
+            };
+            const isOpen = () => nav.classList.contains("show");
 
-          menuToggle.addEventListener("click", (e) => {
-            e.stopPropagation();
-            isOpen() ? closeMenu() : openMenu();
+            menuToggle.addEventListener("click", (e) => {
+              e.stopPropagation();
+              isOpen() ? closeMenu() : openMenu();
+            });
+
+            // chiusura al tap/click fuori
+            document.addEventListener("pointerdown", (e) => {
+              if (isOpen() && !nav.contains(e.target) && !menuToggle.contains(e.target)) closeMenu();
+            });
+
+            // chiudi quando scegli una voce
+            nav.querySelectorAll("a").forEach(a => a.addEventListener("click", closeMenu));
+
+            // chiudi con ESC
+            document.addEventListener("keydown", (e) => { if (e.key === "Escape" && isOpen()) closeMenu(); });
+
+            // logo/scritta → Home
+            const brand = document.querySelector(".brand");
+            if (brand) {
+              brand.style.cursor = "pointer";
+              brand.addEventListener("click", () => { window.location.href = "index.html"; });
+            }
           });
-
-          // chiusura al tap/click fuori
-          document.addEventListener("pointerdown", (e) => {
-            if (isOpen() && !nav.contains(e.target) && !menuToggle.contains(e.target)) closeMenu();
-          });
-
-          // chiudi quando scegli una voce
-          nav.querySelectorAll("a").forEach(a => a.addEventListener("click", closeMenu));
-
-          // chiudi con ESC
-          document.addEventListener("keydown", (e) => { if (e.key === "Escape" && isOpen()) closeMenu(); });
-
-          // logo/scritta → Home
-          const brand = document.querySelector(".brand");
-          if (brand) {
-            brand.style.cursor = "pointer";
-            brand.addEventListener("click", () => { window.location.href = "index.html"; });
-          }
-        });
         </script>
       </header>
 
@@ -155,7 +156,8 @@
           <h2>Eventi Settimanali</h2>
           <p>Partecipa agli eventi settimanali di COMM100 e unisciti alla nostra community!</p>
 
-          <div style="margin:16px 0; padding:12px 14px; border:1px solid rgba(0,0,0,0.15); border-radius:12px; background:rgba(255,255,255,0.7);">
+          <div
+            style="margin:16px 0; padding:12px 14px; border:1px solid rgba(0,0,0,0.15); border-radius:12px; background:rgba(255,255,255,0.7);">
             <strong>🏆 Sistema punti &amp; classifica</strong><br>
             <span>
               Vuoi sapere come vengono assegnati i punti?
@@ -178,17 +180,21 @@
             <li>Puoi anche usare il <strong>bot Telegram</strong> per registrare la lista la sera stessa</li>
           </ul>
 
-          <p>I partecipanti vengono inseriti automaticamente nella classifica della stagione "Road to Invitational". Consulta la sezione <a href="classifica-giocatori.html">Classifica</a> per vedere i tuoi progressi!</p>
+          <p>I partecipanti vengono inseriti automaticamente nella classifica della stagione "Road to Invitational".
+            Consulta la sezione <a href="classifica-giocatori.html">Classifica</a> per vedere i tuoi progressi!</p>
 
-          <p>💬 Entra nel gruppo <a href="https://chat.whatsapp.com/CcXMy6eZsAD4rvFhGBsZU3" target="_blank">Wildfire Community</a> per restare aggiornato su eventi, comunicazioni e novità.</p>
+          <p>💬 Entra nel gruppo <a href="https://chat.whatsapp.com/CcXMy6eZsAD4rvFhGBsZU3" target="_blank">Wildfire
+              Community</a> per restare aggiornato su eventi, comunicazioni e novità.</p>
 
           <hr>
           <h2>Eventi Premier</h2>
           <p>Durante la stagione organizzeremo anche eventi speciali:</p>
           <ul>
-            <li><strong>3 Invitational Open</strong> – Iscrizione 15€, premi potenziati, card personalizzate, tappetino esclusivo al vincitore.</li>
+            <li><strong>3 Invitational Open</strong> – Iscrizione 15€, premi potenziati, card personalizzate, tappetino
+              esclusivo al vincitore.</li>
             <li><strong>2 Two-Headed Giant</strong> – Formato a coppie, 10€ a testa, premi e tappetini di coppia.</li>
-            <li><strong>Il Mondiale</strong> – Evento annuale gratuito su invito per i primi 32 in classifica, con montepremi raccolto durante l’anno.</li>
+            <li><strong>Il Mondiale</strong> – Evento annuale gratuito su invito per i primi 32 in classifica, con
+              montepremi raccolto durante l’anno.</li>
           </ul>
         </main>
       </section>
@@ -244,4 +250,5 @@
     });
   </script>
 </body>
+
 </html>
