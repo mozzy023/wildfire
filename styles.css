@@ -29,6 +29,7 @@ body {
 
 /* ============ LAYOUT ============ */
 .wrapper {
+  min-height: 100vh;
   background: url('SfondoWildfirestore.png') repeat-y center top;
   background-size: cover;
   width: 100%;
@@ -86,7 +87,6 @@ nav {
   display: flex;
   align-items: center;
   gap: .5rem;
-  height: 100%
 }
 
 nav a {
@@ -94,13 +94,13 @@ nav a {
   text-decoration: none;
   font-weight: 500;
   font-size: 0.95rem;
-  padding: 0 0.8rem;
+  padding: 0.5rem 1rem;
   display: flex;
   align-items: center;
-  height: 100%;
+  justify-content: center;
   transition: .25s;
   white-space: nowrap;
-  border-radius: 4px
+  border-radius: 999px;
 }
 
 nav a:hover,
@@ -132,7 +132,7 @@ section h2 {
 
 section p,
 section ul {
-  max-width: 1140px;
+  max-width: 100%;
   margin: 0 auto;
   text-align: center;
   line-height: 1.75;
@@ -176,7 +176,7 @@ section ul {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 2rem;
-  max-width: 1140px;
+  max-width: 100%;
   margin: 3rem auto;
   padding: 0 1rem;
 }
@@ -253,7 +253,7 @@ section ul {
   list-style: none;
   padding: 0;
   margin: 2rem auto;
-  max-width: 1140px;
+  max-width: 100%;
   width: 100%
 }
 
@@ -360,7 +360,7 @@ section ul {
   align-items: center;
   gap: .8rem;
   margin: 1rem auto 1.2rem;
-  max-width: 1140px
+  max-width: 100%
 }
 
 .filter-container label {
@@ -384,7 +384,7 @@ section ul {
 
 /* ====== CLASSIFICA (desktop) ====== */
 .ranking-wrapper {
-  max-width: 1240px;
+  max-width: 900px;
   margin: 0 auto;
   width: 100%
 }
@@ -520,9 +520,29 @@ section ul {
     font-size: 1.1rem
   }
 
+  nav {
+    gap: 0.3rem;
+  }
+
   nav a {
-    padding: 0 0.4rem;
+    padding: 0.5rem 0.5rem;
+    font-size: 0.8rem;
+  }
+}
+
+/* Fix per overflow menu su desktop medi */
+@media (min-width: 993px) and (max-width: 1250px) {
+  nav {
+    gap: 0.4rem;
+  }
+
+  nav a {
+    padding: 0.5rem 0.7rem;
     font-size: 0.85rem;
+  }
+
+  .logo-text {
+    font-size: 1.35rem;
   }
 }
 
