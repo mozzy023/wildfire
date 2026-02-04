@@ -15,6 +15,7 @@ const SEASONS = {
   y3_s1: "Year 3 – Season 1",
   y3_s2: "Year 3 – Season 2",
   y3_s3: "Year 3 – Season 3",
+  y3_s4: "Year 3 - Season 4",
 };
 
 const RANKING_HEADERS = ["Posizione", "Giocatore", "Punti", "Presenze"];
