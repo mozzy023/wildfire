@@ -1,15 +1,20 @@
 /**
  * Classifica Giocatori - JSONP loader da Apps Script
- * Robust: callback univoco per richiesta + timeout se la WebApp non restituisce JSONP.
+ * Robust:
+ * - callback univoco per richiesta
+ * - gestione richieste concorrenti (ignora risposte vecchie)
+ * - timeout "soft" (warning) + timeout "hard"
+ * - onload check: se lo script si carica ma non chiama callback => non è JSONP / permessi / HTML
  */
 
-const RANKING_API_URL = "https://script.google.com/macros/s/AKfycbydFxcrG75JT4LUW6Uprb3XKrjN8j4GhTHafAJT0sTRlGzi9JvZ7DaFMhcOCWvqrJ8n/exec";
+const RANKING_API_URL =
+  "https://script.google.com/macros/s/AKfycbydFxcrG75JT4LUW6Uprb3XKrjN8j4GhTHafAJT0sTRlGzi9JvZ7DaFMhcOCWvqrJ8n/exec";
 
 const SEASONS = {
   y3_all: "Year 3 – Classifica generale",
   y3_s1: "Year 3 – Season 1",
   y3_s2: "Year 3 – Season 2",
-  y3_s3: "Year 3 – Season 3"
+  y3_s3: "Year 3 – Season 3",
 };
 
 const RANKING_HEADERS = ["Posizione", "Giocatore", "Punti", "Presenze"];
@@ -17,6 +22,9 @@ const NUMERIC_COL_INDEXES = [0, 2, 3];
 
 let currentSeasonKey = "y3_all";
 let rankingScriptEl = null;
+
+// Token per ignorare risposte vecchie (se l'utente cambia season velocemente)
+let lastRequestToken = 0;
 
 /* ==========================
    UI helpers
@@ -97,19 +105,41 @@ function loadRankingForSeason(seasonKey) {
   currentSeasonKey = seasonKey || "y3_all";
   showRankingMessage("ranking-loading", "Caricamento classifica...");
 
+  // Nuovo token richiesta
+  const requestToken = ++lastRequestToken;
+
   // Rimuovi eventuale script precedente
   if (rankingScriptEl && rankingScriptEl.parentNode) {
     rankingScriptEl.parentNode.removeChild(rankingScriptEl);
   }
 
-  // Callback univoco: evita collisioni / cache strane
-  const cbName = "__handleRankingData_" + Date.now() + "_" + Math.random().toString(36).slice(2);
+  // Callback univoco
+  const cbName =
+    "__handleRankingData_" +
+    Date.now() +
+    "_" +
+    Math.random().toString(36).slice(2);
+
   let cbCalled = false;
 
+  // Definisci callback globale
   window[cbName] = (payload) => {
     cbCalled = true;
+
+    // Se nel frattempo è partita un'altra richiesta, ignora
+    if (requestToken !== lastRequestToken) {
+      try { delete window[cbName]; } catch (_) { window[cbName] = undefined; }
+      return;
+    }
+
     try {
-      // Normalizziamo i dati: players può essere payload.players oppure payload.data oppure payload stesso
+      // Se la WebApp invia un errore strutturato
+      if (payload && payload.error) {
+        console.error("Errore dalla WebApp:", payload.error, payload);
+        showRankingMessage("ranking-error", `Errore WebApp: ${String(payload.error)}`);
+        return;
+      }
+
       const players = payload?.players ?? payload?.data ?? payload;
 
       if (!Array.isArray(players)) {
@@ -132,37 +162,65 @@ function loadRankingForSeason(seasonKey) {
   };
 
   rankingScriptEl = document.createElement("script");
+
   const url =
     RANKING_API_URL +
-    "?season=" +
-    encodeURIComponent(currentSeasonKey) +
-    "&callback=" +
-    encodeURIComponent(cbName) +
-    "&t=" +
-    Date.now(); // cache-busting
+    "?season=" + encodeURIComponent(currentSeasonKey) +
+    "&callback=" + encodeURIComponent(cbName) +
+    "&t=" + Date.now(); // cache-busting
 
   rankingScriptEl.src = url;
   rankingScriptEl.async = true;
 
+  // Se lo script carica MA non chiama la callback, probabilmente non è JSONP
+  rankingScriptEl.onload = () => {
+    // aspetta un tick
+    setTimeout(() => {
+      if (requestToken !== lastRequestToken) return; // richiesta superata
+
+      if (!cbCalled) {
+        showRankingMessage(
+          "ranking-error",
+          "Risposta ricevuta ma non in formato JSONP (o risposta HTML/permessi). Apri l’URL /exec nel browser e verifica che inizi con callbackName(...)."
+        );
+        try { delete window[cbName]; } catch (_) { window[cbName] = undefined; }
+      }
+    }, 0);
+  };
+
   rankingScriptEl.onerror = () => {
-    // network / permessi / blocco
-    showRankingMessage("ranking-error", "Errore nel caricamento della classifica (network/permessi).");
+    if (requestToken !== lastRequestToken) return;
+    showRankingMessage(
+      "ranking-error",
+      "Errore nel caricamento della classifica (network/permessi)."
+    );
     try { delete window[cbName]; } catch (_) { window[cbName] = undefined; }
   };
 
   document.body.appendChild(rankingScriptEl);
 
-  // Se la WebApp NON restituisce JSONP (ma JSON puro), lo script può caricarsi senza chiamare callback:
-  // dopo un timeout mostriamo un messaggio chiarissimo.
+  // Timeout "soft": avviso, NON cancellare callback
   setTimeout(() => {
+    if (requestToken !== lastRequestToken) return;
+    if (!cbCalled) {
+      showRankingMessage(
+        "ranking-loading",
+        "Sto ancora caricando… (può essere lento al primo giro)"
+      );
+    }
+  }, 2500);
+
+  // Timeout "hard": dopo abbastanza tempo, fallisci davvero
+  setTimeout(() => {
+    if (requestToken !== lastRequestToken) return;
     if (!cbCalled) {
       showRankingMessage(
         "ranking-error",
-        "La WebApp non ha restituito JSONP. Assicurati che il doGet(e) supporti il parametro 'callback' (es. callback(payload))."
+        "Timeout: la WebApp non ha risposto in tempo. Riprova o verifica che i fogli sorgente siano accessibili."
       );
       try { delete window[cbName]; } catch (_) { window[cbName] = undefined; }
     }
-  }, 2500);
+  }, 15000);
 }
 
 /* ==========================
@@ -172,7 +230,6 @@ function initRankingFilters() {
   const select = document.getElementById("filter-season");
   if (!select) return;
 
-  // Popola opzioni da SEASONS (idempotente)
   select.innerHTML = "";
   Object.entries(SEASONS).forEach(([k, label]) => {
     const opt = document.createElement("option");
